@@ -35,8 +35,6 @@ mono_crash.*
 
 
 # Build results
-sourcecode/.vs/
-
 [Dd]ebug/
 
 [Dd]ebugPublic/
@@ -692,5 +690,11 @@ healthchecksdb
 
 
 # Backup folder for Package Reference Convert tool in Visual Studio 2017
+sourcecode/.vs/
 
 MigrationBackup/
+*.db-shm
+*.db
+*.db-wal
+*.db-shm
+*.db
