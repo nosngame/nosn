@@ -35,7 +35,8 @@ mono_crash.*
 
 
 # Build results
-.vs/
+sourcecode/.vs
+
 [Dd]ebug/
 
 [Dd]ebugPublic/
