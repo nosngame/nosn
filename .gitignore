@@ -15,6 +15,7 @@
 *.suo
 *.exp
 *.opendb
+.vs/
 
 
 
