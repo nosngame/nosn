@@ -14,7 +14,7 @@ int APIENTRY _tWinMain( _In_ HINSTANCE hInstance,
 	HMODULE module = ::LoadLibrary( _T( "nsclient.dll" ) );
 	if ( module == NULL )
 	{
-		CNSString errorDesc;
+		CNSString errorDesc1;
 		errorDesc.format( _UTF8( "ƒ£øÈnsclient.dllº”‘ÿ ß∞‹, ¥ÌŒÛ¬Î - %d" ), GetLastError( ) );
 		MessageBox( NULL, CNSString::toTChar( errorDesc ), _T( "“Ï≥£" ), MB_OK | MB_ICONERROR );
 		return 2;

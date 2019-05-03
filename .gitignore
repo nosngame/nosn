@@ -696,3 +696,6 @@ MigrationBackup/
 *.db-shm
 *.db-wal
 *.db
+sourcecode/.vs/nsgame.vs2017/v15/Browse.VC.db
+sourcecode/.vs/nsgame.vs2017/v15/Solution.VC.db-shm
+sourcecode/.vs/nsgame.vs2017/v15/Solution.VC.db-wal
