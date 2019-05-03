@@ -1,0 +1,92 @@
+require([
+"dojox/charting/Chart",
+"dojox/charting/axis2d/Default",
+"dojox/charting/plot2d/StackedLines",
+"dojox/charting/themes/ThreeD",
+"dojox/charting/plot2d/Markers",
+"dojo/store/Memory", 
+"dijit/Menu", 
+"dijit/MenuItem", 
+"dijit/form/ComboButton",
+"dojo/json",
+"dojo/ready"],
+function (Chart, Default, plotType, themeType, marker, Memory, Menu, MenuItem, ComboButton, Json, ready) 
+{
+    ready(function () 
+    {
+        var viewContainer = document.getElementById("viewcontainer");
+        var serverList = document.createElement("div");
+        serverList.setAttribute( "id", "serverlist" );
+        viewContainer.appendChild(serverList);
+
+        var title1 = document.createElement("h1");
+        title1.innerHTML = "实时外网流量";
+        viewContainer.appendChild(title1);
+
+        var realtimeNode = document.createElement("div");
+        realtimeNode.setAttribute( "id", "realtimeNode" );
+        realtimeNode.style.width = 800;
+        realtimeNode.style.height = 350;
+        viewContainer.appendChild(realtimeNode);
+
+        var title2 = document.createElement("h1");
+        title2.innerHTML = "平均外网流量";
+        viewContainer.appendChild(title2);
+
+        var avgNode = document.createElement("div");
+        avgNode.setAttribute( "id", "avgNode" );
+        avgNode.style.width = 800;
+        avgNode.style.height = 350;
+        viewContainer.appendChild(avgNode);
+
+        var myLabelFunc = function (text, value, precision) {
+            if (value < 1024)
+                return Math.floor(value) + " Bps";
+            else if (value < 1024 * 1024)
+                return Math.floor(value / 1024) + " KBps";
+            else if (value < 1024 * 1024 * 1024)
+                return Math.floor(value / (1024 * 1024)) + " MBps";
+            return text;
+        };
+        var sendRate = [%s];
+        var rawRate = [%s];
+        var c1 = new Chart("realtimeNode");
+        c1.addPlot("default", { type: plotType, markers: true, tension: "S" });
+        c1.addAxis("x", { fixLower: "major", fixUpper: "major" });
+        c1.addAxis("y", { vertical: true, fixLower: "minor", fixUpper: "major", min: 0, max: %d, labelFunc: myLabelFunc });
+        c1.setTheme(themeType);
+        c1.addSeries("sendRate", sendRate, { stroke: { width: 2 } });
+        c1.addSeries("rawRate", rawRate, { stroke: { width: 2 } });
+        c1.render();
+        
+        var avgSendRate = [%s];
+        var avgRawRate = [%s];
+        var c2 = new Chart("avgNode");
+        c2.addPlot("default", { type: plotType, markers: true, tension: "S" });
+        c2.addAxis("x", { fixLower: "major", fixUpper: "major" });
+        c2.addAxis("y", { vertical: true, fixLower: "minor", fixUpper: "major", min: 0, max: %d, labelFunc: myLabelFunc });
+        c2.setTheme(themeType);
+        c2.addSeries("avgSendRate", avgSendRate, { stroke: { width: 2 } });
+        c2.addSeries("avgRawRate", avgRawRate, { stroke: { width: 2 } });
+        c2.render();
+
+        var serverData = [%s];
+        var menu = new Menu({ style: "display: none;"});
+        serverData.forEach( function( item )
+        {
+            var menuItem = new MenuItem({
+                label: item.name,
+                onClick: function( ){ operCommand( "/(FBGameNetworkFlow:" + token + ":" + item.id + ")" ); }
+            });
+            menu.addChild( menuItem );
+        });
+        menu.startup( );
+
+        var button = new ComboButton({
+            label: "%s",
+            dropDown: menu
+        });
+        button.placeAt( serverList );
+        button.startup( );
+    });
+});

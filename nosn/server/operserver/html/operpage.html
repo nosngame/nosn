@@ -1,0 +1,170 @@
+var curGroupID  = %d;
+var curAuthName = "%s";
+var year    = %d;
+var month   = %d;
+var day     = %d;
+var rangeType = %d;
+function createGroupComboButton( ComboButton, Menu, MenuItem, data, place )
+{
+    var menu = new Menu({ style: "display: none;"});
+    data.forEach( function( item )
+    {
+        var menuItem = new MenuItem({
+            label: item.name,
+            onClick: function( )
+            {
+                curGroupID = item.id; 
+                operCommand( "/(FBGameOperation:" + token + ":" + curGroupID + ":" + curAuthName + ":" + year + ":" + month + ":" + day + ":" + rangeType + ")" ); 
+            }
+        });
+        menu.addChild(menuItem);
+    });
+    menu.startup( );
+
+    var button = new ComboButton({
+        label: "%s",
+        dropDown: menu
+    });
+    button.placeAt( place );
+    button.startup( );
+}
+
+function createAuthComboButton( ComboButton, Menu, MenuItem, data, place )
+{
+    var menu = new Menu({ style: "display: none;"});
+    data.forEach( function( item )
+    {
+        var menuItem = new MenuItem({
+            label: item.name,
+            onClick: function( )
+            {
+                curAuthName = item.id; 
+                operCommand( "/(FBGameOperation:" + token + ":" + curGroupID + ":" + curAuthName + ":" + year + ":" + month + ":" + day + ":" + rangeType + ")" ); 
+            }
+        });
+        menu.addChild(menuItem);
+    });
+    menu.startup( );
+
+    var button = new ComboButton({
+        label: "%s",
+        dropDown: menu
+    });
+    button.placeAt( place );
+    button.startup( );
+}
+
+function createDateRangeComboButton( ComboButton, Menu, MenuItem, data, place )
+{
+    var menu = new Menu({ style: "display: none;"});
+    data.forEach( function( item )
+    {
+        var menuItem = new MenuItem({
+            label: item.name,
+            onClick: function( )
+            {
+                rangeType = item.id; 
+                operCommand( "/(FBGameOperation:" + token + ":" + curGroupID + ":" + curAuthName + ":" + year + ":" + month + ":" + day + ":" + rangeType + ")" ); 
+            }
+        });
+        menu.addChild(menuItem);
+    });
+    menu.startup( );
+
+    var button = new ComboButton({
+        label: "%s",
+        dropDown: menu
+    });
+    button.placeAt( place );
+    button.startup( );
+}
+
+require([
+"dojox/charting/Chart",
+"dojox/charting/axis2d/Default",
+"dojox/charting/plot2d/Pie",
+"dojox/charting/plot2d/StackedLines",
+"dojox/charting/themes/ThreeD",
+"dojox/charting/action2d/Highlight",
+"dojox/charting/action2d/MoveSlice", 
+"dojox/charting/action2d/Tooltip",
+"dojox/charting/plot2d/Markers",
+"dojo/store/Memory", 
+"dijit/Menu", 
+"dijit/MenuItem", 
+"dijit/form/ComboButton",
+"dijit/form/DateTextBox",
+"dojo/ready"],
+function (Chart, Default, piePlot, linePlot, themeType, Highlight, MoveSlice, Tooltip, marker, Memory, Menu, MenuItem, ComboButton, DateTextBox, ready) 
+{
+    ready(function () 
+    {
+        // 活跃用户
+        var viewContainer = document.getElementById( "viewcontainer" );
+        var filter = document.createElement("div");
+        filter.setAttribute( "id", "filter" );
+        filter.style.clear = "left";
+        viewContainer.appendChild( filter );
+
+        createGroupComboButton( ComboButton, Menu, MenuItem, [%s], filter );
+        createAuthComboButton( ComboButton, Menu, MenuItem, [%s], filter );
+        createDateRangeComboButton( ComboButton, Menu, MenuItem, [ { name: "显示7日", id: 7 }, { name: "显示30日", id: 30 }, { name: "显示180日", id: 180 } ], filter );
+        var date = new DateTextBox(
+        {
+            value: new Date( year, month - 1, day ),
+            onChange: function( )
+            {
+                var selectDate = date.get("value");
+                year    = selectDate.getFullYear( );
+                month   = selectDate.getMonth( ) + 1;
+                day     = selectDate.getDate( );
+                operCommand( "/(FBGameOperation:" + token + ":" + curGroupID + ":" + curAuthName + ":" + year + ":" + month + ":" + day + ":" + rangeType + ")" ); 
+            }
+        }
+        );
+        date.placeAt( filter );
+
+        var titleDau = document.createElement("h1");
+        titleDau.innerHTML = "活跃用户";
+        viewContainer.appendChild( titleDau );
+
+        var dauNode = document.createElement("div");
+        dauNode.setAttribute( "id", "dauindex" );
+        dauNode.style.width  = 1600;
+        dauNode.style.height = 350;
+        viewContainer.appendChild( dauNode );
+
+        var dateText = [%s]
+        var myLabelFunc = function (text, value, precision) {
+            return dateText[ value ];
+        };
+        var dauIndex = [%s];
+        var c1 = new Chart( "dauindex" );
+        c1.addPlot("default", { type: linePlot, markers: true });
+        c1.addAxis("x", { labelFunc: myLabelFunc });
+        c1.addAxis("y", { vertical: true, fixLower: "minor", fixUpper: "major", min: 0, max: %d });
+        c1.setTheme(themeType);
+        c1.addSeries("dauindex", dauIndex, { stroke: { width: 2 } });
+        c1.render();
+
+        // 新增用户
+        var titleNew = document.createElement("h1");
+        titleNew.innerHTML = "新增用户";
+        viewContainer.appendChild( titleNew );
+
+        var newNode = document.createElement("div");
+        newNode.setAttribute( "id", "newindex" );
+        newNode.style.width  = 1600;
+        newNode.style.height = 350;
+        viewContainer.appendChild( newNode );
+
+        var newIndex = [%s];
+        var c2 = new Chart( "newindex" );
+        c2.addPlot("default", { type: linePlot, markers: true });
+        c2.addAxis("x", { labelFunc: myLabelFunc });
+        c2.addAxis("y", { vertical: true, fixLower: "minor", fixUpper: "major", min: 0, max: %d });
+        c2.setTheme(themeType);
+        c2.addSeries("newindex", newIndex, { stroke: { width: 2 } });
+        c2.render();
+    });
+});

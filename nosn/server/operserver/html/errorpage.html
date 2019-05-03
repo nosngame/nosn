@@ -1,0 +1,13 @@
+require([
+"dojo/ready"],
+function (ready) 
+{
+    ready(function () 
+    {
+        // 活跃用户
+        var viewContainer = document.getElementById( "viewcontainer" );
+        var title = document.createElement("div");
+        title.innerHTML = "%s";
+        viewContainer.appendChild( title );
+    });
+});

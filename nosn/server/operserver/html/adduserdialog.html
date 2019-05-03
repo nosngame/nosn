@@ -1,0 +1,34 @@
+<table>
+    <tr>
+        <td><label for='name'>用户名: </label></td>
+        <td><input data-dojo-type='dijit/form/TextBox' type='text' name='name' id='name'></td>
+    </tr>
+    <tr>
+        <td><label for='loc'>密码: </label></td>
+        <td><input data-dojo-type='dijit/form/TextBox' type='text' name='psw' id='psw'></td>
+    </tr>
+    <tr>
+        <td><label for='date'>数据缩放: </label></td>
+        <td><input data-dojo-type='dijit/form/TextBox' type='text' name='rate' id='rate'></td>
+    </tr>
+    <tr>
+        <td><label for='date'>渠道选择: </label></td>
+        <td>
+            <select id='authList' data-dojo-type='dijit/form/MultiSelect' multiple='true' style='width: 240px; height:120px'>
+                %s
+            </select>
+         </td>
+    </tr>
+    <tr>
+        <td align='center' colspan='2'>
+            <button data-dojo-type='dijit/form/Button' type='submit'
+                data-dojo-props='onClick:function()
+                {
+                    var authList = dijit.byId(\"authList\").get(\"value\");
+                    var name = dijit.byId(\"name\").get(\"value\");
+                    var psw = dijit.byId(\"psw\").get(\"value\");
+                    operCommand(\"/(FBGameAddUser:\" + token + \":\" + name + \":\" + psw + \":\" + authList + \")\");
+                }'>确定</button>
+        </td>
+    </tr>
+</table>

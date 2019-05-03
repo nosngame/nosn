@@ -1,0 +1,73 @@
+<html lang="en" dir="ltr">
+<head>
+    <title>FBGame管理后台</title>
+    <link rel="shortcut icon" href="http://112.126.81.165/favicon.ico" />
+    <link rel="stylesheet" href="http://112.126.81.165/dijit/themes/claro/claro.css" />
+    <style type="text/css">
+        body, html {
+            font-family: helvetica,arial,sans-serif;
+            font-size: 90%;
+            background: #508eef;
+        }
+    </style>
+</head>
+<body id="loginpage" class="claro">
+    <div id="loginframe" style="width: 100%; height: 768px;">
+        <div id="error" style="position: relative; top: 300px; height: 30px; text-align: center;"></div>
+        <div style="position: relative; top: 300px; height: 30px; text-align: center;">
+            <input id="username" data-dojo-type="dijit/form/TextBox" data-dojo-props="placeHolder: '这里输入用户名'" style="padding: 3px 3px; width: 284px;" />
+        </div>
+        <div style="position: relative; top: 300px; height: 30px; text-align: center;">
+            <input id="password" data-dojo-type="dijit/form/TextBox" data-dojo-props="placeHolder: '这里输入密码'" style="padding: 3px 3px; width: 284px;" />
+        </div>
+        <div style="position: relative; top: 300px; height: 30px; text-align: center;">
+            <button id="login" style="position: relative; left: 150px;" />
+        </div>
+    </div>
+    <script src="http://112.126.81.165/dojo/dojo.js"></script>
+    <script>
+        function operCommand(urlApi) {
+            // Look up the node we'll stick the text under.  
+            var errorText = document.getElementById("error");
+            // The parameters to pass to xhrGet, the url, how to handle it, and the callbacks.  
+            var xhrArgs = {
+                url: urlApi,
+                handleAs: "text",
+                load: function (data) {
+                    if (data == "密码错误") {
+                        errorText.innerHTML = data;
+                    }
+                    else if (data == "用户不存在") {
+                        errorText.innerHTML = data;
+                    }
+                    else if (data == "登录请求无效") {
+                        errorText.innerHTML = data;
+                    }
+                    else
+                        location.href = "/(FBGameLogin:" + data + ")";
+                },
+                error: function (error) {
+                    console.log("An unexpected error occurred: " + error);
+                }
+            }
+
+            // Call the asynchronous xhrGet  
+            var deferred = dojo.xhrGet(xhrArgs);
+        }
+
+        require(["dojo/parser", "dijit/Dialog", "dijit/form/Button", "dijit/layout/BorderContainer", "dijit/layout/ContentPane", "dojo/domReady!"],
+        function (parser, Dialog, Button) {
+            var buttonLogin = new Button({
+                label: "登录后台",
+                onClick: function () {
+                    var name = dijit.byId("username").get("value");
+                    var psw = dijit.byId("password").get("value");
+                    operCommand("/(FBGameVerify:" + name + ":" + psw + ")");
+                }
+            }, "login");
+            buttonLogin.startup();
+            parser.parse();
+        });
+    </script>
+</body>
+</html>

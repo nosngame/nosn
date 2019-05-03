@@ -1,0 +1,99 @@
+var selectName = "";
+require([
+"dijit/form/Button",
+"dijit/Dialog",
+"dijit/form/Select",
+"dojo/ready"],
+function (Button, Dialog, List, ready) 
+{
+    ready(function () 
+    {
+        // 活跃用户
+        var viewContainer = document.getElementById( "viewcontainer" );
+        var actionList = document.createElement("h2");
+        actionList.innerHTML = "操作列表";
+        viewContainer.appendChild( actionList );
+
+        var actionFrameDiv = document.createElement( "div" );
+        actionFrameDiv.setAttribute( "id", "actionFrame" );
+        viewContainer.appendChild( actionFrameDiv );
+
+        var title = document.createElement("h2");
+        title.innerHTML = "用户列表";
+        viewContainer.appendChild( title );
+
+        var userListDiv = document.createElement( "div" );
+        userListDiv.setAttribute( "id", "userlistDiv" );
+        viewContainer.appendChild( userListDiv );
+
+        var listUserList = new List
+        (
+            { 
+                name: "userlist", 
+                options: [%s]
+            }
+        );
+
+        listUserList.placeAt( userListDiv );
+        listUserList.startup( );
+
+        var btnAddUser = new Button({
+            label: "添加",
+            onClick: function () 
+            {
+                if ( addUserDialog == null )
+                {
+                    addUserDialog = new Dialog({title: "添加用户", style: "width: 350px"});
+                    addUserDialog.set("content", "%s");
+                }
+                addUserDialog.show();
+            }
+        });
+        btnAddUser.placeAt( actionFrameDiv );
+        btnAddUser.startup( );
+
+        var btnRemoveUser = new Button({
+            label: "删除",
+            onClick: function () 
+            {
+                selectName = listUserList.get("value");
+                operCommand( "/(FBGameRemoveUser:" + token + ":" + selectName + ")" );
+            }
+        });
+        btnRemoveUser.placeAt( actionFrameDiv );
+        btnRemoveUser.startup();
+
+        var btnModifyUser = new Button({
+            label: "修改权限",
+            onClick: function ()
+            {
+                if ( modifyUserDialog == null )
+                {
+                    selectName = listUserList.get("value");
+                    modifyUserDialog = new Dialog({title: "修改权限", style: "width: 350px"});
+                    modifyUserDialog.set("content", "%s");
+                }
+                modifyUserDialog.show();
+            }
+        });
+        btnModifyUser.placeAt( actionFrameDiv );
+        btnModifyUser.startup();
+
+        var btnModifyPassword = new Button({
+            label: "修改密码",
+            onClick: function ()
+            {
+                if ( modifyPasswordDialog == null )
+                {
+                    selectName = listUserList.get("value");
+                    modifyPasswordDialog = new Dialog({title: "修改密码", style: "width: 350px"});
+                    modifyPasswordDialog.set("content", "%s");
+                }
+                modifyPasswordDialog.show();
+            }
+        });
+        btnModifyPassword.placeAt( actionFrameDiv );
+        btnModifyPassword.startup();
+
+    });
+});

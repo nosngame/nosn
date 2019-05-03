@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="crypt.h" />
+    <ClInclude Include="ioapi.h" />
+    <ClInclude Include="iowin32.h" />
+    <ClInclude Include="unzip.h" />
+    <ClInclude Include="zconf.h" />
+    <ClInclude Include="zip.h" />
+    <ClInclude Include="zlib.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ioapi.c" />
+    <ClCompile Include="iowin32.c" />
+    <ClCompile Include="miniunz.cpp" />
+    <ClCompile Include="unzip.c" />
+    <ClCompile Include="zip.c" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,157 @@
+var curGroupID  = %d;
+var curAuthName = "%s";
+function createGroupComboButton( ComboButton, Menu, MenuItem, data, place )
+{
+    var menu = new Menu({ style: "display: none;"});
+    data.forEach( function( item )
+    {
+        var menuItem = new MenuItem({
+            label: item.name,
+            onClick: function( )
+            {
+                curGroupID = item.id; 
+                operCommand( "/(FBGameOnLineCounter:" + token + ":" +  + curGroupID + ":" + curAuthName + ")" ); 
+            }
+        });
+        menu.addChild(menuItem);
+    });
+    menu.startup( );
+
+    var button = new ComboButton({
+        label: "%s",
+        dropDown: menu
+    });
+    button.placeAt( place );
+    button.startup( );
+}
+
+function createAuthComboButton( ComboButton, Menu, MenuItem, data, place )
+{
+    var menu = new Menu({ style: "display: none;"});
+    data.forEach( function( item )
+    {
+        var menuItem = new MenuItem({
+            label: item.name,
+            onClick: function( )
+            {
+                curAuthName = item.id; 
+                operCommand( "/(FBGameOnLineCounter:" + token + ":" + curGroupID + ":" + curAuthName + ")" ); 
+            }
+        });
+        menu.addChild(menuItem);
+    });
+    menu.startup( );
+
+    var button = new ComboButton({
+        label: "%s",
+        dropDown: menu
+    });
+    button.placeAt( place );
+    button.startup( );
+}
+
+function createPie( Chart, piePlot, themeType, Highlight, MoveSlice, Tooltip, data, place )
+{
+    // Create the chart within it's "holding" node
+	var pieChart = new Chart( place );
+				
+	// Set the theme
+	pieChart.setTheme( themeType );
+				
+	// Add the only/default plot 
+	pieChart.addPlot("default", {
+		type: piePlot, // our plot2d/Pie module reference as type value
+		radius: 200,
+		fontColor: "black",
+		labelOffset: -20
+	});
+
+	// Add the series of data
+	pieChart.addSeries( "data", data );
+
+	// Render the chart!
+    pieChart.render( );
+
+    var anim_a = new MoveSlice(pieChart, "default");
+    var anim_b = new Highlight(pieChart, "default");
+    var anim_c = new Tooltip(pieChart, "default");
+    pieChart.render( );
+}
+
+require([
+"dojox/charting/Chart",
+"dojox/charting/axis2d/Default",
+"dojox/charting/plot2d/Pie",
+"dojox/charting/plot2d/StackedLines",
+"dojox/charting/themes/ThreeD",
+"dojox/charting/action2d/Highlight",
+"dojox/charting/action2d/MoveSlice", 
+"dojox/charting/action2d/Tooltip",
+"dojox/charting/plot2d/Markers",
+"dojo/store/Memory", 
+"dijit/Menu", 
+"dijit/MenuItem", 
+"dijit/form/ComboButton",
+"dojo/json",
+"dojo/ready"],
+function (Chart, Default, piePlot, linePlot, themeType, Highlight, MoveSlice, Tooltip, marker, Memory, Menu, MenuItem, ComboButton, Json, ready) 
+{
+    ready(function () 
+    {
+		var groupData = [%s];
+		var authData = [%s];
+
+        var viewContainer = document.getElementById( "viewcontainer" );
+        var titleRealtime = document.createElement("h1");
+        titleRealtime.innerHTML = "实时在线人数: %d ACU: %d PCU: %d";
+        viewContainer.appendChild( titleRealtime );
+
+        var onlineGroup = document.createElement( "div" );
+        onlineGroup.setAttribute( "id", "onlineGroup" );
+        onlineGroup.style.width     = 400;
+        onlineGroup.style.height    = 400;
+        onlineGroup.style.float     = "left";
+        viewContainer.appendChild( onlineGroup );
+
+        var onlineAuth = document.createElement( "div" );
+        onlineAuth.setAttribute( "id", "onlineAuth" );
+        onlineAuth.style.width     = 400;
+        onlineAuth.style.height    = 400;
+        onlineAuth.style.float     = "left";
+        viewContainer.appendChild( onlineAuth );
+        
+        createPie( Chart, piePlot, themeType, Highlight, MoveSlice, Tooltip, groupData, "onlineGroup" );
+        createPie( Chart, piePlot, themeType, Highlight, MoveSlice, Tooltip, authData, "onlineAuth" );
+
+        var title1 = document.createElement("h1");
+        title1.innerHTML    = "当日在线人数";
+        title1.style.clear  = "left";
+        viewContainer.appendChild(title1);
+
+        var filter = document.createElement("div");
+        filter.setAttribute( "id", "filter" );
+        filter.style.clear         = "left";
+        viewContainer.appendChild( filter );
+
+        var onlineNode = document.createElement("div");
+        onlineNode.setAttribute( "id", "onlineCounter" );
+        onlineNode.style.width  = 1600;
+        onlineNode.style.height = 350;
+        viewContainer.appendChild( onlineNode );
+
+        var myLabelFunc = function (text, value, precision) {
+            return text;
+        };
+        var onlineLastDay = [%s];
+        var c1 = new Chart( "onlineCounter" );
+        c1.addPlot("default", { type: linePlot, markers: false, tension: "S" });
+        c1.addAxis("x", { labelFunc: myLabelFunc, includeZero: true });
+        c1.addAxis("y", { vertical: true, fixLower: "minor", fixUpper: "major", min: 0, max: %d });
+        c1.setTheme(themeType);
+        c1.addSeries("onlineLastDay", onlineLastDay, { stroke: { width: 2 } });
+        c1.render();
+
+        createGroupComboButton( ComboButton, Menu, MenuItem, [%s], filter );
+        createAuthComboButton( ComboButton, Menu, MenuItem, [%s], filter );
+    });
+});

@@ -1,0 +1,1233 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="nsbase">
+      <UniqueIdentifier>{7f56fe61-4b98-4607-9b64-4ba01cc2dd20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="nsbase\inc">
+      <UniqueIdentifier>{bf4a98de-4d2c-4a02-acc6-7b8ff58b0614}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="nsbase\src">
+      <UniqueIdentifier>{3a1bd294-af05-4a49-be4d-cee46d6071bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gzip">
+      <UniqueIdentifier>{6ae9d61c-943b-4dd8-9da6-daa04fa5dace}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gzip\inc">
+      <UniqueIdentifier>{402b768a-30b1-4c4b-8db2-1dad2d587c51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gzip\src">
+      <UniqueIdentifier>{f87b0719-3eca-4696-b7dd-ff09183f806f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lua">
+      <UniqueIdentifier>{b00a6769-2a4a-42eb-9002-a4d9799697ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lua\inc">
+      <UniqueIdentifier>{69bcaa20-978e-4e97-8a98-ec41d1974767}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lua\src">
+      <UniqueIdentifier>{e7155e28-322d-4bd0-a4f6-9197aa38c629}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lzma">
+      <UniqueIdentifier>{b1ee8555-f1ee-4dc4-97df-7863b7673fa7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lzma\inc">
+      <UniqueIdentifier>{b79707b8-8805-4222-8c35-9ace941bf063}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lzma\src">
+      <UniqueIdentifier>{9d9f733f-913e-4bdb-bafa-13a0566d5359}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="mbedtls">
+      <UniqueIdentifier>{331fdc76-7c1c-4a60-a354-744128607a3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="mbedtls\src">
+      <UniqueIdentifier>{ddcaf082-af7f-4649-93c0-127248748e3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="mbedtls\inc">
+      <UniqueIdentifier>{10093f2e-54ed-4df4-9715-1836bab58dfb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tinyxml">
+      <UniqueIdentifier>{81d885c2-4d40-45f1-a2ae-bfa25db0edd1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tinyxml\inc">
+      <UniqueIdentifier>{f2888a28-20ae-4435-8e66-c0d8762029c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tinyxml\src">
+      <UniqueIdentifier>{a8947b3b-fc83-48a7-834d-d0a5fa65e56d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="nsnav">
+      <UniqueIdentifier>{a0e8de21-6f7f-4f4f-8398-0afa925e4e6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="nsnav\inc">
+      <UniqueIdentifier>{9ff63326-648a-4207-9e05-36c0f36d1d6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="nsnav\src">
+      <UniqueIdentifier>{cc8e7beb-0f2b-46da-a02c-a9b9dde0998c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="nstools">
+      <UniqueIdentifier>{f36e965b-0603-42f5-9868-700158a204ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="nstools\inc">
+      <UniqueIdentifier>{90913423-3b00-481f-989c-a942ad1892eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="nstools\src">
+      <UniqueIdentifier>{a69bb54d-721e-400f-8163-62cbbc0f1a8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libpng">
+      <UniqueIdentifier>{9c93a47e-b1b5-4127-9ee6-1f1fe68779a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libpng\inc">
+      <UniqueIdentifier>{cc0e3191-1f3f-4e91-b225-1623be0dc70e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libpng\src">
+      <UniqueIdentifier>{4384e8ec-81c3-4517-b5c1-96a669fc4718}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="nswin32">
+      <UniqueIdentifier>{7f6cd48d-d71f-43e6-a891-0d7f31942b97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="nswin32\inc">
+      <UniqueIdentifier>{1c332c3a-54c9-48be-ae82-1841a2354e13}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="nswin32\src">
+      <UniqueIdentifier>{eddcd927-cb53-4fb0-ae65-43a4e6e9cc44}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="inc\nsbase.h">
+      <Filter>nsbase\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\nsdeclare.h">
+      <Filter>nsbase\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\nsfunctional.h">
+      <Filter>nsbase\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\nslock.h">
+      <Filter>nsbase\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\nslog.h">
+      <Filter>nsbase\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\nsluawrapper.h">
+      <Filter>nsbase\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\nsmath.h">
+      <Filter>nsbase\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\nsnetbase.h">
+      <Filter>nsbase\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\nsnetdeclare.h">
+      <Filter>nsbase\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\nsnetmanager.h">
+      <Filter>nsbase\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\nsnetworkio_win32.h">
+      <Filter>nsbase\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\nsoctets.h">
+      <Filter>nsbase\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\nssession.h">
+      <Filter>nsbase\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\nstemplate.h">
+      <Filter>nsbase\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\zlib\crc32.h">
+      <Filter>gzip\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\zlib\deflate.h">
+      <Filter>gzip\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\zlib\gzguts.h">
+      <Filter>gzip\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\zlib\inffast.h">
+      <Filter>gzip\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\zlib\inffixed.h">
+      <Filter>gzip\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\zlib\inflate.h">
+      <Filter>gzip\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\zlib\inftrees.h">
+      <Filter>gzip\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\zlib\trees.h">
+      <Filter>gzip\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\zlib\zconf.h">
+      <Filter>gzip\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\zlib\zlib.h">
+      <Filter>gzip\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\zlib\zutil.h">
+      <Filter>gzip\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\lua\src\lapi.h">
+      <Filter>lua\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\lua\src\lauxlib.h">
+      <Filter>lua\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\lua\src\lcode.h">
+      <Filter>lua\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\lua\src\lctype.h">
+      <Filter>lua\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\lua\src\ldebug.h">
+      <Filter>lua\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\lua\src\ldo.h">
+      <Filter>lua\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\lua\src\lfunc.h">
+      <Filter>lua\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\lua\src\lgc.h">
+      <Filter>lua\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\lua\src\llex.h">
+      <Filter>lua\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\lua\src\llimits.h">
+      <Filter>lua\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\lua\src\lmem.h">
+      <Filter>lua\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\lua\src\lobject.h">
+      <Filter>lua\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\lua\src\lopcodes.h">
+      <Filter>lua\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\lua\src\lparser.h">
+      <Filter>lua\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\lua\src\lstate.h">
+      <Filter>lua\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\lua\src\lstring.h">
+      <Filter>lua\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\lua\src\ltable.h">
+      <Filter>lua\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\lua\src\ltm.h">
+      <Filter>lua\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\lua\src\lua.h">
+      <Filter>lua\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\lua\src\lua.hpp">
+      <Filter>lua\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\lua\src\luaconf.h">
+      <Filter>lua\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\lua\src\lualib.h">
+      <Filter>lua\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\lua\src\lundump.h">
+      <Filter>lua\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\lua\src\lvm.h">
+      <Filter>lua\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\lzma\win32\Alloc.h">
+      <Filter>lzma\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\lzma\win32\LzFind.h">
+      <Filter>lzma\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\lzma\win32\LzFindMt.h">
+      <Filter>lzma\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\lzma\win32\LzHash.h">
+      <Filter>lzma\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\lzma\win32\LzmaDec.h">
+      <Filter>lzma\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\lzma\win32\LzmaEnc.h">
+      <Filter>lzma\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\lzma\win32\LzmaLib.h">
+      <Filter>lzma\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\lzma\win32\Threads.h">
+      <Filter>lzma\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\lzma\win32\Types.h">
+      <Filter>lzma\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\x509_crl.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\x509_crt.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\x509_csr.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\xtea.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\aes.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\aesni.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\arc4.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\asn1.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\asn1write.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\base64.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\bignum.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\blowfish.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\bn_mul.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\camellia.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\ccm.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\certs.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\check_config.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\cipher.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\cipher_internal.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\cmac.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\compat-1.3.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\config.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\ctr_drbg.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\debug.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\des.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\dhm.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\ecdh.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\ecdsa.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\ecjpake.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\ecp.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\ecp_internal.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\entropy.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\entropy_poll.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\error.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\gcm.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\havege.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\hmac_drbg.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\md.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\md_internal.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\md2.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\md4.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\md5.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\memory_buffer_alloc.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\net.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\net_sockets.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\oid.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\padlock.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\pem.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\pk.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\pk_internal.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\pkcs5.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\pkcs11.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\pkcs12.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\platform.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\platform_time.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\ripemd160.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\rsa.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\sha1.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\sha256.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\sha512.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\ssl.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\ssl_cache.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\ssl_ciphersuites.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\ssl_cookie.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\ssl_internal.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\ssl_ticket.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\threading.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\timing.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\version.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\mbedtls\mbedtls\x509.h">
+      <Filter>mbedtls\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\tinyxml\tinystr.h">
+      <Filter>tinyxml\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\tinyxml\tinyxml.h">
+      <Filter>tinyxml\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\lua\src\lzio.h">
+      <Filter>lua\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\nsnav\inc\navedge.h">
+      <Filter>nsnav\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\nsnav\inc\navlayer.h">
+      <Filter>nsnav\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\nsnav\inc\navnode.h">
+      <Filter>nsnav\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\nsnav\inc\navpathnode.h">
+      <Filter>nsnav\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\nsnav\inc\nav.h">
+      <Filter>nsnav\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\nsnav\inc\navbsp.h">
+      <Filter>nsnav\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\nsnav\inc\navdeclare.h">
+      <Filter>nsnav\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\nstools\inc\toolhelp.h">
+      <Filter>nstools\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\nstools\inc\apihook.h">
+      <Filter>nstools\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\nstools\inc\luathread.h">
+      <Filter>nstools\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\libpng\pngpriv.h">
+      <Filter>libpng\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\libpng\png.h">
+      <Filter>libpng\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\libpng\pngconf.h">
+      <Filter>libpng\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\libpng\pngdebug.h">
+      <Filter>libpng\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\libpng\pnginfo.h">
+      <Filter>libpng\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\libpng\pnglibconf.h">
+      <Filter>libpng\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependency\libpng\pngstruct.h">
+      <Filter>libpng\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\nstimer.h">
+      <Filter>nsbase\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\nstools\inc\database.h">
+      <Filter>nstools\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\nswin32\inc\nsvsstatic.h">
+      <Filter>nswin32\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\nswin32\inc\nsvsstaticlua.h">
+      <Filter>nswin32\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\nswin32\inc\nsvstab.h">
+      <Filter>nswin32\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\nswin32\inc\nsvstablua.h">
+      <Filter>nswin32\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\nswin32\inc\nsvstree.h">
+      <Filter>nswin32\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\nswin32\inc\nsvstreelua.h">
+      <Filter>nswin32\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\nswin32\inc\nsvswizard.h">
+      <Filter>nswin32\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\nswin32\inc\nsvswizardlua.h">
+      <Filter>nswin32\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\nswin32\inc\nswin32lua.h">
+      <Filter>nswin32\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\nswin32\inc\nswindowlua.h">
+      <Filter>nswin32\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\nswin32\inc\nscombobox.h">
+      <Filter>nswin32\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\nswin32\inc\nscomboboxlua.h">
+      <Filter>nswin32\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\nswin32\inc\nscustom.h">
+      <Filter>nswin32\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\nswin32\inc\nsedit.h">
+      <Filter>nswin32\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\nswin32\inc\nseditlua.h">
+      <Filter>nswin32\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\nswin32\inc\nsframe.h">
+      <Filter>nswin32\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\nswin32\inc\nsframelua.h">
+      <Filter>nswin32\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\nswin32\inc\nsgdilua.h">
+      <Filter>nswin32\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\nswin32\inc\nsgui.h">
+      <Filter>nswin32\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\nswin32\inc\nsguideclare.h">
+      <Filter>nswin32\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\nswin32\inc\nsguilua.h">
+      <Filter>nswin32\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\nswin32\inc\nsimage.h">
+      <Filter>nswin32\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\nswin32\inc\nsvsbtn.h">
+      <Filter>nswin32\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\nswin32\inc\nsvsbtnlua.h">
+      <Filter>nswin32\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\nswin32\inc\nsvsedit.h">
+      <Filter>nswin32\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\nswin32\inc\nsvseditlua.h">
+      <Filter>nswin32\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\nswin32\inc\nsvsfilebrowser.h">
+      <Filter>nswin32\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\nswin32\inc\nsvsfilebrowserlua.h">
+      <Filter>nswin32\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\nswin32\inc\nsvsfiledialog.h">
+      <Filter>nswin32\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\nswin32\inc\nsvslist.h">
+      <Filter>nswin32\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\nswin32\inc\nsvslistbox.h">
+      <Filter>nswin32\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\nswin32\inc\nsvslistboxlua.h">
+      <Filter>nswin32\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\nswin32\inc\nsvslistlua.h">
+      <Filter>nswin32\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\nsconsole.h">
+      <Filter>nsbase\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\nshttp.h">
+      <Filter>nsbase\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\nsbaselua.h">
+      <Filter>nsbase\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\nsmysqlclient.h">
+      <Filter>nsbase\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\nsfile.h">
+      <Filter>nsbase\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\nslocal.h">
+      <Filter>nsbase\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\nshttpdebugger.h">
+      <Filter>nsbase\inc</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\nsbase.cpp">
+      <Filter>nsbase\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\nsfunctional.cpp">
+      <Filter>nsbase\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\nslock_win32.cpp">
+      <Filter>nsbase\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\nslog.cpp">
+      <Filter>nsbase\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\nsluawrapper.cpp">
+      <Filter>nsbase\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\nsmath.cpp">
+      <Filter>nsbase\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\nsnetbase.cpp">
+      <Filter>nsbase\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\nsnetmanager.cpp">
+      <Filter>nsbase\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\nsnetworkio_win32.cpp">
+      <Filter>nsbase\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\nsoctets.cpp">
+      <Filter>nsbase\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\nssession.cpp">
+      <Filter>nsbase\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\nstemplate.cpp">
+      <Filter>nsbase\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\nstimer.cpp">
+      <Filter>nsbase\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\zlib\adler32.c">
+      <Filter>gzip\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\zlib\compress.c">
+      <Filter>gzip\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\zlib\crc32.c">
+      <Filter>gzip\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\zlib\deflate.c">
+      <Filter>gzip\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\zlib\gzclose.c">
+      <Filter>gzip\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\zlib\gzlib.c">
+      <Filter>gzip\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\zlib\gzread.c">
+      <Filter>gzip\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\zlib\gzwrite.c">
+      <Filter>gzip\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\zlib\infback.c">
+      <Filter>gzip\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\zlib\inffast.c">
+      <Filter>gzip\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\zlib\inflate.c">
+      <Filter>gzip\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\zlib\inftrees.c">
+      <Filter>gzip\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\zlib\trees.c">
+      <Filter>gzip\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\zlib\uncompr.c">
+      <Filter>gzip\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\zlib\zutil.c">
+      <Filter>gzip\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\lua\src\lapi.c">
+      <Filter>lua\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\lua\src\lauxlib.c">
+      <Filter>lua\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\lua\src\lbaselib.c">
+      <Filter>lua\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\lua\src\lbitlib.c">
+      <Filter>lua\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\lua\src\lcode.c">
+      <Filter>lua\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\lua\src\lcorolib.c">
+      <Filter>lua\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\lua\src\lctype.c">
+      <Filter>lua\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\lua\src\ldblib.c">
+      <Filter>lua\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\lua\src\ldebug.c">
+      <Filter>lua\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\lua\src\ldo.c">
+      <Filter>lua\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\lua\src\ldump.c">
+      <Filter>lua\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\lua\src\lfunc.c">
+      <Filter>lua\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\lua\src\lgc.c">
+      <Filter>lua\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\lua\src\linit.c">
+      <Filter>lua\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\lua\src\liolib.c">
+      <Filter>lua\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\lua\src\llex.c">
+      <Filter>lua\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\lua\src\lmathlib.c">
+      <Filter>lua\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\lua\src\lmem.c">
+      <Filter>lua\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\lua\src\loadlib.c">
+      <Filter>lua\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\lua\src\lobject.c">
+      <Filter>lua\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\lua\src\lopcodes.c">
+      <Filter>lua\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\lua\src\loslib.c">
+      <Filter>lua\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\lua\src\lparser.c">
+      <Filter>lua\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\lua\src\lstate.c">
+      <Filter>lua\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\lua\src\lstring.c">
+      <Filter>lua\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\lua\src\lstrlib.c">
+      <Filter>lua\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\lua\src\ltable.c">
+      <Filter>lua\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\lua\src\ltablib.c">
+      <Filter>lua\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\lua\src\ltm.c">
+      <Filter>lua\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\lua\src\lundump.c">
+      <Filter>lua\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\lua\src\lvm.c">
+      <Filter>lua\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\lua\src\lzio.c">
+      <Filter>lua\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\lzma\win32\Alloc.c">
+      <Filter>lzma\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\lzma\win32\LzFind.c">
+      <Filter>lzma\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\lzma\win32\LzFindMt.c">
+      <Filter>lzma\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\lzma\win32\LzmaDec.c">
+      <Filter>lzma\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\lzma\win32\LzmaEnc.c">
+      <Filter>lzma\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\lzma\win32\LzmaLib.c">
+      <Filter>lzma\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\lzma\win32\Threads.c">
+      <Filter>lzma\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\base64.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\bignum.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\blowfish.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\camellia.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\ccm.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\certs.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\cipher.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\cipher_wrap.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\cmac.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\ctr_drbg.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\debug.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\des.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\dhm.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\ecdh.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\ecdsa.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\ecjpake.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\ecp.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\ecp_curves.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\entropy.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\entropy_poll.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\error.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\gcm.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\havege.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\hmac_drbg.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\md.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\md_wrap.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\md2.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\md4.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\md5.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\memory_buffer_alloc.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\net_sockets.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\oid.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\padlock.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\pem.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\pk.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\pk_wrap.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\pkcs5.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\pkcs11.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\pkcs12.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\pkparse.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\pkwrite.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\platform.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\ripemd160.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\rsa.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\sha1.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\sha256.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\sha512.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\ssl_cache.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\ssl_ciphersuites.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\ssl_cli.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\ssl_cookie.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\ssl_srv.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\ssl_ticket.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\ssl_tls.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\threading.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\timing.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\version.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\version_features.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\x509.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\x509_create.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\x509_crl.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\x509_crt.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\x509_csr.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\x509write_crt.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\x509write_csr.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\xtea.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\aes.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\aesni.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\arc4.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\asn1parse.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\mbedtls\library\asn1write.c">
+      <Filter>mbedtls\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\tinyxml\tinystr.cpp">
+      <Filter>tinyxml\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\tinyxml\tinyxml.cpp">
+      <Filter>tinyxml\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\tinyxml\tinyxmlerror.cpp">
+      <Filter>tinyxml\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\tinyxml\tinyxmlparser.cpp">
+      <Filter>tinyxml\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\nsnav\src\navlayer.cpp">
+      <Filter>nsnav\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\nsnav\src\navnode.cpp">
+      <Filter>nsnav\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\nsnav\src\navbsp.cpp">
+      <Filter>nsnav\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\nsnav\src\navedge.cpp">
+      <Filter>nsnav\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\nstools\src\luathread.cpp">
+      <Filter>nstools\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\nstools\src\database.cpp">
+      <Filter>nstools\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\nstools\src\apihook.cpp">
+      <Filter>nstools\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\nswin32\src\nsvstab.cpp">
+      <Filter>nswin32\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\nswin32\src\nsgui.cpp">
+      <Filter>nswin32\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\nswin32\src\nsvsbtn.cpp">
+      <Filter>nswin32\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\nswin32\src\nsvslist.cpp">
+      <Filter>nswin32\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\nswin32\src\nsvsedit.cpp">
+      <Filter>nswin32\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\nswin32\src\nsframe.cpp">
+      <Filter>nswin32\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\nswin32\src\nsedit.cpp">
+      <Filter>nswin32\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\nswin32\src\nscustom.cpp">
+      <Filter>nswin32\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\nswin32\src\nsvsstatic.cpp">
+      <Filter>nswin32\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\nswin32\src\nsvswizard.cpp">
+      <Filter>nswin32\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\libpng\pngmem.c">
+      <Filter>libpng\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\libpng\pngpread.c">
+      <Filter>libpng\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\libpng\pngread.c">
+      <Filter>libpng\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\libpng\pngrio.c">
+      <Filter>libpng\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\libpng\pngrtran.c">
+      <Filter>libpng\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\libpng\pngrutil.c">
+      <Filter>libpng\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\libpng\pngset.c">
+      <Filter>libpng\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\libpng\pngtrans.c">
+      <Filter>libpng\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\libpng\pngwio.c">
+      <Filter>libpng\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\libpng\pngwrite.c">
+      <Filter>libpng\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\libpng\pngwtran.c">
+      <Filter>libpng\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\libpng\pngwutil.c">
+      <Filter>libpng\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\libpng\png.c">
+      <Filter>libpng\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\libpng\pngerror.c">
+      <Filter>libpng\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependency\libpng\pngget.c">
+      <Filter>libpng\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\nswin32\src\nsimage.cpp">
+      <Filter>nswin32\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\nswin32\src\nsvsfilebrowser.cpp">
+      <Filter>nswin32\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\nswin32\src\nscombobox.cpp">
+      <Filter>nswin32\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\nswin32\src\nsvsfiledialog.cpp">
+      <Filter>nswin32\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\nswin32\src\nsvstree.cpp">
+      <Filter>nswin32\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\nswin32\src\nsvslistbox.cpp">
+      <Filter>nswin32\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\nswin32\src\nswin32lua.cpp">
+      <Filter>nswin32\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\nsconsole.cpp">
+      <Filter>nsbase\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\nshttp.cpp">
+      <Filter>nsbase\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\nsbaselua.cpp">
+      <Filter>nsbase\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\nsmysqlclient.cpp">
+      <Filter>nsbase\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\nsfile.cpp">
+      <Filter>nsbase\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\nslocal.cpp">
+      <Filter>nsbase\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\nshttpdebugger.cpp">
+      <Filter>nsbase\src</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="common">
+      <UniqueIdentifier>{83c7af1d-88b3-4989-a9ba-492b1cb59652}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="nsclient">
+      <UniqueIdentifier>{87086fc0-93aa-4c7b-9f0f-ff187364f42f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="nsclient\inc">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="nsclient\src">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="common\inc">
+      <UniqueIdentifier>{ca9541f4-be4c-47f2-ac5b-be9e87544cc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common\src">
+      <UniqueIdentifier>{950a0670-cc4b-496e-9553-fb10efff57ca}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\server\common\protocol.h">
+      <Filter>common\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\interface.h">
+      <Filter>nsclient\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\nsclient.h">
+      <Filter>nsclient\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\precomplie.h">
+      <Filter>nsclient\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\nsinterface.h">
+      <Filter>nsclient\inc</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\server\common\protocol.cpp">
+      <Filter>common\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\interface.cpp">
+      <Filter>nsclient\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\nsclient.cpp">
+      <Filter>nsclient\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\precomplie.cpp">
+      <Filter>nsclient\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\dllmain.cpp">
+      <Filter>nsclient\src</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

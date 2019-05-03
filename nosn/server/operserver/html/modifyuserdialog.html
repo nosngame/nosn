@@ -1,0 +1,25 @@
+<table>
+    <tr>
+        <td><label for='date'>数据缩放: </label></td>
+        <td><input data-dojo-type='dijit/form/TextBox' type='text' name='rate' id='modifyrate'></td>
+    </tr>
+    <tr>
+        <td><label for='date'>渠道选择: </label></td>
+        <td>
+            <select id='modifyauthList' data-dojo-type='dijit/form/MultiSelect' multiple='true' style='width: 240px; height:120px'>
+                %s
+            </select>
+         </td>
+    </tr>
+    <tr>
+        <td align='center' colspan='2'>
+            <button data-dojo-type='dijit/form/Button' type='submit'
+                data-dojo-props='onClick:function()
+                {
+                    var authList = dijit.byId(\"modifyauthList\").get(\"value\");
+                    var psw = dijit.byId(\"modifypsw\").get(\"value\");
+                    operCommand(\"/(FBGameModifyUser:\" + token + \":\" + selectName + \":\" + psw + \":\" + authList + \")\");
+                }'>确定</button>
+        </td>
+    </tr>
+</table>
