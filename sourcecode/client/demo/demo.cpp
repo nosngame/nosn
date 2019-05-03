@@ -1,5 +1,5 @@
 #include "precomplie.h"
-void demoErrorProc1( const char* text, int level )
+void demoErrorProc( const char* text, int level )
 {
 	// 如果是异常才处理
 	if ( level == 1 )
