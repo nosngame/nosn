@@ -694,7 +694,5 @@ sourcecode/.vs/
 
 MigrationBackup/
 *.db-shm
-*.db
 *.db-wal
-*.db-shm
 *.db
