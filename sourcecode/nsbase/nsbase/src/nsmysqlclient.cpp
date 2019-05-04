@@ -120,7 +120,7 @@ namespace NSMysql
 		DECLARE_BEGIN_PROTECTED
 		static CNSString dbName;
 		static CNSString sqlCmd;
-		CNSLuaFunction func;
+		CNSLuaFunction func( __FUNCTION__ );
 		luaStack >> dbName;
 		luaStack >> sqlCmd;
 		luaStack >> func;
@@ -141,7 +141,7 @@ namespace NSMysql
 		static CNSMap< CNSString, CNSOctets > blobData;
 		luaStack >> blobData;
 
-		CNSLuaFunction func;
+		CNSLuaFunction func( __FUNCTION__ );
 		luaStack >> func;
 
 		static CNSOctetsStream stream;
@@ -450,7 +450,8 @@ namespace NSMysql
 		{
 		}
 
-		CSession( DataProc pProc, CNSLuaFunction func, const CNSString& sqlCmd ) : mSessionID( sSessionID ++ ), mLuaFunc( func ), mDataProc( pProc ), mSqlCmd( sqlCmd )
+		CSession( DataProc pProc, const CNSLuaFunction& func, const CNSString& sqlCmd ) : 
+			mSessionID( sSessionID ++ ), mLuaFunc( func ), mDataProc( pProc ), mSqlCmd( sqlCmd )
 		{
 		}
 

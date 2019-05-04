@@ -122,9 +122,10 @@ namespace NSWin32
 	{
 		DECLARE_BEGIN_PROTECTED
 		NSWin32::CNSWindow* window = NULL;
-		CNSLuaFunction func;
+		CNSLuaFunction func( __FUNCTION__ );
 		luaStack >> window;
 		luaStack >> func;
+
 		if ( func.isValid( ) == false )
 			NSException( _UTF8( "Lua函数[setWMPaintMessage]参数1 不是一个lua函数" ) );
 
@@ -140,7 +141,7 @@ namespace NSWin32
 		int flag = 0;
 		int keycode = 0;
 		int funcRef = 0;
-		CNSLuaFunction func;
+		CNSLuaFunction func( __FUNCTION__ );
 		luaStack >> window;
 		luaStack >> flag;
 		luaStack >> keycode;

@@ -124,7 +124,7 @@ namespace NSBase
 {
 
 	// utf8		文本头
-#define	UTF8_TEXT 0xBFBBEF
+#define	UTF8_BOM 0xBFBBEF
 #define unused( x )	(void)(x) 
 
 // 是否使用CRT memcpy

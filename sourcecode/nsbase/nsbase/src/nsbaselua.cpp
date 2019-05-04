@@ -322,7 +322,7 @@ namespace NSBase
 	{
 		DECLARE_BEGIN_PROTECTED
 		unsigned int duration = 0;
-		CNSLuaFunction func;
+		CNSLuaFunction func( __FUNCTION__ );
 		luaStack >> duration;
 		luaStack >> func;
 		if ( func.isValid( ) == false )
@@ -339,7 +339,7 @@ namespace NSBase
 	{
 		DECLARE_BEGIN_PROTECTED
 		unsigned int duration = 0;
-		CNSLuaFunction func;
+		CNSLuaFunction func( __FUNCTION__ );
 		luaStack >> duration;
 		luaStack >> func;
 		if ( func.isValid( ) == false )

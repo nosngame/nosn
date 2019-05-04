@@ -164,7 +164,6 @@ namespace NSBase
 
 		errorText = errorText + "===============================================";
 		onError( errorText );
-		lua_pop( mpLuaState, 1 );
 	}
 
 	int CNSLuaStack::traceBack( lua_State* pLua )
@@ -185,38 +184,48 @@ namespace NSBase
 			static CNSString errorDesc;
 			errorDesc.format( _UTF8( "打开文件: %s" ), chunkName.getBuffer( ) );
 			errorOutput( luaError, errorDesc );
+			// stack
+			// 1 错误描述
+			lua_pop( mpLuaState, 1 );
 			return false;
 		}
 
 		return true;
 	}
 
-	bool CNSLuaStack::openScriptFromMemory( const CNSString& chunkName, const char* tpBuffer, int vSize )
+	bool CNSLuaStack::openScriptFromMemory( const CNSString& chunkName, const char* buffer, int size )
 	{
-		onOpenScript( chunkName, tpBuffer, vSize );
-
-		int luaError = luaL_loadbuffer( mpLuaState, tpBuffer, vSize, chunkName.getBuffer( ) );
-		if ( luaError != 0 )
-		{
-			static CNSString errorDesc;
-			errorDesc.format( _UTF8( "打开文件: %s" ), chunkName.getBuffer( ) );
-			errorOutput( luaError, errorDesc );
-			return false;
-		}
-
-		int index = lua_gettop( mpLuaState );
+		onOpenScript( chunkName, buffer, size );
 		lua_pushcfunction( mpLuaState, traceBack );
-		lua_insert( mpLuaState, index );
-		luaError = lua_pcall( mpLuaState, 0, 0, index );
+		int luaError = luaL_loadbuffer( mpLuaState, buffer, size, chunkName.getBuffer( ) );
 		if ( luaError != 0 )
 		{
 			static CNSString errorDesc;
 			errorDesc.format( _UTF8( "打开文件: %s" ), chunkName.getBuffer( ) );
 			errorOutput( luaError, errorDesc );
+			// stack
+			// 1 错误处理函数
+			// 2 错误描述
+			lua_pop( mpLuaState, 2 );
 			return false;
 		}
 
-		lua_remove( mpLuaState, index );
+		luaError = lua_pcall( mpLuaState, 0, 0, -2 );
+		if ( luaError != 0 )
+		{
+			static CNSString errorDesc;
+			errorDesc.format( _UTF8( "打开文件: %s" ), chunkName.getBuffer( ) );
+			errorOutput( luaError, errorDesc );
+			// stack
+			// 1 错误处理函数
+			// 2 错误描述
+			lua_pop( mpLuaState, 2 );
+			return false;
+		}
+
+		// stack
+		// 1 错误处理函数
+		lua_pop( mpLuaState, 1 );
 		return true;
 	}
 
@@ -239,7 +248,7 @@ namespace NSBase
 
 		unsigned int header = 0;
 		NSFunction::memcpy_fast( &header, buffer.begin( ), 3 );
-		if ( header != UTF8_TEXT )
+		if ( header != UTF8_BOM )
 		{
 			static CNSString errorDesc;
 			errorDesc.format( _UTF8( "文件[%s]不是utf8格式" ), fileName.getBuffer( ) );

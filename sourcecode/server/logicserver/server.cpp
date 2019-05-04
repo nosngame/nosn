@@ -262,9 +262,11 @@ namespace LogicServer
 					luaStack >> NSBase::EBegin;
 					NSClientProto::CProtocolScript* script = ( NSClientProto::CProtocolScript* ) proto;
 					luaStack.preCall( "onClientProtocol" );
+
 					luaStack << nosnUserID;
 					for ( ; script->mpShadowBuffer->isEnd( ) == false; )
 						luaStack << *script->mpShadowBuffer;
+
 					luaStack.call( );
 					luaStack >> NSBase::ECommit;
 				}

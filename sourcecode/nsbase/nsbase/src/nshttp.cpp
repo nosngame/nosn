@@ -220,7 +220,7 @@ namespace NSHttp
 	{
 		DECLARE_BEGIN_PROTECTED
 		static CNSString url;
-		CNSLuaFunction func;
+		CNSLuaFunction func( __FUNCTION__ );
 		luaStack >> url;
 		luaStack >> func;
 
@@ -244,7 +244,7 @@ namespace NSHttp
 	{
 		DECLARE_BEGIN_PROTECTED
 		static CNSString url;
-		CNSLuaFunction func;
+		CNSLuaFunction func( __FUNCTION__ );
 		luaStack >> url;
 		luaStack >> func;
 
@@ -271,7 +271,7 @@ namespace NSHttp
 		DECLARE_BEGIN_PROTECTED
 		static CNSString url;
 		static CNSString postData;
-		CNSLuaFunction func;
+		CNSLuaFunction func( __FUNCTION__ );
 		luaStack >> url;
 		luaStack >> postData;
 		luaStack >> func;
@@ -302,7 +302,7 @@ namespace NSHttp
 		DECLARE_BEGIN_PROTECTED
 		static CNSString url;
 		static CNSString postData;
-		CNSLuaFunction func;
+		CNSLuaFunction func( __FUNCTION__ );
 		luaStack >> url;
 		luaStack >> postData;
 		luaStack >> func;
@@ -333,7 +333,7 @@ namespace NSHttp
 		static CNSString url;
 		CNSVector< CNSString > header;
 		static CNSString postData;
-		CNSLuaFunction func;
+		CNSLuaFunction func( __FUNCTION__ );
 		luaStack >> url;
 		luaStack >> header;
 		luaStack >> postData;
@@ -370,7 +370,7 @@ namespace NSHttp
 		DECLARE_BEGIN_PROTECTED
 		static CNSString url;
 		static CNSString postData;
-		CNSLuaFunction func;
+		CNSLuaFunction func( __FUNCTION__ );
 		luaStack >> url;
 		luaStack >> postData;
 		luaStack >> func;

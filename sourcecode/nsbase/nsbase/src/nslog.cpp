@@ -102,7 +102,7 @@ namespace NSLog
 		if ( gLogFileHandle == NULL )
 			NSException( logFile + _UTF8( " - ´ò¿ªÊ§°Ü" ) );
 
-		unsigned int utf8Header = UTF8_TEXT;
+		unsigned int utf8Header = UTF8_BOM;
 		fwrite( &utf8Header, 3, 1, gLogFileHandle );
 		NSFunction::removeConst( sLogText ).clear( );
 		NSFunction::removeConst( sExceptionText ).clear( );

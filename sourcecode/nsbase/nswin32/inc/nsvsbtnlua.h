@@ -32,7 +32,7 @@ namespace NSWin32
 	{
 		DECLARE_BEGIN_PROTECTED
 		NSWin32::CNSWindow* window = NULL;
-		CNSLuaFunction func;
+		CNSLuaFunction func( __FUNCTION__ );
 
 		luaStack >> window;
 		luaStack >> func;

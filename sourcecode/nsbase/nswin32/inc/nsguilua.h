@@ -126,7 +126,7 @@ namespace NSWin32
 		static CNSString title;
 		CNSRect rc;
 		NSWin32::CNSWindow* parent = NULL;
-		CNSLuaFunction func;
+		CNSLuaFunction func( __FUNCTION__ );
 		luaStack >> windowID;
 		luaStack >> rc;
 		luaStack >> title;
@@ -156,7 +156,7 @@ namespace NSWin32
 		DECLARE_BEGIN_PROTECTED
 		int flag = 0;
 		int keycode = 0;
-		CNSLuaFunction func;
+		CNSLuaFunction func( __FUNCTION__ );
 		luaStack >> flag;
 		luaStack >> keycode;
 		luaStack >> func;
@@ -191,7 +191,7 @@ namespace NSWin32
 		CNSRect rc;
 		int style = 0;
 		NSWin32::CNSWindow* parent = NULL;
-		CNSLuaFunction func;
+		CNSLuaFunction func( __FUNCTION__ );
 		luaStack >> windowID;
 		luaStack >> rc;
 		luaStack >> style;

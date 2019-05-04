@@ -33,9 +33,13 @@ namespace NSBase
 	{
 	public:
 		int mLuaRef = -1;
+		// 从第几个参数读取的函数
+		int mPopIndex = -1;
+		// 记录下设置该函数的C++函数名
+		CNSString mFuncName;
 
 	public:
-		CNSLuaFunction( )
+		CNSLuaFunction( const char* funcName = NULL ) : mFuncName( funcName )
 		{
 		}
 
@@ -198,17 +202,22 @@ namespace NSBase
 			int luaError = lua_pcall( mpLuaState, argCount, 1, funcIndex - 1 );
 			if ( luaError != 0 )
 			{
-				lua_pop( mpLuaState, 1 );
 				static CNSString errorDesc;
 				errorDesc = mErrorEntry;
 				errorOutput( luaError, errorDesc );
+				// stack
+				// 1 错误处理函数
+				// 2 错误描述
+				lua_pop( mpLuaState, 2 );
 				return false;
 			}
 
-			//traceBack在位置index，返回值在位置index + 1
 			mPopIndex = funcIndex - 1;
 			*this >> ret;
 
+			// stack
+			// 1 错误处理函数
+			// 2 返回值
 			lua_pop( mpLuaState, 2 );
 			return true;
 		}
@@ -223,13 +232,18 @@ namespace NSBase
 			int luaError = lua_pcall( mpLuaState, argCount, 0, funcIndex - 1 );
 			if ( luaError != 0 )
 			{
-				lua_pop( mpLuaState, 1 );
 				static CNSString errorDesc;
 				errorDesc = mErrorEntry;
 				errorOutput( luaError, errorDesc );
+				// stack
+				// 1 错误处理函数
+				// 2 错误描述
+				lua_pop( mpLuaState, 2 );
 				return false;
 			}
 
+			// stack
+			// 1 错误处理函数
 			lua_pop( mpLuaState, 1 );
 			return true;
 		}
@@ -238,15 +252,21 @@ namespace NSBase
 		void preCall( const CNSLuaFunction& func )
 		{
 			mPushIndex = 0;
+			if ( lua_gettop( mpLuaState ) > 0 )
+				NSException( "lua栈发生泄露" );
+
 			lua_pushcfunction( mpLuaState, traceBack );
 			lua_rawgeti( mpLuaState, LUA_REGISTRYINDEX, func.mLuaRef );
-			mErrorEntry = _UTF8( "点燃函数: REGISTER ref" );
+			mErrorEntry.format( _UTF8( "点燃函数: %s 参数: %d" ), func.mFuncName.getBuffer( ), func.mPopIndex );
 		}
 
 		// 调用函数前
 		void preCall( const char* funcName )
 		{
 			mPushIndex = 0;
+			if ( lua_gettop( mpLuaState ) > 0 )
+				NSException( "lua栈发生泄露" );
+
 			lua_pushcfunction( mpLuaState, traceBack );
 			lua_getglobal( mpLuaState, funcName );
 			mErrorEntry.format( _UTF8( "点燃函数: %s" ), funcName );
@@ -263,8 +283,11 @@ namespace NSBase
 			int type = lua_type( mpLuaState, mPopIndex );
 			if ( type == LUA_TFUNCTION )
 			{
+				// luaL_ref读取栈底数据，这里要把函数拷贝到栈底
 				lua_pushvalue( mpLuaState, mPopIndex );
+				// luaL_ref读取栈底数据之后，会删除栈底数据
 				NSFunction::removeConst( func ).mLuaRef = luaL_ref( mpLuaState, LUA_REGISTRYINDEX );
+				NSFunction::removeConst( func ).mPopIndex = mPopIndex;
 			}
 			return *this;
 		}
