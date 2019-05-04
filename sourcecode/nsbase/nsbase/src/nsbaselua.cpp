@@ -93,11 +93,11 @@ namespace NSBase
 		static CNSString indent;
 		static CNSString dataText;
 		if ( data->type == LUA_TNUMBER )
-			dataText.format( "\n%s%1.2f[number]", indent.getBuffer( ), *(double*) data->value );
+			dataText.format( "\n%s%s[number]", indent.getBuffer( ), CNSString::number2String( *(double*) data->value ).getBuffer( ) );
 		else if ( data->type == LUA_TSTRING )
 			dataText.format( "\n%s%s[string]", indent.getBuffer( ), (char*) data->value );
 		else if ( data->type == LUA_TBOOLEAN )
-			dataText.format( "\n%s%s[boolean]", indent.getBuffer( ), ( *(bool*) data->value ) == true ? "true" : "false" );
+			dataText.format( "\n%s%s[boolean]", indent.getBuffer( ), CNSString::bool2String( *(bool*) data->value ).getBuffer( ) );
 		else if ( data->type == LUA_TNIL )
 			dataText.format( "\n%s[nil]", indent.getBuffer( ) );
 		else if ( data->type == LUA_TNONE )
@@ -118,7 +118,7 @@ namespace NSBase
 				if ( key != NULL )
 				{
 					if ( key->type == LUA_TNUMBER )
-						dataText.format( "\n%s%1.2f = \n%s{", indent.getBuffer( ), *(double*) key->value, indent.getBuffer( ) );
+						dataText.format( "\n%s%s = \n%s{", indent.getBuffer( ), CNSString::number2String( *(double*) key->value ).getBuffer( ), indent.getBuffer( ) );
 					else if ( key->type == LUA_TSTRING )
 						dataText.format( "\n%s%s = \n%s{", indent.getBuffer( ), key->value, indent.getBuffer( ) );
 				}
@@ -144,16 +144,16 @@ namespace NSBase
 				static CNSString keyText;
 				static CNSString valueText;
 				if ( key->type == LUA_TNUMBER )
-					keyText.format( "%s%1.2f[number]", indent.getBuffer( ), *(double*) key->value );
+					keyText.format( "%s%s[number]", indent.getBuffer( ), CNSString::number2String( *(double*) key->value ).getBuffer( ) );
 				else if ( key->type == LUA_TSTRING )
 					keyText.format( "%s%s[string]", indent.getBuffer( ), (char*) key->value );
 
 				if ( value->type == LUA_TNUMBER )
-					valueText.format( "%1.2f[number]", *(double*) value->value );
+					valueText.format( "%s[number]", CNSString::number2String( *(double*) value->value ).getBuffer( ) );
 				else if ( value->type == LUA_TSTRING )
 					valueText.format( "%s[string]", (char*) value->value );
 				else if ( value->type == LUA_TBOOLEAN )
-					valueText.format( "%s[boolean]", ( *(bool*) value->value ) == true ? "true" : "false" );
+					valueText.format( "%s[boolean]", CNSString::bool2String( *(bool*) value->value ).getBuffer( ) );
 				else if ( value->type == LUA_TNIL )
 					valueText.format( "[nil]" );
 				else if ( value->type == LUA_TNONE )

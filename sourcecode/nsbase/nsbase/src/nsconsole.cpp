@@ -1226,11 +1226,11 @@ namespace NSConsole
 		NSWin32::CNSVsTree* tipsTree = ( NSWin32::CNSVsTree* ) userdata;
 		static CNSString dataText;
 		if ( data->type == LUA_TNUMBER )
-			dataText.format( "%1.2f[number]\n", *(double*) data->value );
+			dataText.format( "%s[number]\n", CNSString::number2String( *(double*) data->value ).getBuffer( ) );
 		else if ( data->type == LUA_TSTRING )
 			dataText.format( "%s[string]\n", (char*) data->value );
 		else if ( data->type == LUA_TBOOLEAN )
-			dataText.format( "%s[boolean]\n", ( *(bool*) data->value ) == true ? "true" : "false" );
+			dataText.format( "%s[boolean]\n", CNSString::bool2String( *(bool*) data->value ).getBuffer( ) );
 		else if ( data->type == LUA_TNIL )
 			dataText.format( "[nil]\n" );
 		else if ( data->type == LUA_TNONE )
@@ -1250,7 +1250,7 @@ namespace NSConsole
 				if ( key != NULL )
 				{
 					if ( key->type == LUA_TNUMBER )
-						dataText.format( "%d", *(int*) key->value );
+						dataText.format( "%s[number]", CNSString::number2String( *(double*) key->value ).getBuffer( ) );
 					else if ( key->type == LUA_TSTRING )
 						dataText.format( "%s", key->value );
 					hasChildren = true;
@@ -1272,16 +1272,16 @@ namespace NSConsole
 				static CNSString keyText;
 				static CNSString valueText;
 				if ( key->type == LUA_TNUMBER )
-					keyText.format( "%1.2f[number]", *(double*) key->value );
+					keyText.format( "%s[number]", CNSString::number2String( *(double*) key->value ).getBuffer( ) );
 				else if ( key->type == LUA_TSTRING )
 					keyText.format( "%s[string]", (char*) key->value );
 
 				if ( value->type == LUA_TNUMBER )
-					valueText.format( "%1.2f[number]", *(double*) value->value );
+					valueText.format( "%s[number]", CNSString::number2String( *(double*) value->value ).getBuffer( ) );
 				else if ( value->type == LUA_TSTRING )
 					valueText.format( "%s[string]", (char*) value->value );
 				else if ( value->type == LUA_TBOOLEAN )
-					valueText.format( "%s[boolean]", ( *(bool*) value->value ) == true ? "true" : "false" );
+					valueText.format( "%s[boolean]", CNSString::bool2String( *(bool*) value->value ).getBuffer( ) );
 				else if ( value->type == LUA_TNIL )
 					valueText.format( "[nil]" );
 				else if ( value->type == LUA_TNONE )
@@ -1355,6 +1355,7 @@ namespace NSConsole
 			NSWin32::CNSVsTree* tipsTree = NSWin32::CNSWindow::newVsTree( "varWatch", 0, rcWatchTree, tips );
 			if ( tipsTree != NULL )
 			{
+				tipsTree->clear( );
 				luaStack.enumStack( stackIndex, stackTraceProc, tipsTree );
 				lua_pop( luaStack.getLuaState( ), 1 );
 			}
@@ -1365,6 +1366,7 @@ namespace NSConsole
 			NSWin32::CNSVsTree* tipsTree = ( NSWin32::CNSVsTree* ) NSWin32::CNSWindow::getWindow( "varWatch" );
 			if ( tipsTree != NULL )
 			{
+				tipsTree->clear( );
 				luaStack.enumStack( stackIndex, stackTraceProc, tipsTree );
 				lua_pop( luaStack.getLuaState( ), 1 );
 			}

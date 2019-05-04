@@ -19,12 +19,12 @@ bool ExcelData::LoadDataFromXmlFile( const CNSString& filePath )
 	CNSFile xml;
 	xml.openExist( filePath );
 	CNSOctets buffer;
-	xml >> buffer;
+	xml.readAllBytes( buffer );
 
 	TiXmlDocument tXmlDoc;
 	if ( tXmlDoc.Parse( (char*) buffer.begin( ) ) == NULL )
 	{
-		NSLog::log( _UTF8( "无效的模板文件%s\n" ), mTemplateFileName.getBuffer( ) );
+		NSLog::log( _UTF8( "无效的模板文件%s" ), mTemplateFileName.getBuffer( ) );
 		return false;
 	}
 
@@ -40,7 +40,7 @@ bool ExcelData::LoadDataFromXmlFile( const CNSString& filePath )
 	TiXmlElement* tpTableElement = tpWorkSheetElement->FirstChildElement( "Table" );
 	if ( tpTableElement == NULL )
 	{
-		NSLog::log( _UTF8( "无效的模板文件%s\n" ), mTemplateFileName.getBuffer( ) );
+		NSLog::log( _UTF8( "无效的模板文件%s" ), mTemplateFileName.getBuffer( ) );
 		return false;
 	}
 
@@ -177,7 +177,7 @@ bool ExcelData::LoadColumnInfo( TiXmlElement* pColumnRowElement )
 {
 	if ( pColumnRowElement == NULL )
 	{
-		NSLog::log( _UTF8( "无效的模板文件%s\n" ), mTemplateFileName.getBuffer( ) );
+		NSLog::log( _UTF8( "无效的模板文件%s" ), mTemplateFileName.getBuffer( ) );
 		return false;
 	}
 
@@ -185,14 +185,14 @@ bool ExcelData::LoadColumnInfo( TiXmlElement* pColumnRowElement )
 	//判断第一行之前是否有空行，以ss:index有值或者是没有cell字段来判断为第一行之前是否有空行
 	if ( tpIDCellElement == NULL || pColumnRowElement->Attribute( "ss:Index" ) != NULL )
 	{
-		NSLog::log( _UTF8( "文件[%s],第一行之前有空行\n" ), mTemplateFileName.getBuffer( ) );
+		NSLog::log( _UTF8( "文件[%s],第一行之前有空行" ), mTemplateFileName.getBuffer( ) );
 		return false;
 	}
 
 	/// 判断首行首个Cell是否存在省略行
 	if ( tpIDCellElement->Attribute( "ss:Index" ) != NULL )
 	{
-		NSLog::log( _UTF8( "文件[%s]，第一有效列不在第一列上\n" ), mTemplateFileName.getBuffer( ) );
+		NSLog::log( _UTF8( "文件[%s]，第一有效列不在第一列上" ), mTemplateFileName.getBuffer( ) );
 		return false;
 	}
 
@@ -200,7 +200,7 @@ bool ExcelData::LoadColumnInfo( TiXmlElement* pColumnRowElement )
 	TiXmlElement* tpInfoCellElement = tpIDCellElement->NextSiblingElement( "Cell" );
 	if ( tpInfoCellElement == NULL )
 	{
-		NSLog::log( _UTF8( "文件[%s]，没有任何一个有效列\n" ), mTemplateFileName.getBuffer( ) );
+		NSLog::log( _UTF8( "文件[%s]，没有任何一个有效列" ), mTemplateFileName.getBuffer( ) );
 		return false;
 	}
 
@@ -209,14 +209,14 @@ bool ExcelData::LoadColumnInfo( TiXmlElement* pColumnRowElement )
 	{
 		if ( tpInfoCellElement->Attribute( "ss:Index" ) != NULL )
 		{
-			NSLog::log( _UTF8( "文件[%s]，列信息中间有空行\n" ), mTemplateFileName.getBuffer( ) );
+			NSLog::log( _UTF8( "文件[%s]，列信息中间有空行" ), mTemplateFileName.getBuffer( ) );
 			return false;
 		}
 
 		TiXmlElement* tpDataElement = tpInfoCellElement->FirstChildElement( "Data" );
 		if ( tpDataElement == NULL )
 		{
-			NSLog::log( _UTF8( "文件[%s]，列信息缺失\n" ), mTemplateFileName.getBuffer( ) );
+			NSLog::log( _UTF8( "文件[%s]，列信息缺失" ), mTemplateFileName.getBuffer( ) );
 			return false;
 		}
 
@@ -237,14 +237,14 @@ bool ExcelData::LoadColumnInfo( TiXmlElement* pColumnRowElement )
 		}
 		if ( tColumnType == COLUMN_TYPE_NONE )
 		{
-			NSLog::log( _UTF8( "文件[%s]，有无效的列名称[%s]\n" ), mTemplateFileName.getBuffer( ), tColumnText.getBuffer( ) );
+			NSLog::log( _UTF8( "文件[%s]，有无效的列名称[%s]" ), mTemplateFileName.getBuffer( ), tColumnText.getBuffer( ) );
 			return false;
 		}
 
 		TiXmlElement* tpColumnNameElement = tpInfoCellElement->FirstChildElement( "NamedCell" );
 		if ( tpColumnNameElement == NULL )
 		{
-			NSLog::log( _UTF8( "文件[%s]，列名称[%s]对应的tagID，缺失\n" ), mTemplateFileName.getBuffer( ), tColumnText.getBuffer( ) );
+			NSLog::log( _UTF8( "文件[%s]，列名称[%s]对应的tagID，缺失" ), mTemplateFileName.getBuffer( ), tColumnText.getBuffer( ) );
 			return false;
 		}
 
@@ -263,7 +263,7 @@ bool ExcelData::LoadColumnInfo( TiXmlElement* pColumnRowElement )
 
 		if ( tHasAnotherTag == true )
 		{
-			NSLog::log( _UTF8( "文件[%s]，列名称[%s]有两个与之对应的tagID，请检查\n" ), mTemplateFileName.getBuffer( ), tColumnText.getBuffer( ) );
+			NSLog::log( _UTF8( "文件[%s]，列名称[%s]有两个与之对应的tagID，请检查" ), mTemplateFileName.getBuffer( ), tColumnText.getBuffer( ) );
 			return false;
 		}
 
@@ -292,7 +292,7 @@ bool ExcelData::LoadRowData( TiXmlElement* pDataRowElement )
 	size_t tCurrentRowIndex = mDatas.getCount( );
 	if ( pDataRowElement == NULL )
 	{
-		NSLog::log( _UTF8( "无效的模板文件[%s]\n" ), mTemplateFileName.getBuffer( ) );
+		NSLog::log( _UTF8( "无效的模板文件[%s]" ), mTemplateFileName.getBuffer( ) );
 		return false;
 	}
 
@@ -300,20 +300,20 @@ bool ExcelData::LoadRowData( TiXmlElement* pDataRowElement )
 	//判断数据行与行之间是否有空行，以ss:index有值或者是没有cell字段来判断行之间是否有空行
 	if ( tpPrimaryCellElement == NULL || pDataRowElement->Attribute( "ss:Index" ) != NULL )
 	{
-		NSLog::log( _UTF8( "文件[%s],第%u行是空行\n" ), mTemplateFileName.getBuffer( ), (int) tCurrentRowIndex + 2 );
+		NSLog::log( _UTF8( "文件[%s],第%u行是空行" ), mTemplateFileName.getBuffer( ), (int) tCurrentRowIndex + 2 );
 		return false;
 	}
 
 	/// 判断当前行主键格是否是空
 	if ( tpPrimaryCellElement->Attribute( "ss:Index" ) != NULL )
 	{
-		NSLog::log( _UTF8( "文件[%s]，第%u行，主键列是空值\n" ), mTemplateFileName.getBuffer( ), (int) tCurrentRowIndex + 2 );
+		NSLog::log( _UTF8( "文件[%s]，第%u行，主键列是空值" ), mTemplateFileName.getBuffer( ), (int) tCurrentRowIndex + 2 );
 		return false;
 	}
 	TiXmlElement* tpDataElement = tpPrimaryCellElement->FirstChildElement( "Data" );
 	if ( tpDataElement == NULL )
 	{
-		NSLog::log( _UTF8( "文件[%s]，第%u行，数据错误\n" ), mTemplateFileName.getBuffer( ), (int) tCurrentRowIndex + 2 );
+		NSLog::log( _UTF8( "文件[%s]，第%u行，数据错误" ), mTemplateFileName.getBuffer( ), (int) tCurrentRowIndex + 2 );
 		return false;
 	}
 
@@ -335,7 +335,7 @@ bool ExcelData::LoadRowData( TiXmlElement* pDataRowElement )
 		}
 		else
 		{
-			NSLog::log( _UTF8( "文件[%s]，第%u行，主键列仅支持在主键数值之后加入作废标记\n" ), mTemplateFileName.getBuffer( ), (int) tCurrentRowIndex + 2 );
+			NSLog::log( _UTF8( "文件[%s]，第%u行，主键列仅支持在主键数值之后加入作废标记" ), mTemplateFileName.getBuffer( ), (int) tCurrentRowIndex + 2 );
 			return false;
 		}
 	}
@@ -387,7 +387,7 @@ bool ExcelData::LoadColumnDataValidation( TiXmlElement* pValidateElement )
 
 	if ( pValidateElement == NULL )
 	{
-		NSLog::log( _UTF8( "无效的模板文件[%s]\n" ), mTemplateFileName.getBuffer( ) );
+		NSLog::log( _UTF8( "无效的模板文件[%s]" ), mTemplateFileName.getBuffer( ) );
 		return false;
 	}
 
@@ -395,7 +395,7 @@ bool ExcelData::LoadColumnDataValidation( TiXmlElement* pValidateElement )
 	TiXmlElement* tpRangeElement = pValidateElement->FirstChildElement( "Range" );
 	if ( tpRangeElement == NULL )
 	{
-		NSLog::log( _UTF8( "无效的模板文件[%s]\n" ), mTemplateFileName.getBuffer( ) );
+		NSLog::log( _UTF8( "无效的模板文件[%s]" ), mTemplateFileName.getBuffer( ) );
 		return false;
 	}
 
@@ -403,7 +403,7 @@ bool ExcelData::LoadColumnDataValidation( TiXmlElement* pValidateElement )
 	CNSVector<size_t> tEffectedColumns;
 	if ( GetSameValidateList( tpRangeValue, tEffectedColumns ) == false )
 	{
-		NSLog::log( _UTF8( "文件[%s],读取数据有效性时出错\n" ), mTemplateFileName.getBuffer( ) );
+		NSLog::log( _UTF8( "文件[%s],读取数据有效性时出错" ), mTemplateFileName.getBuffer( ) );
 		return false;
 	}
 
@@ -411,7 +411,7 @@ bool ExcelData::LoadColumnDataValidation( TiXmlElement* pValidateElement )
 	TiXmlElement* tpTypeElement = pValidateElement->FirstChildElement( "Type" );
 	if ( tpTypeElement == NULL )
 	{
-		NSLog::log( _UTF8( "无效的模板文件[%s]\n" ), mTemplateFileName.getBuffer( ) );
+		NSLog::log( _UTF8( "无效的模板文件[%s]" ), mTemplateFileName.getBuffer( ) );
 		return false;
 	}
 
@@ -436,7 +436,7 @@ bool ExcelData::CheckUpIsKeyContinuous( )
 	{
 		if ( ( i + 1 ) != mDatas[ i ]->mPrimaryKey )
 		{
-			NSLog::log( _UTF8( "文件[%s]，主键非连续或者主键没有从默认1起始，请检查主键[%u]处\n" ), mTemplateFileName.getBuffer( ), (int) i );
+			NSLog::log( _UTF8( "文件[%s]，主键非连续或者主键没有从默认1起始，请检查主键[%u]处" ), mTemplateFileName.getBuffer( ), (int) i );
 			return false;
 		}
 	}
@@ -448,13 +448,13 @@ bool ExcelData::CheckUpDataCountValidity( )
 {
 	if ( mDatas.getCount( ) == 0 )
 	{
-		NSLog::log( _UTF8( "文件[%s]，没有数据\n" ), mTemplateFileName.getBuffer( ) );
+		NSLog::log( _UTF8( "文件[%s]，没有数据" ), mTemplateFileName.getBuffer( ) );
 		return false;
 	}
 
 	if ( mColumnInfos.getCount( ) == 0 )
 	{
-		NSLog::log( _UTF8( "文件[%s]，没有有效列\n" ), mTemplateFileName.getBuffer( ) );
+		NSLog::log( _UTF8( "文件[%s]，没有有效列" ), mTemplateFileName.getBuffer( ) );
 		return false;
 	}
 
@@ -465,7 +465,7 @@ bool ExcelData::CheckUpDataCountValidity( )
 	{
 		if ( mDatas[ i ]->mColumns.getCount( ) != tFirstRowDataColumnCount || mDatas[ i ]->mColumns.getCount( ) != tColumnCount )
 		{
-			NSLog::log( _UTF8( "文件[%s]，数据无效\n" ), mTemplateFileName.getBuffer( ) );
+			NSLog::log( _UTF8( "文件[%s]，数据无效" ), mTemplateFileName.getBuffer( ) );
 			return false;
 		}
 	}
@@ -479,7 +479,7 @@ bool ExcelData::CheckUpDataValidity( )
 	{
 		if ( mColumnInfos[ i ]->mDataType == DATA_TYPE_INVALID )
 		{
-			NSLog::log( _UTF8( "文件[%s]，数据有效性出错，请检查[%u]列，名称框为[%s]\n" ), mTemplateFileName.getBuffer( ), (int) i + 2, mColumnInfos[ i ]->mText.getBuffer( ) );
+			NSLog::log( _UTF8( "文件[%s]，数据有效性出错，请检查[%u]列，名称框为[%s]" ), mTemplateFileName.getBuffer( ), (int) i + 2, mColumnInfos[ i ]->mText.getBuffer( ) );
 			return false;
 		}
 	}
@@ -532,7 +532,7 @@ bool ExcelData::GetSameValidateList( const char* pValidationString, CNSVector<si
 				tColumns.copy( tSingleColumnString, -1, tColumnNumberPos + 1 );
 				int tSingleColumnInt = atoi( tSingleColumnString.getBuffer( ) ) - 2;
 				if ( tSingleColumnInt == -1 )
-					NSLog::log( _UTF8( "警告：文件[%s],主键列设置了数据有效性，现已忽略。\n" ), mTemplateFileName.getBuffer( ) );
+					NSLog::log( _UTF8( "警告：文件[%s],主键列设置了数据有效性，现已忽略。" ), mTemplateFileName.getBuffer( ) );
 				else
 					rColumnList.pushback( (size_t) tSingleColumnInt );
 			}
@@ -561,20 +561,20 @@ bool ExcelData::GetSameValidateList( const char* pValidationString, CNSVector<si
 
 				if ( tBeginRowNumberPos != -1 )
 				{
-					NSLog::log( _UTF8( "文件[%s],第%u列数据有效性设置错误，请整列一起设置数据有效性\n" ), mTemplateFileName.getBuffer( ), tBeginColumnInt + 2 );
+					NSLog::log( _UTF8( "文件[%s],第%u列数据有效性设置错误，请整列一起设置数据有效性" ), mTemplateFileName.getBuffer( ), tBeginColumnInt + 2 );
 					return false;
 				}
 
 				if ( tEndRowNumberPos != -1 )
 				{
-					NSLog::log( _UTF8( "文件[%s],第%u列数据有效性设置错误，请整列一起设置数据有效性\n" ), mTemplateFileName.getBuffer( ), tEndColumnInt + 2 );
+					NSLog::log( _UTF8( "文件[%s],第%u列数据有效性设置错误，请整列一起设置数据有效性" ), mTemplateFileName.getBuffer( ), tEndColumnInt + 2 );
 					return false;
 				}
 
 				for ( int i = tBeginColumnInt; i <= tEndColumnInt; i ++ )
 				{
 					if ( i == -1 )
-						NSLog::log( _UTF8( "警告：文件[%s],主键列设置了数据有效性，现已忽略。\n" ), mTemplateFileName.getBuffer( ) );
+						NSLog::log( _UTF8( "警告：文件[%s],主键列设置了数据有效性，现已忽略" ), mTemplateFileName.getBuffer( ) );
 					else
 						rColumnList.pushback( (size_t) i );
 				}
@@ -631,10 +631,10 @@ bool PPExcelParser::AddFiles( CNSVector< CNSString >& vInputFiles )
 	{
 		CNSString& tfileName = vInputFiles[ i ];
 		ExcelData* tpExcelData = new ExcelData;
-		NSLog::log( _UTF8( "开始加载文件[%s]\n" ), tfileName.getBuffer( ) );
+		NSLog::log( _UTF8( "开始加载文件[%s]" ), tfileName.getBuffer( ) );
 		if ( tpExcelData->LoadDataFromXmlFile( tfileName ) == false )
 		{
-			NSLog::log( _UTF8( "读取xml文件失败[%s]\n" ), tfileName.getBuffer( ) );
+			NSLog::log( _UTF8( "读取xml文件失败[%s]" ), tfileName.getBuffer( ) );
 			return false;
 		}
 
@@ -646,40 +646,35 @@ bool PPExcelParser::AddFiles( CNSVector< CNSString >& vInputFiles )
 
 void PPExcelParser::FormatServerData( )
 {
-	mServerData << EDataType::TYPE_TABLE;
+	mServerData << (char) EDataType::TYPE_TABLE;
 
 	/// 写模板数量
-	mServerData << EDataType::TYPE_STRING;
-	mServerData << "tempInfo";
-	mServerData << EDataType::TYPE_TABLE;
+	mServerData << (char) EDataType::TYPE_STRING;
+	mServerData << CNSString( "tempInfo" );
+	mServerData << (char) EDataType::TYPE_TABLE;
 	for ( size_t i = 0; i < mFileDatas.getCount( ); i ++ )
 	{
 		ExcelData* tpTemplateFile = mFileDatas[ i ];
 
 		/// 写入模板名称
-		mServerData << EDataType::TYPE_STRING;
+		mServerData << (char) EDataType::TYPE_STRING;
 		mServerData << tpTemplateFile->GetTemplateName( );
-		mServerData << EDataType::TYPE_INT;
-		mServerData << (int) i;
+		mServerData << (char) EDataType::TYPE_FLOAT;
+		mServerData << (float) i + 1;
 	}
-	mServerData << (int) 0;
+	mServerData << (char) 0;
 
-	mServerData << EDataType::TYPE_STRING;
-	mServerData << "fieldInfo";
-	mServerData << EDataType::TYPE_TABLE;
+	mServerData << (char) EDataType::TYPE_STRING;
+	mServerData << CNSString( "fieldInfo" );
+	mServerData << (char) EDataType::TYPE_TABLE;
 	for ( size_t i = 0; i < mFileDatas.getCount( ); i ++ )
 	{
 		ExcelData* tpTemplateFile = mFileDatas[ i ];
 
 		CNSVector<ColumnInfo*>& tServerColumnList = tpTemplateFile->GetServerColumnsInfo( );
-		//		CNSVector<RowData*>& tDataList = tpTemplateFile->GetDatas( );
-
-				/// 仅仅写入服务器需求的字段数量
-				//mServerData << tServerColumnList.getCount( );
-
-		mServerData << EDataType::TYPE_INT;
-		mServerData << (int) i;
-		mServerData << EDataType::TYPE_TABLE;
+		mServerData << (char) EDataType::TYPE_FLOAT;
+		mServerData << (float) i + 1;
+		mServerData << (char) EDataType::TYPE_TABLE;
 		/// 写入字段名称字段类型
 		for ( size_t i = 0; i < tServerColumnList.getCount( ); i ++ )
 		{
@@ -687,62 +682,62 @@ void PPExcelParser::FormatServerData( )
 			EType tFieldType = tServerColumnList[ i ]->mDataType;
 
 			/// 字段名称
-			mServerData << EDataType::TYPE_STRING;
+			mServerData << (char) EDataType::TYPE_STRING;
 			mServerData << tFieldName;
-			mServerData << EDataType::TYPE_INT;
-			mServerData << (int) i;
+			mServerData << (char) EDataType::TYPE_FLOAT;
+			mServerData << (float) i + 1;
 		}
-		mServerData << (int) 0;
+		mServerData << (char) 0;
 	}
-	mServerData << (int) 0;
+	mServerData << (char) 0;
 
-	mServerData << EDataType::TYPE_STRING;
-	mServerData << "data";
-	mServerData << EDataType::TYPE_TABLE;
+	mServerData << (char) EDataType::TYPE_STRING;
+	mServerData << CNSString( "data" );
+	mServerData << (char) EDataType::TYPE_TABLE;
 	for ( size_t i = 0; i < mFileDatas.getCount( ); i ++ )
 	{
 		ExcelData* tpTemplateFile = mFileDatas[ i ];
 
 		CNSVector<ColumnInfo*>& tServerColumnList = tpTemplateFile->GetServerColumnsInfo( );
 		CNSVector<RowData*>& tDataList = tpTemplateFile->GetDatas( );
-		mServerData << EDataType::TYPE_INT;
-		mServerData << (int) i;
-		mServerData << EDataType::TYPE_TABLE;
+		mServerData << (char) EDataType::TYPE_FLOAT;
+		mServerData << (float) i + 1;
+		mServerData << (char) EDataType::TYPE_TABLE;
 		for ( size_t i = 0; i < tDataList.getCount( ); i ++ )
 		{
 			/// 此记录不使用 则不写入
 			if ( tDataList[ i ]->mIsUsed == false )
 				continue;
 
-			mServerData << EDataType::TYPE_INT;
-			mServerData << tDataList[ i ]->mPrimaryKey;
-			mServerData << EDataType::TYPE_TABLE;
+			mServerData << (char) EDataType::TYPE_FLOAT;
+			mServerData << (float) tDataList[ i ]->mPrimaryKey;
+			mServerData << (char) EDataType::TYPE_TABLE;
 			/// 字段值
 			for ( size_t j = 0; j < tServerColumnList.getCount( ); j ++ )
 			{
-				mServerData << EDataType::TYPE_UINT;
-				mServerData << (int) j;
+				mServerData << (char) EDataType::TYPE_FLOAT;
+				mServerData << (float) j + 1;
 				ColumnInfo* tpColumnInfo = tServerColumnList[ j ];
 				CNSString& tColumnData = tDataList[ i ]->mColumns[ tpColumnInfo->mIndex ];
 
 				if ( tpColumnInfo->mDataType == DATA_TYPE_FLOAT )	/// float
 				{
 					float tFloatValue = (float) atof( tColumnData.getBuffer( ) );
-					mServerData << EDataType::TYPE_FLOAT;
+					mServerData << (char) EDataType::TYPE_FLOAT;
 					mServerData << tFloatValue;
 				}
 				else   /// string
 				{
-					mServerData << EDataType::TYPE_STRING;
+					mServerData << (char) EDataType::TYPE_STRING;
 					mServerData << tColumnData;
 				}
 			}
-			mServerData << (int) 0;
+			mServerData << (char) 0;
 		}
-		mServerData << (int) 0;
+		mServerData << (char) 0;
 	}
-	mServerData << (int) 0;
-	mServerData << (int) 0;
+	mServerData << (char) 0;
+	mServerData << (char) 0;
 }
 
 void PPExcelParser::FormatClientData( )

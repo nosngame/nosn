@@ -1067,11 +1067,13 @@ namespace NSBase
 					}
 					else if ( dataType == (char) TYPE_FLOAT )
 					{
-						stream >> (float) value;
+						float floatValue;
+						stream >> floatValue;
 
-						int fpc = _fpclass( value );
+						int fpc = _fpclass( floatValue );
 						if ( fpc != _FPCLASS_NN && fpc != _FPCLASS_PN && fpc != _FPCLASS_PZ && fpc != _FPCLASS_NZ )
 							NSException( _UTF8( "函数[pushStreamTable]发生异常, 非法浮点数" ) );
+						value = floatValue;
 					}
 					else if ( dataType == (char) TYPE_USHORT )
 					{

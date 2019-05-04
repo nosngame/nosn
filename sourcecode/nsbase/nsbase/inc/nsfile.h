@@ -40,6 +40,8 @@ namespace NSBase
 		void close( );
 		bool isEnd( ) const;
 		int length( ) const;
+		void readAllBytes( const CNSOctets& value ) const;
+		void writeAllBytes( const CNSOctets value, bool widthBOM = false );
 		const CNSString& getFileName( ) const
 		{
 			return mFileName;

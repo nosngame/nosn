@@ -61,7 +61,7 @@ namespace NSBase
 			NSException( errorDesc );
 		}
 
-		mpFile = fopen( mFileName.getBuffer( ), "rb+" );
+		mpFile = fopen( CNSString::convertUtf8ToMbcs( mFileName ).getBuffer( ), "rb+" );
 		if ( mpFile == NULL )
 		{
 			static CNSString errorDesc;
@@ -147,6 +147,61 @@ namespace NSBase
 			mNeedRefresh = false;
 		}
 		return mLength;
+	}
+
+	void CNSFile::readAllBytes( const CNSOctets& value ) const
+	{
+		if ( mpFile == NULL )
+		{
+			static CNSString errorDesc;
+			errorDesc.format( _UTF8( "文件[%s]已经关闭" ), mFileName.getBuffer( ) );
+			NSException( errorDesc );
+		}
+
+		int len = length( );
+		NSFunction::removeConst( value ).resize( len );
+		if ( fread( NSFunction::removeConst( value ).begin( ), sizeof( char ), len, mpFile ) != len )
+		{
+			static CNSString errorDesc;
+			errorDesc.format( _UTF8( "crt函数[fread]文件[%s]读取失败, 错误码 - %d" ), mFileName.getBuffer( ), errno );
+			NSException( errorDesc );
+		}
+
+		unsigned int header = 0;
+		NSFunction::memcpy_fast( &header, value.begin( ), 3 );
+		if ( header == UTF8_BOM )
+		{
+			char* begin = (char*) NSFunction::removeConst( value ).begin( );
+			NSFunction::removeConst( value ).erase( begin, begin + 3 );
+		}
+	}
+
+	void CNSFile::writeAllBytes( const CNSOctets value, bool widthBOM )
+	{
+		if ( mpFile == NULL )
+		{
+			static CNSString errorDesc;
+			errorDesc.format( _UTF8( "文件[%s]已经关闭" ), mFileName.getBuffer( ) );
+			NSException( errorDesc );
+		}
+
+		if ( widthBOM == true )
+		{
+			unsigned int header = UTF8_BOM;
+			if ( fwrite( &header, 1, 3, mpFile ) != 3 )
+			{
+				static CNSString errorDesc;
+				errorDesc.format( _UTF8( "crt函数[fwrite]文件[%s]读取失败, 错误码 - %d" ), mFileName.getBuffer( ), errno );
+				NSException( errorDesc );
+			}
+		}
+
+		if ( fwrite( value.begin( ), sizeof( char ), value.length( ), mpFile ) != value.length( ) )
+		{
+			static CNSString errorDesc;
+			errorDesc.format( _UTF8( "crt函数[fread]文件[%s]读取失败, 错误码 - %d" ), mFileName.getBuffer( ), errno );
+			NSException( errorDesc );
+		}
 	}
 
 	void CNSFile::clear( )
@@ -518,7 +573,7 @@ namespace NSBase
 		}
 		DECLARE_END_PROTECTED
 	}
-
+	
 	static int write( lua_State* lua )
 	{
 		DECLARE_BEGIN_PROTECTED

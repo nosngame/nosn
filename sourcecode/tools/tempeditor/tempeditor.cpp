@@ -48,20 +48,17 @@ int convert( lua_State* lua )
 	}
 
 	CNSOctetsStream server = excelParser->GetServerBuffer( );
-	CNSOctets outputServer = server.mBuffer.compress( );
-
 	CNSOctetsStream client = excelParser->GetClientBuffer( );
-	CNSOctets outputClient = client.mBuffer.compress( );
 	CNSString serverOPath = CNSString( serverPath ) + "/server.dat";
 	CNSFile fileServer;
 	fileServer.createNew( serverOPath );
-	fileServer << outputServer;
+	fileServer.writeAllBytes( server );
 	fileServer.close( );
 
 	CNSString clientOPath = CNSString( clientPath ) + "/client.dat";
 	CNSFile fileClient;
 	fileClient.createNew( clientOPath );
-	fileClient << outputClient;
+	fileClient.writeAllBytes( client );
 	fileClient.close( );
 	NSLog::log( _UTF8( "格式化文件完成" ) );
 	DECLARE_END_PROTECTED

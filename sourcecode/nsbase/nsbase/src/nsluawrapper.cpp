@@ -231,31 +231,12 @@ namespace NSBase
 
 	bool CNSLuaStack::openScriptFromFile( const CNSString& fileName, const CNSString& chunkName )
 	{
-		FILE* tpFile = fopen( fileName.getBuffer( ), "rb" );
-		if ( tpFile == NULL )
-		{
-			static CNSString errorDesc;
-			errorDesc.format( _UTF8( "文件[%s]打开错误，错误码: %d" ), fileName.getBuffer( ), errno );
-			NSException( errorDesc );
-		}
-
-		fseek( tpFile, 0, SEEK_END );
-		int tFileSize = (int) ftell( tpFile );
-		fseek( tpFile, 0, SEEK_SET );
-		CNSOctets buffer( tFileSize, tFileSize );
-		fread( buffer.begin( ), 1, tFileSize, tpFile );
-		fclose( tpFile );
-
-		unsigned int header = 0;
-		NSFunction::memcpy_fast( &header, buffer.begin( ), 3 );
-		if ( header != UTF8_BOM )
-		{
-			static CNSString errorDesc;
-			errorDesc.format( _UTF8( "文件[%s]不是utf8格式" ), fileName.getBuffer( ) );
-			NSException( errorDesc );
-		}
-
-		return openScriptFromMemory( chunkName, (char*) buffer.begin( ) + 3, buffer.length( ) - 3 );
+		CNSFile file;
+		file.openExist( fileName );
+		
+		const CNSOctets buffer;
+		file.readAllBytes( buffer );
+		return openScriptFromMemory( chunkName, (const char*) buffer.begin( ), buffer.length( ) );
 	}
 
 	void* CNSLuaStack::luaAlloc( void* userdata, void* ptr, size_t oldSize, size_t newSize )
@@ -332,6 +313,7 @@ namespace NSBase
 		bool findVar = false;
 		lua_Debug ar;
 		unsigned int level = 0;
+
 		if ( lua_getstack( mpLuaState, level ++, &ar ) == 0 )
 			return 0;
 
@@ -364,13 +346,10 @@ namespace NSBase
 
 			lua_pop( mpLuaState, 1 );
 		}
+		lua_pop( mpLuaState, 1 );
 
 		// 查找全局变量
-		CNSString luaCode = CNSString( "_debugVar = " ) + varName;
-		if ( luaL_dostring( mpLuaState, luaCode.getBuffer( ) ) != 0 )
-			return 0;
-
-		lua_getglobal( mpLuaState, "_debugVar" );
+		lua_getglobal( mpLuaState, varName.getBuffer( ) );
 		int index = lua_gettop( mpLuaState );
 		if ( lua_isnil( mpLuaState, index ) == 0 )
 		{
@@ -588,7 +567,7 @@ namespace NSBase
 			top = stackIndex;
 		}
 
-		for ( int index = 1; index <= top; index ++ )
+		for ( ; index <= top; index ++ )
 		{
 			int type = lua_type( mpLuaState, index );
 			if ( type == LUA_TNUMBER )

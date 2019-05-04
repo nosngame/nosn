@@ -6,17 +6,17 @@ namespace NSBase
 	unsigned int CNSCallCounter::mTickCounter[ 8 ] = { 0 };
 	CNSCallCounter::CNSCallCounter( int index, unsigned int duration, const char* name )
 	{
-		if (mTickCounter[ index ] == 0)
+		if ( mTickCounter[ index ] == 0 )
 			mTickCounter[ index ] = CNSTimer::getCurTick( );
 
 		mCounter[ index ] ++;
 		unsigned int thisTick = CNSTimer::getCurTick( );
-		if (thisTick - mTickCounter[ index ] >= duration)
+		if ( thisTick - mTickCounter[ index ] >= duration )
 		{
 			time_t curTime = time( NULL );
 			tm* tpTime = ::localtime( &curTime );
 			printf( "[%d-%d-%d %d:%d:%d]%s - %1.2f / sec\n", 1900 + tpTime->tm_year, tpTime->tm_mon + 1, tpTime->tm_mday,
-					tpTime->tm_hour, tpTime->tm_min, tpTime->tm_sec, name, 1000 * mCounter[ index ] / (float)duration );
+					tpTime->tm_hour, tpTime->tm_min, tpTime->tm_sec, name, 1000 * mCounter[ index ] / (float) duration );
 			mTickCounter[ index ] += duration;
 			mCounter[ index ] = 0;
 		}
@@ -31,7 +31,7 @@ namespace NSBase
 	{
 		// 返回的uniLen包含了0結束
 		int uniLen = MultiByteToWideChar( CP_ACP, 0, mbcs, -1, NULL, 0 );
-		if (uniLen == -1)
+		if ( uniLen == -1 )
 		{
 			static CNSString error( "mbcs -> unicode error" );
 			return error;
@@ -43,8 +43,8 @@ namespace NSBase
 		uniBuffer.length( ) = uniLen << 1;
 
 		// 0結束也被转换了
-		MultiByteToWideChar( CP_ACP, 0, mbcs, -1, (LPWSTR)uniBuffer.begin( ), uniLen );
-		return CNSString::convertUni16ToUtf8( (wchar_t*)uniBuffer.begin( ), uniLen - 1 );
+		MultiByteToWideChar( CP_ACP, 0, mbcs, -1, (LPWSTR) uniBuffer.begin( ), uniLen );
+		return CNSString::convertUni16ToUtf8( (wchar_t*) uniBuffer.begin( ), uniLen - 1 );
 	}
 
 	CNSString CNSString::convertUtf8ToMbcs( const CNSString& text )
@@ -63,11 +63,11 @@ namespace NSBase
 		static CNSOctets uniBuffer;
 		uniBuffer.reserve( uniByteLen );
 		uniBuffer.length( ) = uniByteLen;
-		CNSString::_convertUtf8ToUni16( utf8, utf8Len, (unsigned short*)uniBuffer.begin( ) );
+		CNSString::_convertUtf8ToUni16( utf8, utf8Len, (unsigned short*) uniBuffer.begin( ) );
 
 		// mbcsLen包含了0结束
-		int mbcsLen = WideCharToMultiByte( CP_ACP, 0, (LPCWCH)uniBuffer.begin( ), uniLen, 0, 0, 0, 0 );
-		if (mbcsLen == -1)
+		int mbcsLen = WideCharToMultiByte( CP_ACP, 0, (LPCWCH) uniBuffer.begin( ), uniLen, 0, 0, 0, 0 );
+		if ( mbcsLen == -1 )
 		{
 			static CNSString error( "unicode -> mbcs error" );
 			return error;
@@ -76,11 +76,11 @@ namespace NSBase
 		static CNSOctets mbcsBuffer;
 		mbcsBuffer.reserve( mbcsLen );
 		mbcsBuffer.length( ) = mbcsLen;
-		WideCharToMultiByte( CP_ACP, 0, (wchar_t*)uniBuffer.begin( ), uniLen, (char*)mbcsBuffer.begin( ), mbcsLen, NULL, NULL );
+		WideCharToMultiByte( CP_ACP, 0, (wchar_t*) uniBuffer.begin( ), uniLen, (char*) mbcsBuffer.begin( ), mbcsLen, NULL, NULL );
 
 		static CNSString value;
 		value.clear( );
-		value.pushback( (char*)mbcsBuffer.begin( ), mbcsLen - 1 );
+		value.pushback( (char*) mbcsBuffer.begin( ), mbcsLen - 1 );
 		return value;
 	}
 
@@ -101,7 +101,7 @@ namespace NSBase
 		static CNSOctets uniBuffer;
 		uniBuffer.reserve( uniByteLen );
 		uniBuffer.length( ) = uniByteLen;
-		CNSString::_convertUtf8ToUni16( text, utf8Len, (unsigned short*)uniBuffer.begin( ) );
+		CNSString::_convertUtf8ToUni16( text, utf8Len, (unsigned short*) uniBuffer.begin( ) );
 		return uniBuffer;
 	}
 
@@ -109,9 +109,9 @@ namespace NSBase
 	{
 		static CNSOctets uniBuffer;
 		size_t len = strlen( text );
-		if (end == -1)
+		if ( end == -1 )
 		{
-			if (len == 0)
+			if ( len == 0 )
 			{
 				uniBuffer.clear( );
 				unsigned short null = 0;
@@ -122,7 +122,7 @@ namespace NSBase
 			end = len - 1;
 		}
 
-		if (start >= len || end >= len)
+		if ( start >= len || end >= len )
 		{
 			uniBuffer.clear( );
 			unsigned short null = 0;
@@ -132,13 +132,13 @@ namespace NSBase
 
 		size_t utf8Len = end - start + 1;
 		// unicode16的字节长度，uniByteLen包含了0结束
-		int uniByteLen = CNSString::_convertUtf8ToUni16( (char*)text + start, utf8Len, NULL );
+		int uniByteLen = CNSString::_convertUtf8ToUni16( (char*) text + start, utf8Len, NULL );
 
 		// unicode16的字符长度
 		int uniLen = uniByteLen >> 1;
 		uniBuffer.reserve( uniByteLen );
 		uniBuffer.length( ) = uniByteLen;
-		CNSString::_convertUtf8ToUni16( text + start, utf8Len, (unsigned short*)uniBuffer.begin( ) );
+		CNSString::_convertUtf8ToUni16( text + start, utf8Len, (unsigned short*) uniBuffer.begin( ) );
 		return uniBuffer;
 	}
 
@@ -177,7 +177,7 @@ namespace NSBase
 		tCharBuffer = CNSString::convertUtf8ToMbcs( text, start, end );
 #endif
 
-		return (TCHAR*)tCharBuffer.begin( );
+		return (TCHAR*) tCharBuffer.begin( );
 	}
 #endif
 }
