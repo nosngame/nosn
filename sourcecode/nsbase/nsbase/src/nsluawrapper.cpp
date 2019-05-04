@@ -870,11 +870,11 @@ namespace NSBase
 		}
 	}
 
-	void CNSLuaStack::regLib( const CNSString& libName, const luaL_Reg* lib )
+	void CNSLuaStack::regLib( const char* libName, const luaL_Reg* lib )
 	{
 		lua_createtable( mpLuaState, 0, (int) ( sizeof( lib ) / sizeof( ( lib )[ 0 ] ) - 1 ) );
 		luaL_setfuncs( mpLuaState, lib, 0 );
-		lua_setglobal( mpLuaState, libName.getBuffer( ) );
+		lua_setglobal( mpLuaState, libName );
 	}
 
 	void CNSLuaStack::onError( const CNSString& errorText )

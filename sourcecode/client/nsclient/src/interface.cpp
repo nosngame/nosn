@@ -19,10 +19,7 @@ namespace NSClient
 	void regLuaLib( )
 	{
 		NSBase::CNSLuaStack& luaStack = NSBase::CNSLuaStack::getLuaStack( );
-		lua_State* lua = luaStack.getLuaState( );
-
-		luaL_newlib( lua, NSClient::Nosn );
-		lua_setglobal( lua, "NSClient" );
+		luaStack.regLib( "NSClient", NSClient::Nosn );
 
 		luaStack.newTable( );
 		luaStack.pushField( "LOGIN_SUCCESS", NSClientProto::CProtocolLoginResult::LOGIN_SUCCESS );

@@ -14,12 +14,23 @@ END_EXPORT
 int convert( lua_State* lua )
 {
 	DECLARE_BEGIN_PROTECTED
+	static CNSMap< CNSString, CNSString > path;
+	luaStack >> path;
 	static CNSString inputPath;
 	static CNSString serverPath;
 	static CNSString clientPath;
-	luaStack >> inputPath;
-	luaStack >> serverPath;
-	luaStack >> clientPath;
+	HMAPINDEX findIndex = path.findNode( "mInputPath" );
+	if ( findIndex != NULL )
+		inputPath = path.getValueEx( findIndex );
+
+	findIndex = path.findNode( "mOServerPath" );
+	if ( findIndex != NULL )
+		serverPath = path.getValueEx( findIndex );
+
+	findIndex = path.findNode( "mOClientPath" );
+	if ( findIndex != NULL )
+		clientPath = path.getValueEx( findIndex );
+
 	FileConfig* fileConfig = FileConfig::GetSingleton( );
 	fileConfig->LoadChildFiles( inputPath );
 
@@ -58,6 +69,8 @@ int convert( lua_State* lua )
 
 void CTempApp::registerLua( )
 {
+	NSBase::CNSLuaStack& luaStack = NSBase::CNSLuaStack::getLuaStack( );
+	luaStack.regLib( "TempEditor", TempEditor );
 }
 
 void CTempApp::onInitApp( )

@@ -179,8 +179,8 @@ namespace NSBase
 		void enumStack( int index, FEnumProc proc, void* userdata );
 		void load( const CNSString& workPath );
 		void load( const CNSString& workPath, const CNSVector< CNSString > modList );
-		void regLib( const CNSString& libName, const luaL_Reg* lib );
 		int queryVar( const CNSString& name, int& index );
+		void regLib( const char* libName, const luaL_Reg* lib );
 
 		int getArgCount( ) const
 		{
@@ -191,17 +191,14 @@ namespace NSBase
 		bool call( T& ret )
 		{
 			int argCount = getArgCount( );
-			int index = lua_gettop( mpLuaState ) - argCount;
-			if ( lua_isfunction( mpLuaState, index ) == 0 )
+			int funcIndex = lua_gettop( mpLuaState ) - argCount;
+			if ( lua_isfunction( mpLuaState, funcIndex ) == 0 )
 				NSException( "call之前没有调用preCall" );
 
-			lua_pushcfunction( mpLuaState, traceBack );
-			// 把traceBack放在位置index
-			lua_insert( mpLuaState, index );
-			int luaError = lua_pcall( mpLuaState, argCount, 1, index );
+			int luaError = lua_pcall( mpLuaState, argCount, 1, funcIndex - 1 );
 			if ( luaError != 0 )
 			{
-				lua_remove( mpLuaState, index );
+				lua_pop( mpLuaState, 1 );
 				static CNSString errorDesc;
 				errorDesc = mErrorEntry;
 				errorOutput( luaError, errorDesc );
@@ -209,34 +206,31 @@ namespace NSBase
 			}
 
 			//traceBack在位置index，返回值在位置index + 1
-			mPopIndex = index;
+			mPopIndex = funcIndex - 1;
 			*this >> ret;
 
-			lua_pop( mpLuaState, 1 );
-			lua_remove( mpLuaState, index );
+			lua_pop( mpLuaState, 2 );
 			return true;
 		}
 
 		bool call( )
 		{
 			int argCount = getArgCount( );
-			int index = lua_gettop( mpLuaState ) - argCount;
-			if ( lua_isfunction( mpLuaState, index ) == 0 )
+			int funcIndex = lua_gettop( mpLuaState ) - argCount;
+			if ( lua_isfunction( mpLuaState, funcIndex ) == 0 )
 				NSException( "call之前没有调用preCall" );
 
-			lua_pushcfunction( mpLuaState, traceBack );
-			lua_insert( mpLuaState, index );
-			int luaError = lua_pcall( mpLuaState, argCount, 0, index );
+			int luaError = lua_pcall( mpLuaState, argCount, 0, funcIndex - 1 );
 			if ( luaError != 0 )
 			{
-				lua_remove( mpLuaState, index );
+				lua_pop( mpLuaState, 1 );
 				static CNSString errorDesc;
 				errorDesc = mErrorEntry;
 				errorOutput( luaError, errorDesc );
 				return false;
 			}
 
-			lua_remove( mpLuaState, index );
+			lua_pop( mpLuaState, 1 );
 			return true;
 		}
 
@@ -244,6 +238,7 @@ namespace NSBase
 		void preCall( const CNSLuaFunction& func )
 		{
 			mPushIndex = 0;
+			lua_pushcfunction( mpLuaState, traceBack );
 			lua_rawgeti( mpLuaState, LUA_REGISTRYINDEX, func.mLuaRef );
 			mErrorEntry = _UTF8( "点燃函数: REGISTER ref" );
 		}
@@ -252,6 +247,7 @@ namespace NSBase
 		void preCall( const char* funcName )
 		{
 			mPushIndex = 0;
+			lua_pushcfunction( mpLuaState, traceBack );
 			lua_getglobal( mpLuaState, funcName );
 			mErrorEntry.format( _UTF8( "点燃函数: %s" ), funcName );
 		}
@@ -600,9 +596,7 @@ namespace NSBase
 			while ( lua_next( mpLuaState, mPopIndex ) != 0 )
 			{
 				int oldIndex = mPopIndex;
-				mPopIndex = -2;
 				*this >> index;
-				mPopIndex = -1;
 				*this >> value;
 				mPopIndex = oldIndex;
 
@@ -616,7 +610,7 @@ namespace NSBase
 		template< typename T > const CNSLuaStack& operator >> ( const CNSList< T >& list ) const
 		{
 			mPopIndex ++;
-			int key = 0;
+			int index = 0;
 			T value;
 			NSFunction::removeConst( list ).clear( );
 			// nil 入栈作为初始 key 
@@ -624,9 +618,7 @@ namespace NSBase
 			while ( lua_next( mpLuaState, mPopIndex ) != 0 )
 			{
 				int oldIndex = mPopIndex;
-				mPopIndex = -2;
-				*this >> key;
-				mPopIndex = -1;
+				*this >> index;
 				*this >> value;
 				mPopIndex = oldIndex;
 
@@ -648,9 +640,7 @@ namespace NSBase
 			while ( lua_next( mpLuaState, mPopIndex ) != 0 )
 			{
 				int oldIndex = mPopIndex;
-				mPopIndex = -2;
-				*this >> value;
-				mPopIndex = -1;
+				*this >> key;
 				*this >> value;
 				mPopIndex = oldIndex;
 
@@ -672,9 +662,7 @@ namespace NSBase
 			while ( lua_next( mpLuaState, mPopIndex ) != 0 )
 			{
 				int oldIndex = mPopIndex;
-				mPopIndex = -2;
 				*this >> key;
-				mPopIndex = -1;
 				*this >> value;
 				mPopIndex = oldIndex;
 
@@ -696,13 +684,11 @@ namespace NSBase
 			while ( lua_next( mpLuaState, mPopIndex ) != 0 )
 			{
 				int oldIndex = mPopIndex;
-				mPopIndex = -2;
-				*this >> value;
-				mPopIndex = -1;
+				*this >> key;
 				*this >> value;
 				mPopIndex = oldIndex;
 
-				NSFunction::removeConst( hashMap ).insert( key );
+				NSFunction::removeConst( hashMap ).insert( key, value );
 				lua_pop( mpLuaState, 1 );
 			}
 

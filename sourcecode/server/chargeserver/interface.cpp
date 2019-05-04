@@ -18,10 +18,7 @@ namespace ChargeServer
 	void regLuaLib( )
 	{
 		NSBase::CNSLuaStack& luaStack = NSBase::CNSLuaStack::getLuaStack( );
-		lua_State* lua = luaStack.getLuaState( );
-
-		luaL_newlib( lua, ChargeServer::Nosn );
-		lua_setglobal( lua, "NSCharge" );
+		luaStack.regLib( "NSCharge", ChargeServer::Nosn );
 		NSLog::log( _UTF8( "注册lua函数成功" ) );
 	}
 

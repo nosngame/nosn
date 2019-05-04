@@ -25,10 +25,7 @@ namespace OperServer
 	void regLuaLib( )
 	{
 		NSBase::CNSLuaStack& luaStack = NSBase::CNSLuaStack::getLuaStack( );
-		lua_State* lua = luaStack.getLuaState( );
-
-		luaL_newlib( lua, OperServer::Nosn );
-		lua_setglobal( lua, "NSOper" );
+		luaStack.regLib( "NSOper", OperServer::Nosn );
 
 		luaStack.newTable( );
 		luaStack.pushField( "LOGIN_SUCCESS", NSClientProto::CProtocolLoginResult::LOGIN_SUCCESS );

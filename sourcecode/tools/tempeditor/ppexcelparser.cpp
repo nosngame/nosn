@@ -647,25 +647,39 @@ bool PPExcelParser::AddFiles( CNSVector< CNSString >& vInputFiles )
 void PPExcelParser::FormatServerData( )
 {
 	mServerData << EDataType::TYPE_TABLE;
-	/// 写模板数量
-	mServerData << mFileDatas.getCount( );
 
+	/// 写模板数量
+	mServerData << EDataType::TYPE_STRING;
+	mServerData << "tempInfo";
+	mServerData << EDataType::TYPE_TABLE;
 	for ( size_t i = 0; i < mFileDatas.getCount( ); i ++ )
 	{
 		ExcelData* tpTemplateFile = mFileDatas[ i ];
 
 		/// 写入模板名称
+		mServerData << EDataType::TYPE_STRING;
 		mServerData << tpTemplateFile->GetTemplateName( );
+		mServerData << EDataType::TYPE_INT;
+		mServerData << (int) i;
+	}
+	mServerData << (int) 0;
 
-		/// 写入记录数量
-		mServerData << tpTemplateFile->GetUsedDataCount( );
+	mServerData << EDataType::TYPE_STRING;
+	mServerData << "fieldInfo";
+	mServerData << EDataType::TYPE_TABLE;
+	for ( size_t i = 0; i < mFileDatas.getCount( ); i ++ )
+	{
+		ExcelData* tpTemplateFile = mFileDatas[ i ];
 
 		CNSVector<ColumnInfo*>& tServerColumnList = tpTemplateFile->GetServerColumnsInfo( );
-		CNSVector<RowData*>& tDataList = tpTemplateFile->GetDatas( );
+		//		CNSVector<RowData*>& tDataList = tpTemplateFile->GetDatas( );
 
-		/// 仅仅写入服务器需求的字段数量
-		mServerData << tServerColumnList.getCount( );
+				/// 仅仅写入服务器需求的字段数量
+				//mServerData << tServerColumnList.getCount( );
 
+		mServerData << EDataType::TYPE_INT;
+		mServerData << (int) i;
+		mServerData << EDataType::TYPE_TABLE;
 		/// 写入字段名称字段类型
 		for ( size_t i = 0; i < tServerColumnList.getCount( ); i ++ )
 		{
@@ -673,101 +687,125 @@ void PPExcelParser::FormatServerData( )
 			EType tFieldType = tServerColumnList[ i ]->mDataType;
 
 			/// 字段名称
+			mServerData << EDataType::TYPE_STRING;
 			mServerData << tFieldName;
-			/// 字段类型
-			mServerData << (unsigned int) tFieldType;
+			mServerData << EDataType::TYPE_INT;
+			mServerData << (int) i;
 		}
+		mServerData << (int) 0;
+	}
+	mServerData << (int) 0;
 
+	mServerData << EDataType::TYPE_STRING;
+	mServerData << "data";
+	mServerData << EDataType::TYPE_TABLE;
+	for ( size_t i = 0; i < mFileDatas.getCount( ); i ++ )
+	{
+		ExcelData* tpTemplateFile = mFileDatas[ i ];
+
+		CNSVector<ColumnInfo*>& tServerColumnList = tpTemplateFile->GetServerColumnsInfo( );
+		CNSVector<RowData*>& tDataList = tpTemplateFile->GetDatas( );
+		mServerData << EDataType::TYPE_INT;
+		mServerData << (int) i;
+		mServerData << EDataType::TYPE_TABLE;
 		for ( size_t i = 0; i < tDataList.getCount( ); i ++ )
 		{
 			/// 此记录不使用 则不写入
 			if ( tDataList[ i ]->mIsUsed == false )
 				continue;
 
-			/// 模板ID
+			mServerData << EDataType::TYPE_INT;
 			mServerData << tDataList[ i ]->mPrimaryKey;
-
+			mServerData << EDataType::TYPE_TABLE;
 			/// 字段值
 			for ( size_t j = 0; j < tServerColumnList.getCount( ); j ++ )
 			{
+				mServerData << EDataType::TYPE_UINT;
+				mServerData << (int) j;
 				ColumnInfo* tpColumnInfo = tServerColumnList[ j ];
 				CNSString& tColumnData = tDataList[ i ]->mColumns[ tpColumnInfo->mIndex ];
 
 				if ( tpColumnInfo->mDataType == DATA_TYPE_FLOAT )	/// float
 				{
 					float tFloatValue = (float) atof( tColumnData.getBuffer( ) );
+					mServerData << EDataType::TYPE_FLOAT;
 					mServerData << tFloatValue;
 				}
 				else   /// string
 				{
+					mServerData << EDataType::TYPE_STRING;
 					mServerData << tColumnData;
 				}
 			}
+			mServerData << (int) 0;
 		}
+		mServerData << (int) 0;
 	}
+	mServerData << (int) 0;
+	mServerData << (int) 0;
 }
 
 void PPExcelParser::FormatClientData( )
 {
 	/// 写模板数量
-	mClientData << mFileDatas.getCount( );
+	//mClientData << mFileDatas.getCount( );
 
-	for ( size_t i = 0; i < mFileDatas.getCount( ); i ++ )
-	{
-		ExcelData* tpTemplateFile = mFileDatas[ i ];
+	//for ( size_t i = 0; i < mFileDatas.getCount( ); i ++ )
+	//{
+	//	ExcelData* tpTemplateFile = mFileDatas[ i ];
 
-		/// 写入模板名称
-		mClientData << tpTemplateFile->GetTemplateName( );
+	//	/// 写入模板名称
+	//	mClientData << tpTemplateFile->GetTemplateName( );
 
-		/// 写入记录数量
-		///PushData2Client((size_t)tpTemplateFile->GetDatas( ).size( ) );
-		mClientData << tpTemplateFile->GetUsedDataCount( );
+	//	/// 写入记录数量
+	//	///PushData2Client((size_t)tpTemplateFile->GetDatas( ).size( ) );
+	//	mClientData << tpTemplateFile->GetUsedDataCount( );
 
-		CNSVector<ColumnInfo*>& tClientColumnList = tpTemplateFile->GetClientColumnsInfo( );
-		CNSVector<RowData*>& tDataList = tpTemplateFile->GetDatas( );
+	//	CNSVector<ColumnInfo*>& tClientColumnList = tpTemplateFile->GetClientColumnsInfo( );
+	//	CNSVector<RowData*>& tDataList = tpTemplateFile->GetDatas( );
 
-		/// 仅仅写入服务器需求的字段数量
-		mClientData << tClientColumnList.getCount( );
+	//	/// 仅仅写入服务器需求的字段数量
+	//	mClientData << tClientColumnList.getCount( );
 
-		/// 写入字段名称字段类型
-		for ( size_t i = 0; i < tClientColumnList.getCount( ); i ++ )
-		{
-			CNSString& tFieldName = tClientColumnList[ i ]->mName;
-			EType tFieldType = tClientColumnList[ i ]->mDataType;
+	//	/// 写入字段名称字段类型
+	//	for ( size_t i = 0; i < tClientColumnList.getCount( ); i ++ )
+	//	{
+	//		CNSString& tFieldName = tClientColumnList[ i ]->mName;
+	//		EType tFieldType = tClientColumnList[ i ]->mDataType;
 
-			/// 字段名称
-			mClientData << tFieldName;
-			/// 字段类型
-			mClientData << (unsigned int) tFieldType;
-		}
+	//		/// 字段名称
+	//		mClientData << tFieldName;
+	//		/// 字段类型
+	//		mClientData << (unsigned int) tFieldType;
+	//	}
 
-		for ( size_t i = 0; i < tDataList.getCount( ); i ++ )
-		{
-			/// 此记录不使用 则不写入
-			if ( tDataList[ i ]->mIsUsed == false )
-				continue;
+	//	for ( size_t i = 0; i < tDataList.getCount( ); i ++ )
+	//	{
+	//		/// 此记录不使用 则不写入
+	//		if ( tDataList[ i ]->mIsUsed == false )
+	//			continue;
 
-			/// 模板ID
-			mClientData << tDataList[ i ]->mPrimaryKey;
+	//		/// 模板ID
+	//		mClientData << tDataList[ i ]->mPrimaryKey;
 
-			/// 字段值
-			for ( size_t j = 0; j < tClientColumnList.getCount( ); j ++ )
-			{
-				ColumnInfo* tpColumnInfo = tClientColumnList[ j ];
-				CNSString& tColumnData = tDataList[ i ]->mColumns[ tpColumnInfo->mIndex ];
+	//		/// 字段值
+	//		for ( size_t j = 0; j < tClientColumnList.getCount( ); j ++ )
+	//		{
+	//			ColumnInfo* tpColumnInfo = tClientColumnList[ j ];
+	//			CNSString& tColumnData = tDataList[ i ]->mColumns[ tpColumnInfo->mIndex ];
 
-				if ( tpColumnInfo->mDataType == DATA_TYPE_FLOAT )	/// float
-				{
-					float tFloatValue = (float) atof( tColumnData.getBuffer( ) );
-					mClientData << tFloatValue;
-				}
-				else   /// string
-				{
-					mClientData << tColumnData;
-				}
-			}
-		}
-	}
+	//			if ( tpColumnInfo->mDataType == DATA_TYPE_FLOAT )	/// float
+	//			{
+	//				float tFloatValue = (float) atof( tColumnData.getBuffer( ) );
+	//				mClientData << tFloatValue;
+	//			}
+	//			else   /// string
+	//			{
+	//				mClientData << tColumnData;
+	//			}
+	//		}
+	//	}
+	//}
 }
 
 

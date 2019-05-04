@@ -29,10 +29,7 @@ namespace LogicServer
 	void regLuaLib( )
 	{
 		NSBase::CNSLuaStack& luaStack = NSBase::CNSLuaStack::getLuaStack( );
-		lua_State* lua = luaStack.getLuaState( );
-
-		luaL_newlib( lua, LogicServer::Nosn );
-		lua_setglobal( lua, "NSLogic" );
+		luaStack.regLib( "NSLogic", LogicServer::Nosn );
 		NSLog::log( _UTF8( "注册lua函数成功" ) );
 	}
 	
