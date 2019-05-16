@@ -38,6 +38,9 @@
     <ClInclude Include="inc\nsinterface.h">
       <Filter>nsclient\inc</Filter>
     </ClInclude>
+    <ClInclude Include="src\uiproxy.h">
+      <Filter>nsclient\inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\server\common\protocol.cpp">
@@ -53,6 +56,9 @@
       <Filter>nsclient\src</Filter>
     </ClCompile>
     <ClCompile Include="src\dllmain.cpp">
+      <Filter>nsclient\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\uiproxy.cpp">
       <Filter>nsclient\src</Filter>
     </ClCompile>
   </ItemGroup>

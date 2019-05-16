@@ -11,11 +11,12 @@ BEGIN_EXPORT( TempEditor )
 	EXPORT_FUNC( convert )
 END_EXPORT
 
-int convert( lua_State* lua )
+static int convert( lua_State* lua )
 {
 	DECLARE_BEGIN_PROTECTED
 	static CNSMap< CNSString, CNSString > path;
 	luaStack >> path;
+
 	static CNSString inputPath;
 	static CNSString serverPath;
 	static CNSString clientPath;

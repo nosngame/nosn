@@ -37,7 +37,7 @@ namespace NSWin32
 		luaStack >> window;
 		luaStack >> func;
 		if ( func.isValid( ) == false )
-			NSException( _UTF8( "Lua函数[setBNClickedEvent]参数2 不是一个lua函数" ) )
+			NSException( _UTF8( "Lua函数[setBNClickedEvent]参数1 不是一个lua函数" ) )
 			
 		window->setLuaEventHandler( NSWin32::CNSVsBtn::EventClicked, func );
 		window->registerEvent( NSWin32::CNSVsBtn::EventClicked, onNSLuaBNClicked );

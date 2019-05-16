@@ -1,12 +1,16 @@
 #include "precomplie.h"
-#include "nsinterface.h"
 
 namespace NSClient
 {
 	CNSVector< CNSClient* > CNSClient::sNSClient;
 	CNSString CNSClient::sAuthName;
 	NSClient::CNSPlugin* app = NULL;
+	FUILoadLayout gUILoadProc = NULL;
+	FUIDestroy gUIDestroyProc = NULL;
 	FHostErrorProc gHostErrorProc = NULL;
+	FUIGetValue gUIGetValue = NULL;
+	FUISetValue gUISetValue = NULL;
+
 	void NSPluginLogHandler( const CNSString& text )
 	{
 #ifdef PLATFORM_WIN32
@@ -209,6 +213,7 @@ namespace NSClient
 		CNSLocal::getNSLocal( ).setLang( "ch" );
 		// 注册脚本函数
 		NSClient::regLuaLib( );
+		NSProxy::regLuaLib( );
 
 		// 加载脚本
 		NSBase::CNSLuaStack& luaStack = NSBase::CNSLuaStack::getLuaStack( );

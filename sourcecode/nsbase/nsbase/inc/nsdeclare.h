@@ -161,7 +161,6 @@ namespace NSBase
 		TYPE_BOOLEAN,		// 布尔型
 		TYPE_STRING,		// 字符串型
 		TYPE_TABLE,			// 表类型
-		TYPE_USERDATA,		// 用户数据
 		TYPE_NONE,
 	};
 

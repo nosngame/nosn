@@ -2,6 +2,7 @@
 
 namespace NSBase
 {
+	// 需要序列化到文件的类，从这里派生
 	class CNSFileMarshal
 	{
 	public:
@@ -47,7 +48,6 @@ namespace NSBase
 			return mFileName;
 		}
 
-		void clear( );
 		void seekBegin( );
 		void seekEnd( );
 		void seek( int offset );

@@ -385,12 +385,6 @@ namespace NSBase
 		lua_newtable( mpLuaState );
 	}
 
-	void CNSLuaStack::pushTableField( const char* name, int index )
-	{
-		lua_pushstring( mpLuaState, name );
-		lua_getfield( mpLuaState, index, name );
-	}
-
 	void CNSLuaStack::setFieldTable( )
 	{
 		lua_settable( mpLuaState, -3 );
@@ -660,24 +654,28 @@ namespace NSBase
 
 	CNSLuaStack& CNSLuaStack::fromState( lua_State* lua )
 	{
-		bool enableDebug = CNSLuaStack::getLuaStack( ).mEnableDebug;
-		static CNSLuaStack luaStack( enableDebug );
-		luaStack.mpLuaState = lua;
-		luaStack.mFromState = true;
-		luaStack.mPopIndex = 0;
-		luaStack.mPushIndex = 0;
-		luaStack.mErrorEntry = "";
-		luaStack.mTranPos = 0;
-		return luaStack;
+		CNSLuaStack& luaStack = CNSLuaStack::getLuaStack( );
+		static CNSLuaStack newStack( luaStack.mEnableDebug );
+		newStack.mpLuaState = lua;
+		newStack.mFromState = true;
+		newStack.mPopIndex = 0;
+		newStack.mPushIndex = 0;
+		newStack.mErrorEntry = "";
+		newStack.mTranPos = 0;
+		return newStack;
 	}
 
 	CNSLuaStack CNSLuaStack::fromStateThread( lua_State* lua )
 	{
-		bool enableDebug = CNSLuaStack::getLuaStack( ).mEnableDebug;
-		CNSLuaStack luaStack( enableDebug );
-		luaStack.mpLuaState = lua;
-		luaStack.mFromState = true;
-		return luaStack;
+		CNSLuaStack& luaStack = CNSLuaStack::getLuaStack( );
+		CNSLuaStack newStack( luaStack.mEnableDebug );
+		newStack.mpLuaState = lua;
+		newStack.mFromState = true;
+		newStack.mPopIndex = 0;
+		newStack.mPushIndex = 0;
+		newStack.mErrorEntry = "";
+		newStack.mTranPos = 0;
+		return newStack;
 	}
 
 	void CNSLuaStack::init( bool enableDebug )

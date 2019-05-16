@@ -108,5 +108,12 @@ namespace NSClient
 		virtual void onIdle( );
 	};
 #endif
+
+	extern FUILoadLayout gUILoadProc;
+	extern FUIDestroy gUIDestroyProc;
+	extern FHostErrorProc gHostErrorProc;
+	extern FUIGetValue gUIGetValue;
+	extern FUISetValue gUISetValue;
+
 }
 

@@ -75,6 +75,11 @@ namespace NSBase
 				*objRef = NULL;
 			}
 		}
+
+	public:
+		virtual ~CNSLuaWeakRef( )
+		{
+		}
 	};
 
 	template< typename T >
@@ -177,7 +182,6 @@ namespace NSBase
 		void setGlobalTable( const char* tableName );
 		void newTableField( double index );
 		void newTableField( const char* name );
-		void pushTableField( const char* name, int index = -2 );
 		void setFieldTable( );
 		// stackIndex 等于-1表示枚举整个栈，否者枚举指定索引的栈位置
 		void enumStack( int index, FEnumProc proc, void* userdata );
@@ -185,7 +189,14 @@ namespace NSBase
 		void load( const CNSString& workPath, const CNSVector< CNSString > modList );
 		int queryVar( const CNSString& name, int& index );
 		void regLib( const char* libName, const luaL_Reg* lib );
-
+		void setIndexFunc( lua_CFunction func )
+		{
+			mIndexFunc = func;
+		}
+		void setNewIndexFunc( lua_CFunction func )
+		{
+			mNewIndexFunc = func;
+		}
 		int getArgCount( ) const
 		{
 			return mPushIndex;
@@ -194,8 +205,9 @@ namespace NSBase
 		template< typename T >
 		bool call( T& ret )
 		{
+			int curStack = lua_gettop( mpLuaState );
 			int argCount = getArgCount( );
-			int funcIndex = lua_gettop( mpLuaState ) - argCount;
+			int funcIndex = curStack - argCount;
 			if ( lua_isfunction( mpLuaState, funcIndex ) == 0 )
 				NSException( "call之前没有调用preCall" );
 
@@ -219,15 +231,23 @@ namespace NSBase
 			// 1 错误处理函数
 			// 2 返回值
 			lua_pop( mpLuaState, 2 );
+			// curStack是压入 调用函数 错误处理函数 参数 之后的栈，但是lua返回之后
+			// 函数对象出栈了
+			// 错误处理函数在上一句出栈了
+			// 参数会自动出栈
+			if ( lua_gettop( mpLuaState ) != curStack - 2 - argCount )
+				NSException( _UTF8( "lua栈发生泄露" ) );
+
 			return true;
 		}
 
 		bool call( )
 		{
+			int curStack = lua_gettop( mpLuaState );
 			int argCount = getArgCount( );
-			int funcIndex = lua_gettop( mpLuaState ) - argCount;
+			int funcIndex = curStack - argCount;
 			if ( lua_isfunction( mpLuaState, funcIndex ) == 0 )
-				NSException( "call之前没有调用preCall" );
+				NSException( _UTF8( "call之前没有调用preCall" ) );
 
 			int luaError = lua_pcall( mpLuaState, argCount, 0, funcIndex - 1 );
 			if ( luaError != 0 )
@@ -245,6 +265,13 @@ namespace NSBase
 			// stack
 			// 1 错误处理函数
 			lua_pop( mpLuaState, 1 );
+			// curStack是压入 调用函数 错误处理函数 参数 之后的栈，但是lua返回之后
+			// 函数对象出栈了
+			// 错误处理函数在上一句出栈了
+			// 参数会自动出栈
+			if ( lua_gettop( mpLuaState ) != curStack - 2 - argCount )
+				NSException( _UTF8( "lua栈发生泄露" ) );
+
 			return true;
 		}
 
@@ -252,9 +279,6 @@ namespace NSBase
 		void preCall( const CNSLuaFunction& func )
 		{
 			mPushIndex = 0;
-			if ( lua_gettop( mpLuaState ) > 0 )
-				NSException( "lua栈发生泄露" );
-
 			lua_pushcfunction( mpLuaState, traceBack );
 			lua_rawgeti( mpLuaState, LUA_REGISTRYINDEX, func.mLuaRef );
 			mErrorEntry.format( _UTF8( "点燃函数: %s 参数: %d" ), func.mFuncName.getBuffer( ), func.mPopIndex );
@@ -264,9 +288,6 @@ namespace NSBase
 		void preCall( const char* funcName )
 		{
 			mPushIndex = 0;
-			if ( lua_gettop( mpLuaState ) > 0 )
-				NSException( "lua栈发生泄露" );
-
 			lua_pushcfunction( mpLuaState, traceBack );
 			lua_getglobal( mpLuaState, funcName );
 			mErrorEntry.format( _UTF8( "点燃函数: %s" ), funcName );
@@ -289,6 +310,7 @@ namespace NSBase
 				NSFunction::removeConst( func ).mLuaRef = luaL_ref( mpLuaState, LUA_REGISTRYINDEX );
 				NSFunction::removeConst( func ).mPopIndex = mPopIndex;
 			}
+
 			return *this;
 		}
 
@@ -901,6 +923,8 @@ namespace NSBase
 		CNSLuaStack& operator << ( const CNSFile& file );
 
 	protected:
+		lua_CFunction mIndexFunc = NULL;
+		lua_CFunction mNewIndexFunc = NULL;
 		template< typename T >
 		void pushStreamData( const T& stream )
 		{
@@ -927,6 +951,30 @@ namespace NSBase
 					NSException( _UTF8( "函数[pushStreamData]发生异常, 非法浮点数" ) );
 
 				lua_pushnumber( mpLuaState, value );
+			}
+			else if ( dataType == TYPE_UINT64 )
+			{
+				unsigned long long ullValue = 0;
+				stream >> ullValue;
+				lua_pushnumber( mpLuaState, (double) ullValue );
+			}
+			else if ( dataType == TYPE_INT64 )
+			{
+				long long llValue = 0;
+				stream >> llValue;
+				lua_pushnumber( mpLuaState, (double) llValue );
+			}
+			else if ( dataType == TYPE_UINT )
+			{
+				unsigned int uintValue = 0;
+				stream >> uintValue;
+				lua_pushnumber( mpLuaState, uintValue );
+			}
+			else if ( dataType == TYPE_INT )
+			{
+				int intValue = 0;
+				stream >> intValue;
+				lua_pushnumber( mpLuaState, intValue );
 			}
 			else if ( dataType == TYPE_USHORT )
 			{
@@ -994,6 +1042,30 @@ namespace NSBase
 					if ( fpc != _FPCLASS_NN && fpc != _FPCLASS_PN && fpc != _FPCLASS_PZ && fpc != _FPCLASS_NZ )
 						NSException( _UTF8( "函数[pushStreamTable]发生异常, 非法浮点数" ) );
 					numberKey = floatKey;
+				}
+				else if ( keyType == (char) TYPE_UINT64 )
+				{
+					unsigned long long ullKey;
+					stream >> ullKey;
+					numberKey = (double) ullKey;
+				}
+				else if ( keyType == (char) TYPE_INT64 )
+				{
+					long long llKey;
+					stream >> llKey;
+					numberKey = (double) llKey;
+				}
+				else if ( keyType == (char) TYPE_UINT )
+				{
+					unsigned int uintKey;
+					stream >> uintKey;
+					numberKey = uintKey;
+				}
+				else if ( keyType == (char) TYPE_INT )
+				{
+					int intKey;
+					stream >> intKey;
+					numberKey = intKey;
 				}
 				else if ( keyType == (char) TYPE_USHORT )
 				{
@@ -1074,6 +1146,30 @@ namespace NSBase
 						if ( fpc != _FPCLASS_NN && fpc != _FPCLASS_PN && fpc != _FPCLASS_PZ && fpc != _FPCLASS_NZ )
 							NSException( _UTF8( "函数[pushStreamTable]发生异常, 非法浮点数" ) );
 						value = floatValue;
+					}
+					else if ( dataType == (char) TYPE_UINT64 )
+					{
+						unsigned long long ullValue;
+						stream >> ullValue;
+						value = (double) ullValue;
+					}
+					else if ( dataType == (char) TYPE_INT64 )
+					{
+						long long llValue;
+						stream >> llValue;
+						value = (double) llValue;
+					}
+					else if ( dataType == (char) TYPE_UINT )
+					{
+						unsigned int uintValue;
+						stream >> uintValue;
+						value = uintValue;
+					}
+					else if ( dataType == (char) TYPE_INT )
+					{
+						int intValue;
+						stream >> intValue;
+						value = intValue;
 					}
 					else if ( dataType == (char) TYPE_USHORT )
 					{
@@ -1297,8 +1393,20 @@ namespace NSBase
 				luaL_setfuncs( mpLuaState, reg[ i ], 0 );
 
 			lua_pushliteral( mpLuaState, "__index" );
-			lua_pushvalue( mpLuaState, metaIndex );
+			if ( mIndexFunc == NULL )
+				lua_pushvalue( mpLuaState, metaIndex );
+			else
+				lua_pushcfunction( mpLuaState, mIndexFunc );
 			lua_settable( mpLuaState, metaIndex );
+			mIndexFunc = NULL;
+
+			if ( mNewIndexFunc != NULL )
+			{
+				lua_pushliteral( mpLuaState, "__newindex" );
+				lua_pushcfunction( mpLuaState, mNewIndexFunc );
+				lua_settable( mpLuaState, metaIndex );
+				mNewIndexFunc = NULL;
+			}
 
 			lua_pushliteral( mpLuaState, "__gc" );
 			lua_pushcfunction( mpLuaState, gcNSWeakRef );
@@ -1335,11 +1443,24 @@ namespace NSBase
 			luaL_newmetatable( mpLuaState, metaName );
 			int metaIndex = lua_gettop( mpLuaState );
 
-			luaL_setfuncs( mpLuaState, reg, 0 );
+			if ( reg != NULL )
+				luaL_setfuncs( mpLuaState, reg, 0 );
 
 			lua_pushliteral( mpLuaState, "__index" );
-			lua_pushvalue( mpLuaState, metaIndex );
+			if ( mIndexFunc == NULL )
+				lua_pushvalue( mpLuaState, metaIndex );
+			else
+				lua_pushcfunction( mpLuaState, mIndexFunc );
 			lua_settable( mpLuaState, metaIndex );
+			mIndexFunc = NULL;
+
+			if ( mNewIndexFunc != NULL )
+			{
+				lua_pushliteral( mpLuaState, "__newindex" );
+				lua_pushcfunction( mpLuaState, mNewIndexFunc );
+				lua_settable( mpLuaState, metaIndex );
+				mNewIndexFunc = NULL;
+			}
 
 			lua_pushliteral( mpLuaState, "__gc" );
 			lua_pushcfunction( mpLuaState, gcNSObject );

@@ -204,13 +204,6 @@ namespace NSBase
 		}
 	}
 
-	void CNSFile::clear( )
-	{
-		fclose( mpFile );
-		mpFile = NULL;
-		createNew( mFileName );
-	}
-
 	template< typename T > T CNSFile::popBytes( ) const
 	{
 		if ( mpFile == NULL )
@@ -514,7 +507,9 @@ namespace NSBase
 	static int openExist( lua_State* lua )
 	{
 		DECLARE_BEGIN_PROTECTED
-		const char* filename = luaL_checkstring( lua, 1 );
+		static CNSString filename;
+		luaStack >> filename;
+
 		CNSFile* file = new CNSFile( );
 		luaStack << file;
 		file->openExist( filename );
@@ -524,7 +519,9 @@ namespace NSBase
 	static int openAlways( lua_State* lua )
 	{
 		DECLARE_BEGIN_PROTECTED
-		const char* filename = luaL_checkstring( lua, 1 );
+		static CNSString filename;
+		luaStack >> filename;
+
 		CNSFile* file = new CNSFile( );
 		luaStack << file;
 		file->openAlways( filename );
@@ -534,7 +531,9 @@ namespace NSBase
 	static int createNew( lua_State* lua )
 	{
 		DECLARE_BEGIN_PROTECTED
-		const char* filename = luaL_checkstring( lua, 1 );
+		static CNSString filename;
+		luaStack >> filename;
+
 		CNSFile* file = new CNSFile( );
 		luaStack << file;
 		file->createNew( filename );

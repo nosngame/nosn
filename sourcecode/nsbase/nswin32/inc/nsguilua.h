@@ -198,6 +198,8 @@ namespace NSWin32
 		luaStack >> title;
 		luaStack >> parent;
 		luaStack >> func;
+		if ( func.isValid( ) == false )
+			NSException( _UTF8( "Lua函数[fileDialog]参数6 不是一个lua函数" ) );
 
 		NSWin32::CVsFileDialog* fileDlg = NSWin32::CNSWindow::newDialog< NSWin32::CVsFileDialog >( windowID, style, rc, parent, true );
 		fileDlg->setText( title );
