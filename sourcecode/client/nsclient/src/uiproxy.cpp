@@ -90,7 +90,9 @@ namespace NSProxy
 
 		int dataType = EDataType::TYPE_NONE;
 		void* buf = NULL;
-		NSClient::gUIGetValue( proxyComp->mProxyObject->mInstanceID, proxyComp->mCompName, fieldName, buf, dataType );
+		if ( NSClient::gUIGetValue( proxyComp->mProxyObject->mInstanceID, proxyComp->mCompName, fieldName, buf, dataType ) == false )
+			NSException( NSClient::gUIGetLastError( ) );
+
 		if ( dataType == EDataType::TYPE_BOOLEAN )
 			luaStack << *(bool*) buf;
 		else if ( dataType == EDataType::TYPE_CHAR )
@@ -135,19 +137,22 @@ namespace NSProxy
 		{
 			double value;
 			luaStack >> value;
-			NSClient::gUISetValue( proxyComp->mProxyObject->mInstanceID, proxyComp->mCompName, fieldName, &value, EDataType::TYPE_DOUBLE );
+			if ( NSClient::gUISetValue( proxyComp->mProxyObject->mInstanceID, proxyComp->mCompName, fieldName, &value, EDataType::TYPE_DOUBLE ) == false )
+				NSException( NSClient::gUIGetLastError( ) );
 		}
 		else if ( type == LUA_TBOOLEAN )
 		{
 			bool value;
 			luaStack >> value;
-			NSClient::gUISetValue( proxyComp->mProxyObject->mInstanceID, proxyComp->mCompName, fieldName, &value, EDataType::TYPE_BOOLEAN );
+			if ( NSClient::gUISetValue( proxyComp->mProxyObject->mInstanceID, proxyComp->mCompName, fieldName, &value, EDataType::TYPE_BOOLEAN ) == false )
+				NSException( NSClient::gUIGetLastError( ) );
 		}
 		else if ( type == LUA_TSTRING )
 		{
 			static CNSString value;
 			luaStack >> value;
-			NSClient::gUISetValue( proxyComp->mProxyObject->mInstanceID, proxyComp->mCompName, fieldName, (char*) value.getBuffer( ), EDataType::TYPE_STRING );
+			if ( NSClient::gUISetValue( proxyComp->mProxyObject->mInstanceID, proxyComp->mCompName, fieldName, (char*) value.getBuffer( ), EDataType::TYPE_STRING ) == false )
+				NSException( NSClient::gUIGetLastError( ) );
 		}
 		else if ( type == LUA_TFUNCTION )
 		{
@@ -157,7 +162,8 @@ namespace NSProxy
 				NSException( _UTF8( "Lua函数[proxySetField]参数3 不是一个lua函数" ) )
 
 			proxyComp->onEventFunc = func;
-			NSClient::gUISetValue( proxyComp->mProxyObject->mInstanceID, proxyComp->mCompName, fieldName, &func.mLuaRef, EDataType::TYPE_DOUBLE );
+			if ( NSClient::gUISetValue( proxyComp->mProxyObject->mInstanceID, proxyComp->mCompName, fieldName, NULL, EDataType::TYPE_NONE ) == false )
+				NSException( NSClient::gUIGetLastError( ) );
 		}
 		DECLARE_END_PROTECTED
 	}
@@ -252,6 +258,11 @@ void nsSetUISetProc( FUISetValue setProc )
 void nsSetUIGetProc( FUIGetValue getProc )
 {
 	NSClient::gUIGetValue = getProc;
+}
+
+void nsSetUIGetLastError( FUIGetLastError lastErrorProc )
+{
+	NSClient::gUIGetLastError = lastErrorProc;
 }
 
 void nsUIFireEvent( int instanceID, const char* compName )

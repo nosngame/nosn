@@ -10,6 +10,7 @@ namespace NSClient
 	FHostErrorProc gHostErrorProc = NULL;
 	FUIGetValue gUIGetValue = NULL;
 	FUISetValue gUISetValue = NULL;
+	FUIGetLastError gUIGetLastError = NULL;
 
 	void NSPluginLogHandler( const CNSString& text )
 	{

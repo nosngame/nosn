@@ -114,6 +114,6 @@ namespace NSClient
 	extern FHostErrorProc gHostErrorProc;
 	extern FUIGetValue gUIGetValue;
 	extern FUISetValue gUISetValue;
-
+	extern 	FUIGetLastError gUIGetLastError;
 }
 

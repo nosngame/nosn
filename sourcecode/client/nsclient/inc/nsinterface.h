@@ -2,8 +2,9 @@
 typedef void( __stdcall *FHostErrorProc )( const char* text, int level );
 typedef void( __stdcall *FUILoadLayout )( const char* uiFile );
 typedef void( __stdcall *FUIDestroy )( int instanceID );
-typedef void( __stdcall *FUIGetValue )( int instanceID, const char* compName, const char* fieldName, void*& buffer, int& dataType );
-typedef void( __stdcall *FUISetValue )( int instanceID, const char* compName, const char* fieldName, void* buffer, int dataType );
+typedef bool( __stdcall *FUIGetValue )( int instanceID, const char* compName, const char* fieldName, void*& buffer, int& dataType );
+typedef bool( __stdcall *FUISetValue )( int instanceID, const char* compName, const char* fieldName, void* buffer, int dataType );
+typedef const char*( __stdcall *FUIGetLastError )( );
 
 // 初始化NSClient
 extern "C" _declspec( dllexport ) bool nsClientInit( const char* authName, FHostErrorProc proc, bool enableDebug );
@@ -23,6 +24,8 @@ extern "C" _declspec( dllexport ) void nsCreateUIProxy( int instanceID, const ch
 extern "C" _declspec( dllexport ) void nsSetUIGetProc( FUIGetValue loadProc );
 // 设置ui组件字段写函数
 extern "C" _declspec( dllexport ) void nsSetUISetProc( FUISetValue loadProc );
+// 设置ui组件字段写函数
+extern "C" _declspec( dllexport ) void nsSetUIGetLastError( FUIGetLastError loadProc );
 // UI事件回调函数
 extern "C" _declspec( dllexport ) void nsUIFireEvent( int instanceID, const char* compName );
 
