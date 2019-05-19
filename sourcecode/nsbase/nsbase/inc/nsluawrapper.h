@@ -296,6 +296,7 @@ namespace NSBase
 		void clearFunc( const CNSLuaFunction& func )
 		{
 			luaL_unref( mpLuaState, LUA_REGISTRYINDEX, func.mLuaRef );
+			NSFunction::removeConst( func ).mLuaRef = -1;
 		}
 
 		CNSLuaStack& operator >> ( const CNSLuaFunction& func )
@@ -641,6 +642,7 @@ namespace NSBase
 			while ( lua_next( mpLuaState, mPopIndex ) != 0 )
 			{
 				int oldIndex = mPopIndex;
+				mPopIndex = -3;
 				*this >> index;
 				*this >> value;
 				mPopIndex = oldIndex;
@@ -663,6 +665,7 @@ namespace NSBase
 			while ( lua_next( mpLuaState, mPopIndex ) != 0 )
 			{
 				int oldIndex = mPopIndex;
+				mPopIndex = -3;
 				*this >> index;
 				*this >> value;
 				mPopIndex = oldIndex;
@@ -685,6 +688,7 @@ namespace NSBase
 			while ( lua_next( mpLuaState, mPopIndex ) != 0 )
 			{
 				int oldIndex = mPopIndex;
+				mPopIndex = -3;
 				*this >> key;
 				*this >> value;
 				mPopIndex = oldIndex;
@@ -707,6 +711,7 @@ namespace NSBase
 			while ( lua_next( mpLuaState, mPopIndex ) != 0 )
 			{
 				int oldIndex = mPopIndex;
+				mPopIndex = -3;
 				*this >> key;
 				*this >> value;
 				mPopIndex = oldIndex;
@@ -729,6 +734,7 @@ namespace NSBase
 			while ( lua_next( mpLuaState, mPopIndex ) != 0 )
 			{
 				int oldIndex = mPopIndex;
+				mPopIndex = -3;
 				*this >> key;
 				*this >> value;
 				mPopIndex = oldIndex;

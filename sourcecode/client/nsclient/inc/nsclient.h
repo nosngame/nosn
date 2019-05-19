@@ -109,11 +109,12 @@ namespace NSClient
 	};
 #endif
 
-	extern FUILoadLayout gUILoadProc;
-	extern FUIDestroy gUIDestroyProc;
+	extern FTouchProc gTouchProc;
+	extern FGoLoadProc gGoLoadProc;
+	extern FGoDestroyProc gGoDestroyProc;
 	extern FHostErrorProc gHostErrorProc;
-	extern FUIGetValue gUIGetValue;
-	extern FUISetValue gUISetValue;
-	extern 	FUIGetLastError gUIGetLastError;
+	extern FGoGetValue gGoGetValue;
+	extern FGoSetValue gGoSetValue;
+	extern FGoGetLastError gGoGetLastError;
 }
 

@@ -2,11 +2,16 @@
 
 namespace NSClient
 {
+	CNSLuaStack* gpLuaStack = NULL;
+	CNSLuaFunction mTouchProc;
 	static int createNSClient( lua_State* lua );
 	static int login( lua_State* lua );
 	static int send( lua_State* lua );
 	static int send2Oper( lua_State* lua );
 	static int getAuthName( lua_State* lua );
+	static int loadUILayout( lua_State* lua );
+	static int loadObject( lua_State* lua );
+	static int touch( lua_State* lua );
 
 	BEGIN_EXPORT( Nosn )
 		EXPORT_FUNC( createNSClient )
@@ -14,12 +19,15 @@ namespace NSClient
 		EXPORT_FUNC( send )
 		EXPORT_FUNC( send2Oper )
 		EXPORT_FUNC( getAuthName )
+		EXPORT_FUNC( loadUILayout )
+		EXPORT_FUNC( loadObject )
+		EXPORT_FUNC( touch )
 	END_EXPORT
 
 	void regLuaLib( )
 	{
 		NSBase::CNSLuaStack& luaStack = NSBase::CNSLuaStack::getLuaStack( );
-		luaStack.regLib( "NSClient", NSClient::Nosn );
+		luaStack.regLib( "Nosn", NSClient::Nosn );
 
 		luaStack.newTable( );
 		luaStack.pushField( "LOGIN_SUCCESS", NSClientProto::CProtocolLoginResult::LOGIN_SUCCESS );
@@ -107,4 +115,67 @@ namespace NSClient
 		luaStack << NSClient::CNSClient::sAuthName;
 		DECLARE_END_PROTECTED
 	}
+	static int loadUILayout( lua_State* lua )
+	{
+		DECLARE_BEGIN_PROTECTED
+		CNSString uiFile;
+		luaStack >> uiFile;
+
+		int parentID = 0;
+		luaStack >> parentID;
+
+		NSProxy::CNSGoProxy uiProxy( uiFile, parentID, 0 );
+		luaStack << uiProxy;
+		DECLARE_END_PROTECTED
+	}
+
+	static int loadObject( lua_State* lua )
+	{
+		DECLARE_BEGIN_PROTECTED
+		CNSString goFile;
+		luaStack >> goFile;
+
+		int parentID = 0;
+		luaStack >> parentID;
+
+		NSProxy::CNSGoProxy goProxy( goFile, parentID, 1 );
+		luaStack << goProxy;
+		DECLARE_END_PROTECTED
+	}
+
+	static int touch( lua_State* lua )
+	{
+		DECLARE_BEGIN_PROTECTED
+		CNSVector< CNSString > bundles;
+		luaStack >> bundles;
+
+		bool permanent = false;
+		luaStack >> permanent;
+
+		CNSLuaFunction loadFunc( __FUNCTION__ );
+		luaStack >> loadFunc;
+		if ( loadFunc.isValid( ) == false )
+			NSException( _UTF8( "函数[touch]参数2 不是一个lua函数" ) )
+
+			mTouchProc = loadFunc;
+		for ( unsigned int i = 0; i < bundles.getCount( ); i ++ )
+			NSClient::gTouchProc( bundles[ i ], permanent, false );
+
+		NSClient::gTouchProc( "", permanent, true );
+		DECLARE_END_PROTECTED
+	}
+}
+
+void nsTouchNotify( bool isDone, float progress )
+{
+	CNSLuaStack& luaStack = CNSLuaStack::getLuaStack( );
+	if ( NSClient::mTouchProc.isValid( ) == false )
+		return;
+
+	luaStack.preCall( NSClient::mTouchProc );
+	luaStack << isDone;
+	luaStack << progress;
+	luaStack.call( );
+	if ( isDone == true )
+		luaStack.clearFunc( NSClient::mTouchProc );
 }

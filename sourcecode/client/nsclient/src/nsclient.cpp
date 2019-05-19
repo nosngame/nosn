@@ -5,12 +5,13 @@ namespace NSClient
 	CNSVector< CNSClient* > CNSClient::sNSClient;
 	CNSString CNSClient::sAuthName;
 	NSClient::CNSPlugin* app = NULL;
-	FUILoadLayout gUILoadProc = NULL;
-	FUIDestroy gUIDestroyProc = NULL;
+	FTouchProc gTouchProc = NULL;
+	FGoLoadProc gGoLoadProc = NULL;
+	FGoDestroyProc gGoDestroyProc = NULL;
 	FHostErrorProc gHostErrorProc = NULL;
-	FUIGetValue gUIGetValue = NULL;
-	FUISetValue gUISetValue = NULL;
-	FUIGetLastError gUIGetLastError = NULL;
+	FGoGetValue gGoGetValue = NULL;
+	FGoSetValue gGoSetValue = NULL;
+	FGoGetLastError gGoGetLastError = NULL;
 
 	void NSPluginLogHandler( const CNSString& text )
 	{
@@ -214,7 +215,6 @@ namespace NSClient
 		CNSLocal::getNSLocal( ).setLang( "ch" );
 		// 注册脚本函数
 		NSClient::regLuaLib( );
-		NSProxy::regLuaLib( );
 
 		// 加载脚本
 		NSBase::CNSLuaStack& luaStack = NSBase::CNSLuaStack::getLuaStack( );
@@ -246,6 +246,24 @@ bool nsClientInit( const char* authName, FHostErrorProc proc, bool enableDebug )
 {
 	try
 	{
+		if ( NSClient::gTouchProc == NULL )
+			NSException( "没有设置[FTouchProc]函数" )
+			
+		if ( NSClient::gGoLoadProc == NULL )
+			NSException( "没有设置[FGoLoadProc]函数" )
+
+		if ( NSClient::gGoDestroyProc == NULL )
+			NSException( "没有设置[FGoDestroyProc]函数" )
+
+		if ( NSClient::gGoGetValue == NULL )
+			NSException( "没有设置[FGoGetValue]函数" )
+
+		if ( NSClient::gGoSetValue == NULL )
+			NSException( "没有设置[FGoSetValue]函数" )
+
+		if ( NSClient::gGoGetLastError == NULL )
+			NSException( "没有设置[FGoGetLastError]函数" )
+
 		NSClient::gHostErrorProc = proc;
 #ifdef PLATFORM_WIN32
 		if ( NSClient::app != NULL )
@@ -348,4 +366,9 @@ void nsClientShowConsole( )
 #ifdef PLATFORM_WIN32
 	NSConsole::showConsole( );
 #endif
+}
+
+void nsSetTouchProc( FTouchProc touchProc )
+{
+	NSClient::gTouchProc = touchProc;
 }

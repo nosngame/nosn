@@ -178,11 +178,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\server\common\protocol.h" />
+    <ClInclude Include="inc\goproxy.h" />
     <ClInclude Include="inc\interface.h" />
     <ClInclude Include="inc\nsclient.h" />
     <ClInclude Include="inc\nsinterface.h" />
     <ClInclude Include="inc\precomplie.h" />
-    <ClInclude Include="src\uiproxy.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\server\common\protocol.cpp">
@@ -208,6 +208,7 @@
       </PrecompiledHeaderOutputFile>
     </ClCompile>
     <ClCompile Include="src\dllmain.cpp" />
+    <ClCompile Include="src\goproxy.cpp" />
     <ClCompile Include="src\interface.cpp" />
     <ClCompile Include="src\nsclient.cpp" />
     <ClCompile Include="src\precomplie.cpp">
@@ -216,7 +217,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="src\uiproxy.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

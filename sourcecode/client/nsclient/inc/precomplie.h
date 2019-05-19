@@ -4,4 +4,4 @@
 #include "nsinterface.h"
 #include "nsclient.h"
 #include "interface.h"
-#include "uiproxy.h"
+#include "goproxy.h"
