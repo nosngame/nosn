@@ -115,6 +115,12 @@ namespace NSClient
 	extern FHostErrorProc gHostErrorProc;
 	extern FGoGetValue gGoGetValue;
 	extern FGoSetValue gGoSetValue;
+	extern FGoGetLayer gGoGetLayer;
+	extern FGoGetTag gGoGetTag;
+	extern FGoSetLayer gGoSetLayer;
+	extern FGoSetTag gGoSetTag;
+	extern FGoQueryMethod gGoQueryMethod;
+	extern FGoInvoke gGoInvoke;
 	extern FGoGetLastError gGoGetLastError;
 }
 

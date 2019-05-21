@@ -17,9 +17,49 @@ namespace NSProxy
 		return luaStack;
 	}
 
-	static int runAction( lua_State* lua )
+	static int invokeMethod( lua_State* lua )
 	{
 		DECLARE_BEGIN_PROTECTED
+		CGoProxyComponent* proxyComp = NULL;
+		luaStack >> proxyComp;
+
+		CNSOctetsStream stream;
+		while ( luaStack.isEnd( ) == false )
+			luaStack >> stream;
+
+		int dataType = EDataType::TYPE_NONE;
+		void* buf = NULL;
+		if ( NSClient::gGoInvoke( proxyComp->mProxyObject->mType, proxyComp->mProxyObject->mInstanceID, proxyComp->mCompName, stream.begin( ), stream.length( ), buf, dataType ) == false )
+			NSException( NSClient::gGoGetLastError( ) );
+
+		if ( dataType == EDataType::TYPE_BOOLEAN )
+			luaStack << *(bool*) buf;
+		else if ( dataType == EDataType::TYPE_CHAR )
+			luaStack << *(char*) buf;
+		else if ( dataType == EDataType::TYPE_UCHAR )
+			luaStack << *(unsigned char*) buf;
+		else if ( dataType == EDataType::TYPE_SHORT )
+			luaStack << *(short*) buf;
+		else if ( dataType == EDataType::TYPE_USHORT )
+			luaStack << *(unsigned short*) buf;
+		else if ( dataType == EDataType::TYPE_INT )
+			luaStack << *(int*) buf;
+		else if ( dataType == EDataType::TYPE_UINT )
+			luaStack << *(unsigned int*) buf;
+		else if ( dataType == EDataType::TYPE_INT64 )
+			luaStack << ( double ) *(long long*) buf;
+		else if ( dataType == EDataType::TYPE_UINT64 )
+			luaStack << ( double ) *( unsigned long long* ) buf;
+		else if ( dataType == EDataType::TYPE_FLOAT )
+			luaStack << ( double ) *(float*) buf;
+		else if ( dataType == EDataType::TYPE_DOUBLE )
+			luaStack << ( double ) *(double*) buf;
+		else if ( dataType == EDataType::TYPE_STRING )
+		{
+			static CNSString value;
+			value = (char*) buf;
+			luaStack << value;
+		}
 		DECLARE_END_PROTECTED
 	}
 
@@ -68,10 +108,13 @@ namespace NSProxy
 		static CNSString fieldName;
 		luaStack >> fieldName;
 
-		// 组件方法写在这里
-		if ( fieldName == "runAction" )
+		bool isMethod = false;
+		if ( NSClient::gGoQueryMethod( proxyComp->mProxyObject->mType, proxyComp->mProxyObject->mInstanceID, proxyComp->mCompName, fieldName, isMethod ) == false )
+			NSException( NSClient::gGoGetLastError( ) );
+
+		if ( isMethod == true )
 		{
-			lua_pushcfunction( lua, runAction );
+			lua_pushcfunction( lua, invokeMethod );
 			return 1;
 		}
 
@@ -178,12 +221,38 @@ namespace NSProxy
 			return 1;
 		}
 
+		if ( compName == "layer" )
+		{
+			const char* layer = NULL;
+			if ( NSClient::gGoGetLayer( proxy->mType, proxy->mInstanceID, layer ) == false )
+				NSException( NSClient::gGoGetLastError( ) );
+
+			static CNSString value;
+			value = (char*) layer;
+			luaStack << value;
+			return 1;
+		}
+
+		if ( compName == "tag" )
+		{
+			const char* tag = NULL;
+			if ( NSClient::gGoGetTag( proxy->mType, proxy->mInstanceID, tag ) == false )
+				NSException( NSClient::gGoGetLastError( ) );
+
+			static CNSString value;
+			value = (char*) tag;
+			luaStack << value;
+			return 1;
+		}
+
 		CGoProxyComponent** goCompRef = NULL;
 		CGoProxyComponent* goComp = NULL;
 		goCompRef = proxy->mUIProxyComp.get( compName );
 		if ( goCompRef != NULL )
 			goComp = *goCompRef;
 		
+		// 如果组件不存在，代理层添加
+		// 脚本不能主动添加组件，是不是考虑加一个对象方法添加组件？
 		if ( goComp == NULL )
 		{
 			goComp = new CGoProxyComponent( compName, proxy );
@@ -194,9 +263,44 @@ namespace NSProxy
 		DECLARE_END_PROTECTED
 	}
 
+	static int proxySetComponent( lua_State* lua )
+	{
+		DECLARE_BEGIN_PROTECTED
+		CGoProxyObject* proxy = NULL;
+		luaStack >> proxy;
+
+		static CNSString compName;
+		luaStack >> compName;
+
+		if ( compName == "layer" )
+		{
+			static CNSString layerName;
+			luaStack >> layerName;
+
+			if ( NSClient::gGoSetLayer( proxy->mType, proxy->mInstanceID, layerName.getBuffer( ) ) == false )
+				NSException( NSClient::gGoGetLastError( ) );
+
+			return 0;
+		}
+
+		if ( compName == "tag" )
+		{
+			static CNSString tagName;
+			luaStack >> tagName;
+
+			if ( NSClient::gGoSetTag( proxy->mType, proxy->mInstanceID, tagName.getBuffer( ) ) == false )
+				NSException( NSClient::gGoGetLastError( ) );
+
+			return 0;
+		}
+
+		DECLARE_END_PROTECTED
+	}
+
 	void CGoProxyObject::pushUserData( CNSLuaStack& luaStack, CGoProxyObject* ref )
 	{
 		luaStack.setIndexFunc( NSProxy::proxyGetComponent );
+		luaStack.setNewIndexFunc( NSProxy::proxySetComponent );
 		static CNSVector< const luaL_Reg* > reg;
 		luaStack.pushNSWeakRef( ref, "nsGoProxy", reg );
 	}
@@ -250,6 +354,35 @@ void nsSetGoGetProc( FGoGetValue getProc )
 	NSClient::gGoGetValue = getProc;
 }
 
+void nsSetGoGetLayer( FGoGetLayer getLayer )
+{
+	NSClient::gGoGetLayer = getLayer;
+}
+
+void nsSetGoGetTag( FGoGetTag getTag )
+{
+	NSClient::gGoGetTag = getTag;
+}
+
+void nsSetGoSetLayer( FGoSetLayer setLayer )
+{
+	NSClient::gGoSetLayer = setLayer;
+}
+
+void nsSetGoSetTag( FGoSetTag setTag )
+{
+	NSClient::gGoSetTag = setTag;
+}
+void nsSetGoQueryMethod( FGoQueryMethod queryMethod )
+{
+	NSClient::gGoQueryMethod = queryMethod;
+}
+
+void nsSetGoInvoke( FGoInvoke invoke )
+{
+	NSClient::gGoInvoke = invoke;
+}
+
 void nsSetGoGetLastError( FGoGetLastError lastErrorProc )
 {
 	NSClient::gGoGetLastError = lastErrorProc;
@@ -282,3 +415,4 @@ void nsGoFireEvent( int instanceID, const char* compName )
 		NSLog::exception( _UTF8( "函数[nsGoFireEvent]发生异常\n错误描述: \n\t%s\nC++调用堆栈: \n%s" ), e.mErrorDesc, NSBase::NSFunction::getStackInfo( ).getBuffer( ) );
 	}
 }
+

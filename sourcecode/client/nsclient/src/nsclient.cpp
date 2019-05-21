@@ -11,6 +11,12 @@ namespace NSClient
 	FHostErrorProc gHostErrorProc = NULL;
 	FGoGetValue gGoGetValue = NULL;
 	FGoSetValue gGoSetValue = NULL;
+	FGoGetLayer gGoGetLayer = NULL;
+	FGoGetTag gGoGetTag = NULL;
+	FGoSetLayer gGoSetLayer = NULL;
+	FGoSetTag gGoSetTag = NULL;
+	FGoQueryMethod gGoQueryMethod = NULL;
+	FGoInvoke gGoInvoke = NULL;
 	FGoGetLastError gGoGetLastError = NULL;
 
 	void NSPluginLogHandler( const CNSString& text )
@@ -248,7 +254,19 @@ bool nsClientInit( const char* authName, FHostErrorProc proc, bool enableDebug )
 	{
 		if ( NSClient::gTouchProc == NULL )
 			NSException( "没有设置[FTouchProc]函数" )
-			
+		
+		if ( NSClient::gGoGetLayer == NULL )
+			NSException( "没有设置[FGoGetLayer]函数" )
+
+		if ( NSClient::gGoGetTag == NULL )
+			NSException( "没有设置[FGoGetTag]函数" )
+
+		if ( NSClient::gGoQueryMethod == NULL )
+			NSException( "没有设置[FGoQueryMethod]函数" )
+
+		if ( NSClient::gGoInvoke == NULL )
+			NSException( "没有设置[FGoInvoke]函数" )
+
 		if ( NSClient::gGoLoadProc == NULL )
 			NSException( "没有设置[FGoLoadProc]函数" )
 

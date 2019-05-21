@@ -5,6 +5,13 @@ typedef bool( __stdcall *FGoDestroyProc )( int instanceID );
 typedef bool( __stdcall *FGoGetValue )( int type, int instanceID, const char* compName, const char* fieldName, void*& buffer, int& dataType );
 typedef bool( __stdcall *FGoSetValue )( int type, int instanceID, const char* compName, const char* fieldName, void* buffer, int dataType );
 typedef bool( __stdcall *FTouchProc )( const char* bundle, bool permanent, bool touch );
+
+typedef bool( __stdcall *FGoGetLayer )( int type, int instanceID, const char*& layer );
+typedef bool( __stdcall *FGoGetTag )( int type, int instanceID, const char*& layer );
+typedef bool( __stdcall *FGoSetLayer )( int type, int instanceID, const char* layer );
+typedef bool( __stdcall *FGoSetTag )( int type, int instanceID, const char* layer );
+typedef bool( __stdcall *FGoQueryMethod )( int type, int instanceID, const char* compName, const char* methodName, bool& isMethod );
+typedef bool( __stdcall *FGoInvoke )( int type, int instanceID, const char* compName, void* stream, int len, void*& buffer, int& dataType );
 typedef const char*( __stdcall *FGoGetLastError )( );
 
 // 初始化NSClient
@@ -33,5 +40,15 @@ extern "C" _declspec( dllexport ) void nsSetGoGetLastError( FGoGetLastError load
 extern "C" _declspec( dllexport ) void nsGoFireEvent( int instanceID, const char* compName );
 // 加载过程回调函数
 extern "C" _declspec( dllexport ) void nsTouchNotify( bool isDone, float progress );
-
-
+// 设置对象Layer函数
+extern "C" _declspec( dllexport ) void nsSetGoGetLayer( FGoGetLayer getLayer );
+// 设置对象Tag函数
+extern "C" _declspec( dllexport ) void nsSetGoGetTag( FGoGetTag getTag );
+// 设置对象Layer函数
+extern "C" _declspec( dllexport ) void nsSetGoSetLayer( FGoSetLayer getLayer );
+// 设置对象Tag函数
+extern "C" _declspec( dllexport ) void nsSetGoSetTag( FGoSetTag getTag );
+// 设置对象查询函数
+extern "C" _declspec( dllexport ) void nsSetGoQueryMethod( FGoQueryMethod queryMethod );
+// 设置对象查询函数
+extern "C" _declspec( dllexport ) void nsSetGoInvoke( FGoInvoke invoke );
