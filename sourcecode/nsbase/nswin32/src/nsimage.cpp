@@ -13,7 +13,7 @@ namespace NSWin32
 		char buf[PNG_BYTES_TO_CHECK];  
 		int x, y, temp, color_type;  
 
-		fp = _tfopen( CNSString::toTChar( imagePath ), _T("rb") );
+		fp = _tfopen( (TCHAR*) CNSString::toTChar( imagePath ), _T("rb") );
 		if( fp == NULL )
 		{
 			int errorCode = errno;

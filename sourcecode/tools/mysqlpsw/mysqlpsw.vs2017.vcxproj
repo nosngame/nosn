@@ -94,7 +94,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>false</SDLCheck>
       <PrecompiledHeaderFile>FBBase.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>..\..\nsbase\nsbase\inc;..\..\nsbase\nswin32\inc;..\..\nsbase\dependency\lua\src;..\..\nsbase\dependency\TinyXml;..\..\nsbase\dependency\lzma\win32;..\..\nsbase\dependency\curl\include;..\..\nsbase\dependency\zlib;..\..\nsbase\dependency\scintilla\include;..\..\nsbase\dependency\mbedtls;..\..\nsbase\nsnav\inc;..\..\nsbase\nstools\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\nsbase\nsbase\inc;..\..\nsbase\nswin32\inc;..\..\nsbase\dependency\lua\src;..\..\nsbase\dependency\tinyxml;..\..\nsbase\dependency\lzma\win32;..\..\nsbase\dependency\libiconv\inc;..\..\nsbase\dependency\libcurl\include;..\..\nsbase\dependency\zlib;..\..\nsbase\dependency\scintilla\include;..\..\nsbase\dependency\mbedtls;..\..\nsbase\nsnav\inc;..\..\nsbase\nstools\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -111,7 +111,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>false</SDLCheck>
       <PrecompiledHeaderFile>FBBase.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>..\..\nsbase\nsbase\inc;..\..\nsbase\nswin32\inc;..\..\nsbase\dependency\lua\src;..\..\nsbase\dependency\TinyXml;..\..\nsbase\dependency\lzma\win32;..\..\nsbase\dependency\curl\include;..\..\nsbase\dependency\zlib;..\..\nsbase\dependency\scintilla\include;..\..\nsbase\dependency\mbedtls;..\..\nsbase\nsnav\inc;..\..\nsbase\nstools\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\nsbase\nsbase\inc;..\..\nsbase\nswin32\inc;..\..\nsbase\dependency\lua\src;..\..\nsbase\dependency\tinyxml;..\..\nsbase\dependency\lzma\win32;..\..\nsbase\dependency\libiconv\inc;..\..\nsbase\dependency\libcurl\include;..\..\nsbase\dependency\zlib;..\..\nsbase\dependency\scintilla\include;..\..\nsbase\dependency\mbedtls;..\..\nsbase\nsnav\inc;..\..\nsbase\nstools\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -130,7 +130,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>false</SDLCheck>
-      <AdditionalIncludeDirectories>..\..\nsbase\nsbase\inc;..\..\nsbase\nswin32\inc;..\..\nsbase\dependency\lua\src;..\..\nsbase\dependency\TinyXml;..\..\nsbase\dependency\lzma\win32;..\..\nsbase\dependency\curl\include;..\..\nsbase\dependency\zlib;..\..\nsbase\dependency\scintilla\include;..\..\nsbase\dependency\mbedtls;..\..\nsbase\nsnav\inc;..\..\nsbase\nstools\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\nsbase\nsbase\inc;..\..\nsbase\nswin32\inc;..\..\nsbase\dependency\lua\src;..\..\nsbase\dependency\tinyxml;..\..\nsbase\dependency\lzma\win32;..\..\nsbase\dependency\libiconv\inc;..\..\nsbase\dependency\libcurl\include;..\..\nsbase\dependency\zlib;..\..\nsbase\dependency\scintilla\include;..\..\nsbase\dependency\mbedtls;..\..\nsbase\nsnav\inc;..\..\nsbase\nstools\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <BrowseInformation>true</BrowseInformation>
     </ClCompile>
     <Link>
@@ -155,7 +155,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>false</SDLCheck>
-      <AdditionalIncludeDirectories>..\..\nsbase\nsbase\inc;..\..\nsbase\nswin32\inc;..\..\nsbase\dependency\lua\src;..\..\nsbase\dependency\TinyXml;..\..\nsbase\dependency\lzma\win32;..\..\nsbase\dependency\curl\include;..\..\nsbase\dependency\zlib;..\..\nsbase\dependency\scintilla\include;..\..\nsbase\dependency\mbedtls;..\..\nsbase\nsnav\inc;..\..\nsbase\nstools\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\nsbase\nsbase\inc;..\..\nsbase\nswin32\inc;..\..\nsbase\dependency\lua\src;..\..\nsbase\dependency\tinyxml;..\..\nsbase\dependency\lzma\win32;..\..\nsbase\dependency\libiconv\inc;..\..\nsbase\dependency\libcurl\include;..\..\nsbase\dependency\zlib;..\..\nsbase\dependency\scintilla\include;..\..\nsbase\dependency\mbedtls;..\..\nsbase\nsnav\inc;..\..\nsbase\nstools\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <BrowseInformation>true</BrowseInformation>
     </ClCompile>
     <Link>

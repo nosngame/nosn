@@ -108,10 +108,10 @@ namespace NSWin32
 					else
 						rc.left += 2;
 
-					CNSString	itemText = fileList->getItemText( x, y );
-					TCHAR*		text = CNSString::toTChar( itemText );
-					int			oldMode = SetBkMode( customDraw->nmcd.hdc, TRANSPARENT );
-					COLORREF	oldTextClr = SetTextColor( customDraw->nmcd.hdc, RGB( 241, 241, 241 ) );
+					CNSString itemText = fileList->getItemText( x, y );
+					TCHAR* text = (TCHAR*) CNSString::toTChar( itemText );
+					int oldMode = SetBkMode( customDraw->nmcd.hdc, TRANSPARENT );
+					COLORREF oldTextClr = SetTextColor( customDraw->nmcd.hdc, RGB( 241, 241, 241 ) );
 					DrawText( customDraw->nmcd.hdc, text, lstrlen( text ), &rc, DT_LEFT | DT_VCENTER | DT_SINGLELINE );
 					SetBkMode( customDraw->nmcd.hdc, oldMode );
 					SetTextColor( customDraw->nmcd.hdc, oldTextClr );
@@ -156,7 +156,7 @@ namespace NSWin32
 					rc.left += 2;
 
 				// 绘制文本底色
-				TCHAR* text = CNSString::toTChar( itemText );
+				TCHAR* text = (TCHAR*) CNSString::toTChar( itemText );
 				int oldMode = SetBkMode( customDraw->nmcd.hdc, TRANSPARENT );
 				COLORREF oldTextClr = SetTextColor( customDraw->nmcd.hdc, RGB( 241, 241, 241 ) );
 				DrawText( customDraw->nmcd.hdc, text, lstrlen( text ), &rc, DT_LEFT | DT_VCENTER | DT_SINGLELINE );
@@ -237,7 +237,7 @@ namespace NSWin32
 		LV_COLUMN column;
 		column.mask = LVCF_TEXT | LVCF_WIDTH | LVCFMT_SPLITBUTTON;
 		column.cx = width;
-		column.pszText = CNSString::toTChar( text );
+		column.pszText = (TCHAR*) CNSString::toTChar( text );
 		column.cchTextMax = lstrlen( column.pszText );
 
 		ListView_InsertColumn( mHWnd, mColumnCounter ++, &column );
@@ -249,7 +249,7 @@ namespace NSWin32
 		item.mask = LVIF_TEXT;
 		item.iItem = mItemCounter ++;
 		item.iSubItem = 0;
-		item.pszText = CNSString::toTChar( text );
+		item.pszText = (TCHAR*) CNSString::toTChar( text );
 		item.cchTextMax = lstrlen( item.pszText );
 
 		return ListView_InsertItem( mHWnd, &item );
@@ -261,7 +261,7 @@ namespace NSWin32
 		item.mask = LVIF_TEXT;
 		item.iItem = y;
 		item.iSubItem = x;
-		item.pszText = CNSString::toTChar( text );
+		item.pszText = (TCHAR*) CNSString::toTChar( text );
 		item.cchTextMax = lstrlen( item.pszText );
 
 		ListView_SetItem( mHWnd, &item );
@@ -314,7 +314,7 @@ namespace NSWin32
 		item.cchTextMax = 256;
 		item.pszText = (TCHAR*) buffer;
 		::SendMessage( mHWnd, LVM_GETITEMTEXT, y, (LPARAM) (LV_ITEM*) &item );
-		return CNSString::fromTChar( buffer );
+		return CNSString::fromTChar( (char*) buffer );
 	}
 
 	CNSVector< int >& CNSVsList::getCurSel( )

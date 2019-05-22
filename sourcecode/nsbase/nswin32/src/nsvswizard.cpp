@@ -318,14 +318,14 @@ namespace NSWin32
 		int oldTextClr = SetTextColor( mMemDC, RGB( 255, 255, 255 ) );
 
 		HFONT oldFont = (HFONT) SelectObject( mMemDC, mTitleFont );
-		TCHAR* title = CNSString::toTChar( mTitle );
+		TCHAR* title = (TCHAR*) CNSString::toTChar( mTitle );
 		RECT rcTitle;
 		getTitleRect( rcTitle );
 		DrawText( mMemDC, title, -1, &rcTitle, DT_LEFT | DT_VCENTER | DT_SINGLELINE );
 		SelectObject( mMemDC, oldFont );
 
 		oldFont = (HFONT) SelectObject( mMemDC, mSubTitleFont );
-		TCHAR* subTitle = CNSString::toTChar( mSubTitle );
+		TCHAR* subTitle = (TCHAR*) CNSString::toTChar( mSubTitle );
 		RECT rcSubTitle;
 		getSubTitleRect( rcSubTitle );
 		DrawText( mMemDC, subTitle, -1, &rcSubTitle, DT_LEFT | DT_VCENTER | DT_SINGLELINE );
@@ -340,7 +340,7 @@ namespace NSWin32
 
 			RECT rcItemText = rcItem;
 			rcItemText.left += 10;
-			TCHAR* desc = CNSString::toTChar( mItems[ i ].mDesc );
+			TCHAR* desc = (TCHAR*) CNSString::toTChar( mItems[ i ].mDesc );
 			DrawText( mMemDC, desc, -1, &rcItemText, DT_LEFT | DT_VCENTER | DT_SINGLELINE );
 		}
 		SetTextColor( mMemDC, oldTextClr );

@@ -24,14 +24,14 @@ public:
 void CreateFats( const CNSString& rPath, CNSVector< CFATable >& rFats, CNSVector< CNSOctets >& rDatas )
 {
 	WIN32_FIND_DATA ffd;
-	HANDLE tFindHandle = FindFirstFile( CNSString::toTChar( CNSString( gpPath ) + "/" + rPath + "*.*" ), &ffd );
+	HANDLE tFindHandle = FindFirstFile( (TCHAR*) CNSString::toTChar( CNSString( gpPath ) + "/" + rPath + "*.*" ), &ffd );
 	if ( tFindHandle == INVALID_HANDLE_VALUE )
 		return;
 
 	BOOL tFind = TRUE;
 	for ( ; tFind == TRUE; tFind = FindNextFile( tFindHandle, &ffd ) )
 	{
-		CNSString tFileName = CNSString::fromTChar( ffd.cFileName );
+		CNSString tFileName = CNSString::fromTChar( (char*) ffd.cFileName );
 		if ( tFileName == "." )
 			continue;
 
@@ -54,7 +54,7 @@ void CreateFats( const CNSString& rPath, CNSVector< CFATable >& rFats, CNSVector
 			tFat.mFileName	= rPath + tFileName;
 			tFat.mAddress	= rDatas.getCount( );
 			tFat.mFileName.erase( 0 );
-			HANDLE tFile	= CreateFile( CNSString::toTChar( CNSString( gpPath ) + "/" + tFat.mFileName ), GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL );
+			HANDLE tFile	= CreateFile( (TCHAR*) CNSString::toTChar( CNSString( gpPath ) + "/" + tFat.mFileName ), GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL );
 			if ( tFile == INVALID_HANDLE_VALUE )
 			{
 				NSLog::log( _UTF8("文件[%s]打开失败"), tFat.mFileName.getBuffer( ) );

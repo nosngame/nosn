@@ -97,7 +97,7 @@ int APIENTRY _tWinMain( _In_ HINSTANCE hInstance,
 	{
 		CTempApp app( true );
 		app.useIPName( false );
-		app.useNSHttp( false );
+		app.useNSHttp( true );
 		app.useNSLocal( false );
 		app.useNSHttpDebugger( false );
 		app.useNSMysql( false );
@@ -106,9 +106,9 @@ int APIENTRY _tWinMain( _In_ HINSTANCE hInstance,
 	catch ( CNSException& e )
 	{
 		static CNSString errorDesc;
-		errorDesc.format( _UTF8( "NSLog exception:\n%s\nCRT main函数发生异常\n错误描述: \n\t%s\nC++调用堆栈:\n%s" ), NSLog::sExceptionText.getBuffer( ),
+		errorDesc.format( _UTF8( "NSLog exception:%s\nCRT main函数发生异常\n错误描述: \n\t%s\nC++调用堆栈:\n%s" ), NSLog::sExceptionText.getBuffer( ),
 						  e.mErrorDesc, NSBase::NSFunction::getStackInfo( ).getBuffer( ) );
-		MessageBox( NULL, CNSString::toTChar( errorDesc ), _T( "异常" ), MB_OK | MB_ICONERROR );
+		MessageBox( NULL, (TCHAR*) CNSString::toTChar( errorDesc ), _T( "异常" ), MB_OK | MB_ICONERROR );
 		return 1;
 	}
 	return 0;

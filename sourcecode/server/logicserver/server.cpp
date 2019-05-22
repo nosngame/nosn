@@ -1,4 +1,4 @@
-ï»¿#include <nsbase.h>
+#include <nsbase.h>
 #include "protocol.h"
 #include "gateclient.h"
 #include "server.h"
@@ -18,7 +18,7 @@ namespace LogicServer
 		luaStack.preCall( "onOperClientAddSession" );
 		luaStack << sessionID;
 		luaStack.call( );
-		NSLog::log( _UTF8( "operé€»è¾‘å®¢æˆ¶ç«¯ åœ°å€[%s]è¿æ¥æˆåŠŸ" ), mAddress.getBuffer( ) );
+		NSLog::log( _UTF8( "operÂß¼­¿Í»§¶Ë µØÖ·[%s]Á¬½Ó³É¹¦" ), mAddress.getBuffer( ) );
 	}
 
 	void COperClient::onAddSessionFault( const CNSString& name, int code )
@@ -29,7 +29,7 @@ namespace LogicServer
 		luaStack.preCall( "onOperClientAddSessionFault" );
 		luaStack << code;
 		luaStack.call( );
-		NSLog::log( _UTF8( "operé€»è¾‘å®¢æˆ¶ç«¯ åœ°å€[%s]è¿æ¥å¤±è´¥, é”™è¯¯ç  - %d" ), mAddress.getBuffer( ), code );
+		NSLog::log( _UTF8( "operÂß¼­¿Í»§¶Ë µØÖ·[%s]Á¬½ÓÊ§°Ü, ´íÎóÂë - %d" ), mAddress.getBuffer( ), code );
 	}
 
 	void COperClient::onDelSession( const CNSString& name, TSessionID sessionID )
@@ -38,14 +38,14 @@ namespace LogicServer
 		NSBase::CNSLuaStack& luaStack = NSBase::CNSLuaStack::getLuaStack( );
 		luaStack.preCall( "onOperClientDelSession" );
 		luaStack.call( );
-		NSLog::log( _UTF8( "operé€»è¾‘å®¢æˆ¶ç«¯ åœ°å€[%s]è¿æ¥ä¸¢å¤±" ), mAddress.getBuffer( ) );
+		NSLog::log( _UTF8( "operÂß¼­¿Í»§¶Ë µØÖ·[%s]Á¬½Ó¶ªÊ§" ), mAddress.getBuffer( ) );
 	}
 
 	void COperClient::onProtocol( const CNSString& name, TSessionID sessionID, CNSProtocol* proto )
 	{
 		switch ( proto->mProtoID )
 		{
-			// é€»è¾‘æœåŠ¡å™¨è„šæœ¬åè®®
+			// Âß¼­·şÎñÆ÷½Å±¾Ğ­Òé
 			case NSOperProto::CProtocolScript::PID:
 			{
 				NSOperProto::CProtocolScript* script = ( NSOperProto::CProtocolScript* ) proto;
@@ -71,7 +71,7 @@ namespace LogicServer
 		luaStack.preCall( "onChargeClientAddSession" );
 		luaStack << sessionID;
 		luaStack.call( );
-		NSLog::log( _UTF8( "chargeé€»è¾‘å®¢æˆ¶ç«¯ åœ°å€[%s]è¿æ¥æˆåŠŸ" ), mAddress.getBuffer( ) );
+		NSLog::log( _UTF8( "chargeÂß¼­¿Í»§¶Ë µØÖ·[%s]Á¬½Ó³É¹¦" ), mAddress.getBuffer( ) );
 	}
 
 	void CChargeClient::onAddSessionFault( const CNSString& name, int code )
@@ -82,7 +82,7 @@ namespace LogicServer
 		luaStack.preCall( "onChargeClientAddSessionFault" );
 		luaStack << code;
 		luaStack.call( );
-		NSLog::log( _UTF8( "chargeé€»è¾‘å®¢æˆ¶ç«¯ åœ°å€[%s]è¿æ¥å¤±è´¥, é”™è¯¯ç  - %d" ), mAddress.getBuffer( ), code );
+		NSLog::log( _UTF8( "chargeÂß¼­¿Í»§¶Ë µØÖ·[%s]Á¬½ÓÊ§°Ü, ´íÎóÂë - %d" ), mAddress.getBuffer( ), code );
 	}
 
 	void CChargeClient::onDelSession( const CNSString& name, TSessionID sessionID )
@@ -91,14 +91,14 @@ namespace LogicServer
 		NSBase::CNSLuaStack& luaStack = NSBase::CNSLuaStack::getLuaStack( );
 		luaStack.preCall( "onChargeClientDelSession" );
 		luaStack.call( );
-		NSLog::log( _UTF8( "chargeé€»è¾‘å®¢æˆ¶ç«¯ åœ°å€[%s]è¿æ¥ä¸¢å¤±" ), mAddress.getBuffer( ) );
+		NSLog::log( _UTF8( "chargeÂß¼­¿Í»§¶Ë µØÖ·[%s]Á¬½Ó¶ªÊ§" ), mAddress.getBuffer( ) );
 	}
 
 	void CChargeClient::onProtocol( const CNSString& name, TSessionID sessionID, CNSProtocol* proto )
 	{
 		switch ( proto->mProtoID )
 		{
-			// é€»è¾‘æœåŠ¡å™¨è„šæœ¬åè®®
+			// Âß¼­·şÎñÆ÷½Å±¾Ğ­Òé
 			case NSChargeProto::CProtocolScript::PID:
 			{
 				NSChargeProto::CProtocolScript* script = ( NSChargeProto::CProtocolScript* ) proto;
@@ -114,7 +114,7 @@ namespace LogicServer
 		}
 	}
 
-	// ç»™Pythonç•™çš„æ§åˆ¶æ¥å£
+	// ¸øPythonÁôµÄ¿ØÖÆ½Ó¿Ú
 	void CHttpServer::onProtocol( const CNSString& name, TSessionID sessionID, const CNSMap< CNSString, CNSString >& headers, const CNSString& text, const CNSString& postData )
 	{
 		NSBase::CNSLuaStack& luaStack = NSBase::CNSLuaStack::getLuaStack( );
@@ -127,7 +127,7 @@ namespace LogicServer
 		luaStack.call( );
 	}
 
-	// é€»è¾‘æœåŠ¡å™¨
+	// Âß¼­·şÎñÆ÷
 	void CLogicServer::onRegisterProtocol( const CNSString& name )
 	{
 		static NSLogicProto::CProtocolScript scriptProto;
@@ -141,7 +141,7 @@ namespace LogicServer
 		luaStack << mLogicName;
 		luaStack << sessionID;
 		luaStack.call( );
-		NSLog::log( _UTF8( "é€»è¾‘æœåŠ¡å™¨[%s] è¿œç¨‹åœ°å€[%s]è¿æ¥æˆåŠŸ" ), mLogicName.getBuffer( ), peer.GetIPString( ).getBuffer( ) );
+		NSLog::log( _UTF8( "Âß¼­·şÎñÆ÷[%s] Ô¶³ÌµØÖ·[%s]Á¬½Ó³É¹¦" ), mLogicName.getBuffer( ), peer.GetIPString( ).getBuffer( ) );
 	}
 
 	void CLogicServer::onDelSession( const CNSString& name, TSessionID sessionID )
@@ -155,14 +155,14 @@ namespace LogicServer
 		luaStack << mLogicName;
 		luaStack << sessionID;
 		luaStack.call( );
-		NSLog::log( _UTF8( "é€»è¾‘æœåŠ¡å™¨[%s] è¿œç¨‹åœ°å€[%s]è¿æ¥ä¸¢å¤±" ), mLogicName.getBuffer( ), tpDesc->mPeer.getBuffer( ) );
+		NSLog::log( _UTF8( "Âß¼­·şÎñÆ÷[%s] Ô¶³ÌµØÖ·[%s]Á¬½Ó¶ªÊ§" ), mLogicName.getBuffer( ), tpDesc->mPeer.getBuffer( ) );
 	}
 
 	void CLogicServer::onProtocol( const CNSString& name, TSessionID sessionID, CNSProtocol* proto )
 	{
 		switch ( proto->mProtoID )
 		{
-			// é€»è¾‘æœåŠ¡å™¨è„šæœ¬åè®®
+			// Âß¼­·şÎñÆ÷½Å±¾Ğ­Òé
 			case NSLogicProto::CProtocolScript::PID:
 			{
 				NSLogicProto::CProtocolScript* script = ( NSLogicProto::CProtocolScript* ) proto;
@@ -179,7 +179,7 @@ namespace LogicServer
 		}
 	}
 
-	// é€»è¾‘å®¢æˆ·ç«¯
+	// Âß¼­¿Í»§¶Ë
 	void CLogicClient::onRegisterProtocol( const CNSString& name )
 	{
 		static NSLogicProto::CProtocolScript scriptProto;
@@ -192,7 +192,7 @@ namespace LogicServer
 		luaStack.preCall( "onLogicClientAddSession" );
 		luaStack << mLogicName;
 		luaStack.call( );
-		NSLog::log( _UTF8( "é€»è¾‘æœåŠ¡å™¨[%s] åœ°å€[%s]è¿æ¥æˆåŠŸ" ), mLogicName.getBuffer( ), mAddress.getBuffer( ) );
+		NSLog::log( _UTF8( "Âß¼­·şÎñÆ÷[%s] µØÖ·[%s]Á¬½Ó³É¹¦" ), mLogicName.getBuffer( ), mAddress.getBuffer( ) );
 	}
 
 	void CLogicClient::onAddSessionFault( const CNSString& name, int code )
@@ -203,7 +203,7 @@ namespace LogicServer
 		luaStack << code;
 		luaStack.call(  );
 
-		NSLog::log( _UTF8( "è¿æ¥é€»è¾‘æœåŠ¡å™¨[%s] åœ°å€[%s]å¤±è´¥, é”™è¯¯ç  - %d" ), mLogicName.getBuffer( ), mAddress.getBuffer( ), code );
+		NSLog::log( _UTF8( "Á¬½ÓÂß¼­·şÎñÆ÷[%s] µØÖ·[%s]Ê§°Ü, ´íÎóÂë - %d" ), mLogicName.getBuffer( ), mAddress.getBuffer( ), code );
 		registerClient( this );
 	}
 
@@ -213,7 +213,7 @@ namespace LogicServer
 		luaStack.preCall( "onLogicClientDelSession" );
 		luaStack << mLogicName;
 		luaStack.call( );
-		NSLog::log( _UTF8( "é€»è¾‘æœåŠ¡å™¨[%s] åœ°å€[%s]è¿æ¥ä¸¢å¤±" ), mLogicName.getBuffer( ), mAddress.getBuffer( ) );
+		NSLog::log( _UTF8( "Âß¼­·şÎñÆ÷[%s] µØÖ·[%s]Á¬½Ó¶ªÊ§" ), mLogicName.getBuffer( ), mAddress.getBuffer( ) );
 		registerClient( this );
 	}
 
@@ -221,7 +221,7 @@ namespace LogicServer
 	{
 		switch ( proto->mProtoID )
 		{
-			// é€»è¾‘æœåŠ¡å™¨è„šæœ¬åè®®
+			// Âß¼­·şÎñÆ÷½Å±¾Ğ­Òé
 			case NSLogicProto::CProtocolScript::PID:
 			{
 				NSLogicProto::CProtocolScript* script = ( NSLogicProto::CProtocolScript* ) proto;
@@ -253,7 +253,7 @@ namespace LogicServer
 
 		switch ( proto->mProtoID )
 		{
-			// å®¢æˆ·ç«¯è„šæœ¬åè®®
+			// ¿Í»§¶Ë½Å±¾Ğ­Òé
 			case NSClientProto::CProtocolScript::PID:
 			{
 				NSBase::CNSLuaStack& luaStack = NSBase::CNSLuaStack::getLuaStack( );
@@ -276,7 +276,7 @@ namespace LogicServer
 					NSWin32::CNSBaseApp* app = NSWin32::CNSBaseApp::getApp( );
 					NSGateProto::CProtocolUnknownUser unknown( sessionID, 3 );
 					NSNet::send( inner->mName, unknown.createStream( ) );
-					NSLog::exception( _UTF8( "è„šæœ¬åè®®å¤–æŒ‚: \n\t%s\nC++è°ƒç”¨å †æ ˆ:\n%s" ), e.mErrorDesc, NSBase::NSFunction::getStackInfo( ).getBuffer( ) );
+					NSLog::exception( _UTF8( "½Å±¾Ğ­ÒéÍâ¹Ò: \n\t%s\nC++µ÷ÓÃ¶ÑÕ»:\n%s" ), e.mErrorDesc, NSBase::NSFunction::getStackInfo( ).getBuffer( ) );
 				}
 				break;
 			}
@@ -340,7 +340,7 @@ namespace LogicServer
 		if ( doc.LoadFile( "serverconfig.xml" ) == false )
 		{
 			static CNSString errorDesc;
-			errorDesc.format( _UTF8( "serverconfig.xmlæ‰“å¼€é”™è¯¯, é”™è¯¯ç : %s" ), doc.ErrorDesc( ) );
+			errorDesc.format( _UTF8( "serverconfig.xml´ò¿ª´íÎó, ´íÎóÂë: %s" ), doc.ErrorDesc( ) );
 			NSException( errorDesc );
 		}
 
@@ -348,7 +348,7 @@ namespace LogicServer
 		if ( baseConfig == NULL )
 		{
 			static CNSString errorDesc;
-			errorDesc.format( _UTF8( "serverconfig.xmlæ–‡ä»¶æ ¼å¼é”™è¯¯, èŠ‚ç‚¹baseconfigæ²¡æœ‰æ‰¾åˆ°" ) );
+			errorDesc.format( _UTF8( "serverconfig.xmlÎÄ¼ş¸ñÊ½´íÎó, ½ÚµãbaseconfigÃ»ÓĞÕÒµ½" ) );
 			NSException( errorDesc );
 		}
 
@@ -365,16 +365,16 @@ namespace LogicServer
 				find = true;
 				static CNSString title;
 #ifdef _M_IX86
-				title.format( _UTF8( "é€»è¾‘æœåŠ¡å™¨ - %s è¯­è¨€ - %s 32bit" ), logicName.getBuffer( ), CNSLocal::getNSLocal( ).getLang( ).getBuffer( ) );
+				title.format( _UTF8( "Âß¼­·şÎñÆ÷ - %s ÓïÑÔ - %s 32bit" ), logicName.getBuffer( ), CNSLocal::getNSLocal( ).getLang( ).getBuffer( ) );
 #elif _M_X64
-				title.format( _UTF8( "é€»è¾‘æœåŠ¡å™¨ - %s è¯­è¨€ - %s 64bit" ), logicName.getBuffer( ), CNSLocal::getNSLocal( ).getLang( ).getBuffer( ) );
+				title.format( _UTF8( "Âß¼­·şÎñÆ÷ - %s ÓïÑÔ - %s 64bit" ), logicName.getBuffer( ), CNSLocal::getNSLocal( ).getLang( ).getBuffer( ) );
 #endif
 				NSWin32::CConsoleApp< CLogic >::setConsoleTitle( title );
 
-				NSLog::log( _UTF8( "æ­£åœ¨å¯åŠ¨%s..." ), logicName.getBuffer( ) );
-				NSLog::log( _UTF8( "\tå½“å‰å·¥ä½œè·¯å¾„ - %s" ), mWorkPath.getBuffer( ) );
-				NSLog::log( _UTF8( "\tå½“å‰ç‰ˆæœ¬å· - %s" ), CNSLocal::getNSLocal( ).getVersion( ).getBuffer( ) );
-				NSLog::log( _UTF8( "\tæ˜¯å¦å¼€å¯Luaè°ƒè¯• - %s" ), ( app->isEnableDebug( ) == true ? _UTF8( "æ˜¯" ) : _UTF8( "å¦" ) ).getBuffer( ) );
+				NSLog::log( _UTF8( "ÕıÔÚÆô¶¯%s..." ), logicName.getBuffer( ) );
+				NSLog::log( _UTF8( "\tµ±Ç°¹¤×÷Â·¾¶ - %s" ), mWorkPath.getBuffer( ) );
+				NSLog::log( _UTF8( "\tµ±Ç°°æ±¾ºÅ - %s" ), CNSLocal::getNSLocal( ).getVersion( ).getBuffer( ) );
+				NSLog::log( _UTF8( "\tÊÇ·ñ¿ªÆôLuaµ÷ÊÔ - %s" ), ( app->isEnableDebug( ) == true ? _UTF8( "ÊÇ" ) : _UTF8( "·ñ" ) ).getBuffer( ) );
 
 				TiXmlElement* listen = logic->FirstChildElement( "listen" );
 				for ( ; listen != NULL; listen = listen->NextSiblingElement( "listen" ) )
@@ -391,7 +391,7 @@ namespace LogicServer
 						NSNet::registerServer( logic, 5 );
 
 						mLogicServer.pushback( logic );
-						NSLog::log( _UTF8( "æœåŠ¡[%s]ç«¯å£[%s]æˆåŠŸæ‰“å¼€, é€»è¾‘æœåŠ¡" ), logicName.getBuffer( ), address.getBuffer( ) );
+						NSLog::log( _UTF8( "·şÎñ[%s]¶Ë¿Ú[%s]³É¹¦´ò¿ª, Âß¼­·şÎñ" ), logicName.getBuffer( ), address.getBuffer( ) );
 						NSLog::log( _UTF8( "\tbuffsize - %d" ), bufferSize );
 						NSLog::log( _UTF8( "\tstreamsize - %d" ), streamSize );
 						NSLog::log( _UTF8( "\tinterval - %d" ), interval );
@@ -402,20 +402,20 @@ namespace LogicServer
 						NSNet::registerServer( http, 5 );
 
 						mHttpServer.pushback( http );
-						NSLog::log( _UTF8( "æœåŠ¡[%s]ç«¯å£[%s]æˆåŠŸæ‰“å¼€, httpæœåŠ¡" ), logicName.getBuffer( ), address.getBuffer( ) );
+						NSLog::log( _UTF8( "·şÎñ[%s]¶Ë¿Ú[%s]³É¹¦´ò¿ª, http·şÎñ" ), logicName.getBuffer( ), address.getBuffer( ) );
 						NSLog::log( _UTF8( "\tbuffsize - %d" ), bufferSize );
 						NSLog::log( _UTF8( "\tstreamsize - %d" ), streamSize );
 						NSLog::log( _UTF8( "\tinterval - %d" ), interval );
 					}
 				}
 
-				// è¿æ¥æ•°æ®åº“
+				// Á¬½ÓÊı¾İ¿â
 				TiXmlElement* conndb = logic->FirstChildElement( "conndb" );
 				for ( ; conndb != NULL; conndb = conndb->NextSiblingElement( "conndb" ) )
 				{
 					CNSString name = conndb->Attribute( "name" );
 
-					// è¯»å–gamedbè¿æ¥ä¿¡æ¯
+					// ¶ÁÈ¡gamedbÁ¬½ÓĞÅÏ¢
 					TiXmlElement* data = doc.FirstChildElement( "dataserver" );
 					for ( ; data != NULL; data = data->NextSiblingElement( "dataserver" ) )
 					{
@@ -433,12 +433,12 @@ namespace LogicServer
 					}
 				}
 
-				// è¿æ¥ç½‘å…³
+				// Á¬½ÓÍø¹Ø
 				TiXmlElement* connGate = logic->FirstChildElement( "conngate" );
 				if ( connGate == NULL )
 				{
 					static CNSString errorDesc;
-					errorDesc.format( _UTF8( "serverconfig.xmlæ–‡ä»¶æ ¼å¼é”™è¯¯, èŠ‚ç‚¹conngateæ²¡æœ‰æ‰¾åˆ°" ) );
+					errorDesc.format( _UTF8( "serverconfig.xmlÎÄ¼ş¸ñÊ½´íÎó, ½ÚµãconngateÃ»ÓĞÕÒµ½" ) );
 					NSException( errorDesc );
 				}
 
@@ -454,7 +454,7 @@ namespace LogicServer
 					if ( inner == NULL )
 					{
 						static CNSString errorDesc;
-						errorDesc.format( _UTF8( "serverconfig.xmlæ–‡ä»¶æ ¼å¼é”™è¯¯, gateserver[%s]æ²¡æœ‰æ‰¾åˆ°innerèŠ‚ç‚¹" ),
+						errorDesc.format( _UTF8( "serverconfig.xmlÎÄ¼ş¸ñÊ½´íÎó, gateserver[%s]Ã»ÓĞÕÒµ½inner½Úµã" ),
 										  name.getBuffer( ) );
 						NSException( errorDesc );
 					}
@@ -464,17 +464,17 @@ namespace LogicServer
 					mInners.insert( name, innerClient );
 					registerClient( innerClient );
 
-					NSLog::log( _UTF8( "æ­£åœ¨è¿æ¥ç½‘å…³æœåŠ¡å™¨[%s] åœ°å€[%s]..." ), innerClient->mName.getBuffer( ), innerClient->mAddress.getBuffer( ) );
+					NSLog::log( _UTF8( "ÕıÔÚÁ¬½ÓÍø¹Ø·şÎñÆ÷[%s] µØÖ·[%s]..." ), innerClient->mName.getBuffer( ), innerClient->mAddress.getBuffer( ) );
 					NSLog::log( _UTF8( "\tbuffsize - %d" ), bufferSize );
 					NSLog::log( _UTF8( "\tstreamsize - %d" ), streamSize );
 					NSLog::log( _UTF8( "\tinterval - %d" ), interval );
 				}
 
-				// è¿æ¥oper
+				// Á¬½Óoper
 				TiXmlElement* connOper = logic->FirstChildElement( "connoper" );
 				if ( connOper != NULL )
 				{
-					// è¿æ¥operserver
+					// Á¬½Óoperserver
 					TiXmlElement* oper = doc.FirstChildElement( "operserver" );
 					CNSString address = app->name2IPPort( oper->Attribute( "iaddress" ) );
 					size_t bufferSize = CNSString( connOper->Attribute( "buffersize" ) ).toInteger( );
@@ -484,17 +484,17 @@ namespace LogicServer
 					mpOperClient = new COperClient( "operclient", address, interval, bufferSize, streamSize );
 					registerClient( mpOperClient );
 
-					NSLog::log( _UTF8( "æ­£åœ¨è¿æ¥operæœåŠ¡å™¨[%s]..." ), address.getBuffer( ) );
+					NSLog::log( _UTF8( "ÕıÔÚÁ¬½Óoper·şÎñÆ÷[%s]..." ), address.getBuffer( ) );
 					NSLog::log( _UTF8( "\tbuffsize - %d" ), bufferSize );
 					NSLog::log( _UTF8( "\tstreamsize - %d" ), streamSize );
 					NSLog::log( _UTF8( "\tinterval - %d" ), interval );
 				}
 
-				// è¿æ¥charge
+				// Á¬½Ócharge
 				TiXmlElement* connCharge = logic->FirstChildElement( "conncharge" );
 				if ( connCharge != NULL )
 				{
-					// è¿æ¥chargeserver
+					// Á¬½Óchargeserver
 					TiXmlElement* charge = doc.FirstChildElement( "chargeserver" );
 					CNSString address = app->name2IPPort( charge->Attribute( "iaddress" ) );
 					size_t bufferSize = CNSString( connCharge->Attribute( "buffersize" ) ).toInteger( );
@@ -504,24 +504,24 @@ namespace LogicServer
 					mpChargeClient = new CChargeClient( "chargeclient", address, interval, bufferSize, streamSize );
 					registerClient( mpChargeClient );
 
-					NSLog::log( _UTF8( "æ­£åœ¨è¿æ¥chargeæœåŠ¡å™¨[%s]..." ), address.getBuffer( ) );
+					NSLog::log( _UTF8( "ÕıÔÚÁ¬½Ócharge·şÎñÆ÷[%s]..." ), address.getBuffer( ) );
 					NSLog::log( _UTF8( "\tbuffsize - %d" ), bufferSize );
 					NSLog::log( _UTF8( "\tstreamsize - %d" ), streamSize );
 					NSLog::log( _UTF8( "\tinterval - %d" ), interval );
 				}
 
-				// è¿æ¥é€»è¾‘æœåŠ¡å™¨
+				// Á¬½ÓÂß¼­·şÎñÆ÷
 				TiXmlElement* conn = logic->FirstChildElement( "conn" );
 				for ( ; conn != NULL; conn = conn->NextSiblingElement( "conn" ) )
 				{
 					CNSString name = conn->Attribute( "name" );
-					// è¯»å–ç½‘å…³ä¿¡æ¯
+					// ¶ÁÈ¡Íø¹ØĞÅÏ¢
 					CNSVector< CNSString > nameSet;
 					name.split( ".", nameSet );
 					if ( nameSet.getCount( ) != 2 )
 					{
 						static CNSString errorDesc;
-						errorDesc.format( _UTF8( "serverconfig.xmlæ–‡ä»¶æ ¼å¼é”™è¯¯, logicserver[%s] connèŠ‚ç‚¹[%s], nameå±æ€§æ ¼å¼ä¸æ­£ç¡®" ),
+						errorDesc.format( _UTF8( "serverconfig.xmlÎÄ¼ş¸ñÊ½´íÎó, logicserver[%s] conn½Úµã[%s], nameÊôĞÔ¸ñÊ½²»ÕıÈ·" ),
 										  logicName.getBuffer( ), name.getBuffer( ) );
 						NSException( errorDesc );
 					}
@@ -555,7 +555,7 @@ namespace LogicServer
 					registerClient( logicClient );
 
 					mLogicClient.pushback( logicClient );
-					NSLog::log( _UTF8( "æ­£åœ¨è¿æ¥é€»è¾‘æœåŠ¡å™¨[%s] åœ°å€[%s]..." ), logicName.getBuffer( ), address.getBuffer( ) );
+					NSLog::log( _UTF8( "ÕıÔÚÁ¬½ÓÂß¼­·şÎñÆ÷[%s] µØÖ·[%s]..." ), logicName.getBuffer( ), address.getBuffer( ) );
 					NSLog::log( _UTF8( "\tbuffsize - %d" ), bufferSize );
 					NSLog::log( _UTF8( "\tstreamsize - %d" ), streamSize );
 					NSLog::log( _UTF8( "\tinterval - %d" ), interval );
@@ -564,7 +564,7 @@ namespace LogicServer
 			}
 		}
 
-		// è¿æ¥æ•°æ®åº“
+		// Á¬½ÓÊı¾İ¿â
 		HLISTINDEX beginIndex = mDBConn.getHead( );
 		for ( ; beginIndex != NULL; mDBConn.getNext( beginIndex ) )
 		{
@@ -579,7 +579,7 @@ namespace LogicServer
 		if ( find == false )
 		{
 			static CNSString errorDesc;
-			errorDesc.format( _UTF8( "é€»è¾‘æœåŠ¡å™¨[%s]æ²’æœ‰æ‰¾åˆ°" ), logicName.getBuffer( ) );
+			errorDesc.format( _UTF8( "Âß¼­·şÎñÆ÷[%s]Ã»ÓĞÕÒµ½" ), logicName.getBuffer( ) );
 			NSException( errorDesc );
 		}
 
@@ -591,7 +591,7 @@ namespace LogicServer
 			modList.pushback( modName );
 		}
 
-		// æ³¨å†Œè„šæœ¬å‡½æ•°
+		// ×¢²á½Å±¾º¯Êı
 		LogicServer::regLuaLib( );
 		NSBase::CNSLuaStack::getLuaStack( ).load( mWorkPath + "script/" + logicName, modList );
 		onLaunchServer( );
@@ -628,12 +628,12 @@ int main( int argc, char* argv[] )
 	}
 	catch ( CNSException& e )
 	{
-		// è¿˜åŸæ ‡å‡†è¾“å‡º
+		// »¹Ô­±ê×¼Êä³ö
 		freopen( "CON", "w", stdout );
 
-		// è¿™é‡Œçš„å¼‚å¸¸å¤„ç†æ˜¯ä¸ä¼šå†™æ–‡ä»¶çš„ï¼Œstdoutå·²ç»è¿˜åŸ
+		// ÕâÀïµÄÒì³£´¦ÀíÊÇ²»»áĞ´ÎÄ¼şµÄ£¬stdoutÒÑ¾­»¹Ô­
 		static CNSString errorDesc;
-		errorDesc.format( _UTF8( "NSLog exception:\n%s\nCRT mainå‡½æ•°å‘ç”Ÿå¼‚å¸¸\né”™è¯¯æè¿°: \n\t%s\nC++è°ƒç”¨å †æ ˆ:\n%s" ), NSLog::sExceptionText.getBuffer( ),
+		errorDesc.format( _UTF8( "NSLog exception:\n%s\nCRT mainº¯Êı·¢ÉúÒì³£\n´íÎóÃèÊö: \n\t%s\nC++µ÷ÓÃ¶ÑÕ»:\n%s" ), NSLog::sExceptionText.getBuffer( ),
 						  e.mErrorDesc, NSBase::NSFunction::getStackInfo( ).getBuffer( ) );
 		printf( CNSString::convertUtf8ToMbcs( errorDesc ) );
 		getchar( );

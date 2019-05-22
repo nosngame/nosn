@@ -402,7 +402,7 @@ namespace NSWin32
 	void CNSBaseApp::parseCommandLine( )
 	{
 		TCHAR* cmdLine = GetCommandLine( );
-		const CNSString& cmd = CNSString::fromTChar( cmdLine );
+		const CNSString& cmd = CNSString::fromTChar( (char*) cmdLine );
 		enum EParseState
 		{
 			PARSE_BEGIN,
@@ -1615,7 +1615,7 @@ namespace NSWin32
 			FillRect( dc, &rcTitle, brushFocusWindow );
 
 		InflateRect( &rcTitle, -3, 0 );
-		TCHAR* text = CNSString::toTChar( mTitle );
+		TCHAR* text = (TCHAR*) CNSString::toTChar( mTitle );
 		HFONT oldFont = (HFONT) SelectObject( dc, CNSPreDefine::FB_FONT_BASE );
 		int oldBkMode = SetBkMode( dc, TRANSPARENT );
 		if ( mTitleHighlight == true )
@@ -2861,7 +2861,7 @@ namespace NSWin32
 		HFONT oldFont = (HFONT) SelectObject( dc, CNSPreDefine::FB_FONT_NOTIFY );
 		int oldMode = SetBkMode( dc, TRANSPARENT );
 		COLORREF oldClr = SetTextColor( dc, RGB( 255, 255, 255 ) );
-		TCHAR* text = CNSString::toTChar( messageText );
+		TCHAR* text = (TCHAR*) CNSString::toTChar( messageText );
 		DrawText( dc, text, lstrlen( text ), &rc, DT_CENTER | DT_VCENTER | DT_SINGLELINE );
 		SetBkMode( dc, oldMode );
 		SetTextColor( dc, oldClr );
@@ -2945,7 +2945,7 @@ namespace NSWin32
 
 	void CNSWindow::setWindowText( HWND wnd, const CNSString& text )
 	{
-		SetWindowText( wnd, CNSString::toTChar( text ) );
+		SetWindowText( wnd, (TCHAR*) CNSString::toTChar( text ) );
 	}
 
 	CNSString& CNSWindow::getWindowText( HWND wnd )
@@ -2966,7 +2966,7 @@ namespace NSWin32
 			NSException( errorDesc );
 		}
 
-		windowName = CNSString::fromTChar( buffer );
+		windowName = CNSString::fromTChar( (char*) buffer );
 		return windowName;
 	}
 

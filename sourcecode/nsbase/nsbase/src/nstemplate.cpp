@@ -29,22 +29,28 @@ namespace NSBase
 
 	CNSString CNSString::convertMbcsToUtf8( const char* mbcs )
 	{
-		// 返回的uniLen包含了0結束
-		int uniLen = MultiByteToWideChar( CP_ACP, 0, mbcs, -1, NULL, 0 );
-		if ( uniLen == -1 )
+		const char *toCode = "UTF-8", *fromCode = "GB2312";
+		static iconv_t ic = NULL;
+		if ( ic == NULL )
+			ic = iconv_open( toCode, fromCode );
+
+		static char* utf8 = NULL;
+		if ( utf8 == NULL )
+			utf8 = new char[ 4096 ];
+
+		char* utf8Buf = utf8;
+		size_t inBytesLeft = strlen( mbcs );
+		size_t outBytesLeft = 4096;
+		int ret = iconv( ic, &mbcs, &inBytesLeft, &utf8, &outBytesLeft );
+		if ( ret != 0 )
 		{
-			static CNSString error( "mbcs -> unicode error" );
-			return error;
+			static CNSString errorDesc;
+			errorDesc.format( _UTF8("函数[iconv]错误, 错误码[%d]"), ret );
+			NSException( errorDesc )
 		}
-
-		// 这里需要扩大一倍
-		static CNSOctets uniBuffer;
-		uniBuffer.reserve( uniLen << 1 );
-		uniBuffer.length( ) = uniLen << 1;
-
-		// 0結束也被转换了
-		MultiByteToWideChar( CP_ACP, 0, mbcs, -1, (LPWSTR) uniBuffer.begin( ), uniLen );
-		return CNSString::convertUni16ToUtf8( (wchar_t*) uniBuffer.begin( ), uniLen - 1 );
+		utf8[ 0 ] = 0;
+		utf8 = utf8Buf;
+		return CNSString( utf8 );
 	}
 
 	CNSString CNSString::convertUtf8ToMbcs( const CNSString& text )
@@ -54,96 +60,101 @@ namespace NSBase
 
 	CNSString CNSString::convertUtf8ToMbcs( const char* utf8 )
 	{
-		int utf8Len = strlen( utf8 );
-		// unicode16的字节长度，uniByteLen包含了0结束
-		int uniByteLen = CNSString::_convertUtf8ToUni16( utf8, utf8Len, NULL );
+		const char *toCode = "GB2312", *fromCode = "UTF-8";
+		static iconv_t ic = NULL;
+		if ( ic == NULL )
+			ic = iconv_open( toCode, fromCode );
 
-		// unicode16的字符长度
-		int uniLen = uniByteLen >> 1;
-		static CNSOctets uniBuffer;
-		uniBuffer.reserve( uniByteLen );
-		uniBuffer.length( ) = uniByteLen;
-		CNSString::_convertUtf8ToUni16( utf8, utf8Len, (unsigned short*) uniBuffer.begin( ) );
+		static char* mbcs = NULL;
+		if ( mbcs == NULL )
+			mbcs = new char[ 4096 ];
 
-		// mbcsLen包含了0结束
-		int mbcsLen = WideCharToMultiByte( CP_ACP, 0, (LPCWCH) uniBuffer.begin( ), uniLen, 0, 0, 0, 0 );
-		if ( mbcsLen == -1 )
+		char* mbcsBuf = mbcs;
+		size_t inBytesLeft = strlen( utf8 );
+		size_t outBytesLeft = 4096;
+		int ret = iconv( ic, &utf8, &inBytesLeft, &mbcs, &outBytesLeft );
+		if ( ret != 0 )
 		{
-			static CNSString error( "unicode -> mbcs error" );
-			return error;
+			static CNSString errorDesc;
+			errorDesc.format( _UTF8("函数[iconv]错误, 错误码[%d]"), ret );
+			NSException( errorDesc )
+		}
+		mbcs[ 0 ] = 0;
+		mbcs = mbcsBuf;
+		return CNSString( mbcs );
+	}
+#ifdef PLATFORM_WIN32
+	CNSString CNSString::convertUni16ToUtf8( const char* uni )
+	{
+		const char *toCode = "UTF-8", *fromCode = "UNICODELITTLE";
+		static iconv_t ic = NULL;
+		if ( ic == NULL )
+			ic = iconv_open( toCode, fromCode );
+
+		static char* utf8 = NULL;
+		if ( utf8 == NULL )
+			utf8 = new char[ 4096 ];
+
+		char* utf8Buf = utf8;
+		size_t inBytesLeft = wcslen( (wchar_t*) uni ) * sizeof( wchar_t );
+		size_t outBytesLeft = 4096;
+		int ret = iconv( ic, &uni, &inBytesLeft, &utf8, &outBytesLeft );
+		if ( ret != 0 )
+		{
+			static CNSString errorDesc;
+			errorDesc.format( _UTF8("函数[iconv]错误, 错误码[%d]"), ret );
+			NSException( errorDesc )
 		}
 
-		static CNSOctets mbcsBuffer;
-		mbcsBuffer.reserve( mbcsLen );
-		mbcsBuffer.length( ) = mbcsLen;
-		WideCharToMultiByte( CP_ACP, 0, (wchar_t*) uniBuffer.begin( ), uniLen, (char*) mbcsBuffer.begin( ), mbcsLen, NULL, NULL );
-
-		static CNSString value;
-		value.clear( );
-		value.pushback( (char*) mbcsBuffer.begin( ), mbcsLen - 1 );
-		return value;
+		utf8[ 0 ] = 0;
+		utf8 = utf8Buf;
+		return CNSString( utf8 );
 	}
 
-#ifdef PLATFORM_WIN32
 	CNSOctets CNSString::convertUtf8ToUni16( const CNSString& text )
 	{
 		return convertUtf8ToUni16( text.getBuffer( ) );
 	}
 
-	CNSOctets CNSString::convertUtf8ToUni16( const char* text )
+	CNSOctets CNSString::convertUtf8ToUni16( const char* utf8 )
 	{
-		int utf8Len = strlen( text );
-		// unicode16的字节长度，uniByteLen包含了0结束
-		int uniByteLen = CNSString::_convertUtf8ToUni16( text, utf8Len, NULL );
+		const char *toCode = "UNICODELITTLE", *fromCode = "UTF-8";
+		static iconv_t ic = NULL;
+		if ( ic == NULL )
+			ic = iconv_open( toCode, fromCode );
 
-		// unicode16的字符长度
-		int uniLen = uniByteLen >> 1;
-		static CNSOctets uniBuffer;
-		uniBuffer.reserve( uniByteLen );
-		uniBuffer.length( ) = uniByteLen;
-		CNSString::_convertUtf8ToUni16( text, utf8Len, (unsigned short*) uniBuffer.begin( ) );
-		return uniBuffer;
+		static char* uni = NULL;
+		if ( uni == NULL )
+			uni = new char[ 4096 ];
+
+		char* begin = uni;
+		size_t inBytesLeft = strlen( utf8 );
+		size_t outBytesLeft = 4096;
+		int ret = iconv( ic, &utf8, &inBytesLeft, &uni, &outBytesLeft );
+		if ( ret != 0 )
+		{
+			static CNSString errorDesc;
+			errorDesc.format( _UTF8("函数[iconv]错误, 错误码[%d]"), ret );
+			NSException( errorDesc )
+		}
+		( (wchar_t*) uni )[ 0 ] = 0;
+		char* end = uni + 2;
+		return CNSOctets( begin, end );
 	}
 
-	CNSOctets CNSString::convertUtf8ToUni16( const char* text, size_t start, size_t end )
+	CNSString CNSString::fromTChar( char* text )
 	{
-		static CNSOctets uniBuffer;
-		size_t len = strlen( text );
-		if ( end == -1 )
-		{
-			if ( len == 0 )
-			{
-				uniBuffer.clear( );
-				unsigned short null = 0;
-				uniBuffer.insert( uniBuffer.end( ), &null, sizeof( null ) );
-				return uniBuffer;
-			}
-
-			end = len - 1;
-		}
-
-		if ( start >= len || end >= len )
-		{
-			uniBuffer.clear( );
-			unsigned short null = 0;
-			uniBuffer.insert( uniBuffer.end( ), &null, sizeof( null ) );
-			return uniBuffer;
-		}
-
-		size_t utf8Len = end - start + 1;
-		// unicode16的字节长度，uniByteLen包含了0结束
-		int uniByteLen = CNSString::_convertUtf8ToUni16( (char*) text + start, utf8Len, NULL );
-
-		// unicode16的字符长度
-		int uniLen = uniByteLen >> 1;
-		uniBuffer.reserve( uniByteLen );
-		uniBuffer.length( ) = uniByteLen;
-		CNSString::_convertUtf8ToUni16( text + start, utf8Len, (unsigned short*) uniBuffer.begin( ) );
-		return uniBuffer;
+		static CNSString utf8String;
+#ifdef _UNICODE
+		utf8String = CNSString::convertUni16ToUtf8( text );
+#elif _MBCS
+		utf8String = CNSString::convertMbcsToUtf8( text );
+#endif
+		return utf8String;
 	}
 
 	// 这个函数假定参数text 是utf8类型
-	TCHAR* CNSString::toTChar( const CNSString& text )
+	char* CNSString::toTChar( const CNSString& text )
 	{
 		static CNSOctets charBuffer;
 #ifdef _UNICODE
@@ -151,8 +162,7 @@ namespace NSBase
 #elif _MBCS
 		charBuffer = CNSString::convertUtf8ToMbcs( text );
 #endif
-
-		return (TCHAR*) charBuffer.begin( );
+		return (char*) charBuffer.begin( );
 	}
 
 	// 这个函数假定参数text 是unicode(wchar_t类型) 或者 mbcs(char类型)，不能传入utf8文本
@@ -164,20 +174,7 @@ namespace NSBase
 #elif _MBCS
 		charBuffer = CNSString::convertUtf8ToMbcs( text );
 #endif
-
 		return charBuffer;
-	}
-	// 这个函数假定参数text 是utf8，返回TCHAR
-	TCHAR* CNSString::toTChar( const CNSString& text, int start, int end )
-	{
-		static CNSOctets tCharBuffer;
-#ifdef _UNICODE
-		tCharBuffer = CNSString::convertUtf8ToUni16( text, start, end );
-#elif _MBCS
-		tCharBuffer = CNSString::convertUtf8ToMbcs( text, start, end );
-#endif
-
-		return (TCHAR*) tCharBuffer.begin( );
 	}
 #endif
 }

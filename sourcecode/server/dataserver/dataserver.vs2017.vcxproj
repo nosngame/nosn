@@ -88,7 +88,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\nsbase\nsbase\inc;..\..\nsbase\nswin32\inc;..\..\nsbase\nstools\inc;..\..\nsbase\dependency\lua\src;..\..\nsbase\dependency\TinyXml;..\..\nsbase\dependency\lzma\win32;..\..\nsbase\dependency\curl\include;..\..\nsbase\dependency\zlib;..\..\nsbase\dependency\scintilla\include;..\..\nsbase\dependency\mbedtls;..\..\nsbase\dependency\mysql\include;..\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\nsbase\nsbase\inc;..\..\nsbase\nswin32\inc;..\..\nsbase\nstools\inc;..\..\nsbase\dependency\lua\src;..\..\nsbase\dependency\tinyxml;..\..\nsbase\dependency\lzma\win32;..\..\nsbase\dependency\libcurl\include;..\..\nsbase\dependency\libiconv\inc;..\..\nsbase\dependency\zlib;..\..\nsbase\dependency\scintilla\include;..\..\nsbase\dependency\mbedtls;..\..\nsbase\dependency\mysql\include;..\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions);</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -116,7 +116,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\nsbase\nsbase\inc;..\..\nsbase\nswin32\inc;..\..\nsbase\nstools\inc;..\..\nsbase\dependency\lua\src;..\..\nsbase\dependency\TinyXml;..\..\nsbase\dependency\lzma\win32;..\..\nsbase\dependency\curl\include;..\..\nsbase\dependency\zlib;..\..\nsbase\dependency\scintilla\include;..\..\nsbase\dependency\mbedtls;..\..\nsbase\dependency\mysql\include;..\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\nsbase\nsbase\inc;..\..\nsbase\nswin32\inc;..\..\nsbase\nstools\inc;..\..\nsbase\dependency\lua\src;..\..\nsbase\dependency\tinyxml;..\..\nsbase\dependency\lzma\win32;..\..\nsbase\dependency\libcurl\include;..\..\nsbase\dependency\libiconv\inc;..\..\nsbase\dependency\zlib;..\..\nsbase\dependency\scintilla\include;..\..\nsbase\dependency\mbedtls;..\..\nsbase\dependency\mysql\include;..\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions);</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -143,7 +143,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
-      <AdditionalIncludeDirectories>..\..\nsbase\nsbase\inc;..\..\nsbase\nswin32\inc;..\..\nsbase\nstools\inc;..\..\nsbase\dependency\lua\src;..\..\nsbase\dependency\TinyXml;..\..\nsbase\dependency\lzma\win32;..\..\nsbase\dependency\curl\include;..\..\nsbase\dependency\zlib;..\..\nsbase\dependency\scintilla\include;..\..\nsbase\dependency\mbedtls;..\..\nsbase\dependency\mysql\include;..\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\nsbase\nsbase\inc;..\..\nsbase\nswin32\inc;..\..\nsbase\nstools\inc;..\..\nsbase\dependency\lua\src;..\..\nsbase\dependency\tinyxml;..\..\nsbase\dependency\lzma\win32;..\..\nsbase\dependency\libcurl\include;..\..\nsbase\dependency\libiconv\inc;..\..\nsbase\dependency\zlib;..\..\nsbase\dependency\scintilla\include;..\..\nsbase\dependency\mbedtls;..\..\nsbase\dependency\mysql\include;..\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions);</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
@@ -176,7 +176,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
-      <AdditionalIncludeDirectories>..\..\nsbase\nsbase\inc;..\..\nsbase\nswin32\inc;..\..\nsbase\nstools\inc;..\..\nsbase\dependency\lua\src;..\..\nsbase\dependency\TinyXml;..\..\nsbase\dependency\lzma\win32;..\..\nsbase\dependency\curl\include;..\..\nsbase\dependency\zlib;..\..\nsbase\dependency\scintilla\include;..\..\nsbase\dependency\mbedtls;..\..\nsbase\dependency\mysql\include;..\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\nsbase\nsbase\inc;..\..\nsbase\nswin32\inc;..\..\nsbase\nstools\inc;..\..\nsbase\dependency\lua\src;..\..\nsbase\dependency\tinyxml;..\..\nsbase\dependency\lzma\win32;..\..\nsbase\dependency\libcurl\include;..\..\nsbase\dependency\libiconv\inc;..\..\nsbase\dependency\zlib;..\..\nsbase\dependency\scintilla\include;..\..\nsbase\dependency\mbedtls;..\..\nsbase\dependency\mysql\include;..\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions);</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>

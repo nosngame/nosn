@@ -275,7 +275,7 @@ namespace NSWin32
 				oldTextClr = SetTextColor( ps.hdc, RGB( 255, 255, 255 ) );
 
 			HFONT oldFont = (HFONT) SelectObject( ps.hdc, CNSPreDefine::FB_FONT_BASE );
-			TCHAR* text = CNSString::toTChar( child->getText( ) );
+			TCHAR* text = (TCHAR*) CNSString::toTChar( child->getText( ) );
 			DrawText( ps.hdc, text, lstrlen( text ), &rc, DT_CENTER | DT_VCENTER | DT_SINGLELINE );
 			SelectObject( ps.hdc, oldFont );
 			SetTextColor( ps.hdc, oldTextClr );

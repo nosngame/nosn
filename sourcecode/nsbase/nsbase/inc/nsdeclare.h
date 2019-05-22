@@ -38,7 +38,7 @@
 #include <direct.h>
 #include <tchar.h>
 
-#define _UTF8( x ) CNSString::convertUni16ToUtf8( (wchar_t*)( L ## x ) )
+#define _UTF8( x ) CNSString::convertMbcsToUtf8( x )
 #define NSException( desc ) \
 	{	\
 		CONTEXT context;	\
@@ -68,7 +68,7 @@
 #include <linux/tcp.h>
 #include <unistd.h>
 
-#define _UTF8( x )	( x )
+#define _UTF8( x ) CNSString::convertMbcsToUtf8( x )
 #define NSException( desc )	throw CNSException( desc );
 #define stricmp			strcasecmp
 #define max fmax
@@ -87,7 +87,7 @@
 #include <errno.h>
 #include <unistd.h>
 
-#define _UTF8( x )	( x )
+#define _UTF8( x ) CNSString::convertMbcsToUtf8( x )
 #define NSException( desc )	throw CNSException( desc );
 #define stricmp		strcasecmp
 #define max fmax

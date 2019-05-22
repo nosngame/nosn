@@ -45,7 +45,7 @@ namespace NSWin32
 	void CNSPaintStruct::drawText( const CNSString& text, CNSRect& rc, int drawStyle, COLORREF textClr )
 	{
 		COLORREF lastClr = ::SetTextColor( mPaintStruct.hdc, textClr );
-		::DrawText( mPaintStruct.hdc, CNSString::toTChar( text ), -1, &( (RECT) rc ), drawStyle );
+		::DrawText( mPaintStruct.hdc, (TCHAR*) CNSString::toTChar( text ), -1, &( (RECT) rc ), drawStyle );
 		::SetTextColor( mPaintStruct.hdc, lastClr );
 	}
 

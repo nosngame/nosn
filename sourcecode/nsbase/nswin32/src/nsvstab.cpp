@@ -375,7 +375,7 @@ namespace NSWin32
 	{
 		TEXTMETRIC tm;
 		GetTextMetrics( mMemDC, &tm );
-		TCHAR* text = CNSString::toTChar( item->mName );
+		TCHAR* text = (TCHAR*) CNSString::toTChar( item->mName );
 
 		SIZE size;
 		GetTextExtentPoint( mMemDC, text, lstrlen( text ), &size );
@@ -563,9 +563,9 @@ namespace NSWin32
 
 		if ( mTabType == TAB_FILETYPE )
 		{
-			HPEN		oldPen = (HPEN) SelectObject( mMemDC, closePen );
-			COLORREF	oldTextClr = SetTextColor( mMemDC, RGB( 255, 255, 255 ) );
-			int			oldMode = SetBkMode( mMemDC, TRANSPARENT );
+			HPEN oldPen = (HPEN) SelectObject( mMemDC, closePen );
+			COLORREF oldTextClr = SetTextColor( mMemDC, RGB( 255, 255, 255 ) );
+			int	oldMode = SetBkMode( mMemDC, TRANSPARENT );
 
 			RECT rcItem = item->mRect;
 			RECT rcClose = item->mCloseRect;
@@ -573,7 +573,7 @@ namespace NSWin32
 			RECT rcText = rcItem;
 			InflateRect( &rcText, -3, -3 );
 
-			TCHAR* text = CNSString::toTChar( item->mName );
+			TCHAR* text = (TCHAR*) CNSString::toTChar( item->mName );
 			if ( item == curSel )
 			{
 				FillRect( mMemDC, &rcItem, selectItemBrush );
@@ -715,7 +715,7 @@ namespace NSWin32
 				ImageList_Draw( mImageList, item->mImageIndex, mMemDC, rcItem.left + 1, top, ILD_TRANSPARENT );
 			}
 
-			TCHAR* text = CNSString::toTChar( item->mName );
+			TCHAR* text = (TCHAR*) CNSString::toTChar( item->mName );
 			DrawText( mMemDC, text, -1, &rcText, DT_LEFT | DT_VCENTER | DT_SINGLELINE );
 			SetBkMode( mMemDC, oldMode );
 			SetTextColor( mMemDC, oldTextClr );

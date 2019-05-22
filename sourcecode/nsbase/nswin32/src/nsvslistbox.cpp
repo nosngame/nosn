@@ -271,7 +271,7 @@ namespace NSWin32
 		CNSVsListBox::CListBoxItem newItem( text, image, userdata );
 		CNSVsListBox::CListBoxItem* item = &mItems.insert( newItem.mItemID, newItem );
 
-		TCHAR* charText = CNSString::toTChar( item->mText );
+		TCHAR* charText = (TCHAR*) CNSString::toTChar( item->mText );
 		SIZE size;
 		GetTextExtentPoint( mMemDC, charText, lstrlen( charText ), &size );
 		item->mTextWidth = size.cx;
@@ -542,7 +542,7 @@ namespace NSWin32
 		int cx, cy = 0;
 		ImageList_GetIconSize( mImageList, &cx, &cy );
 
-		TCHAR* text = CNSString::toTChar( item->mText );
+		TCHAR* text = (TCHAR*) CNSString::toTChar( item->mText );
 		RECT rcText = item->mRect;
 		rcText.left += cx;
 		rcText.right += x;

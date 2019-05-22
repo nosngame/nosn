@@ -30,13 +30,11 @@ namespace NSMysql
 	static bool mConnectTriggered = false;
 
 #pragma region lua接口
-	static int getValue( lua_State* lua );
 	static int getRecordValue( lua_State* lua );
 	static int getRecordCount( lua_State* lua );
 	static int getFieldInfo( lua_State* lua );
 
 	BEGIN_EXPORT( NSMysqlResult )
-		EXPORT_FUNC( getValue )
 		EXPORT_FUNC( getRecordValue )
 		EXPORT_FUNC( getRecordCount )
 		EXPORT_FUNC( getFieldInfo )
@@ -48,15 +46,6 @@ namespace NSMysql
 		NSMysql::CProtocolExecuteSqlResponse* result = NULL;
 		luaStack >> result;
 		luaStack << result->mFieldInfo;
-		DECLARE_END_PROTECTED
-	}
-
-	static int getValue( lua_State* lua )
-	{
-		DECLARE_BEGIN_PROTECTED
-		NSMysql::CProtocolExecuteSqlResponse* result = NULL;
-		luaStack >> result;
-		result->getValue( luaStack );
 		DECLARE_END_PROTECTED
 	}
 
@@ -84,26 +73,6 @@ namespace NSMysql
 		NSMysql::CProtocolExecuteSqlResponse* result = NULL;
 		luaStack >> result;
 		luaStack << result->getRecordCount( );
-		DECLARE_END_PROTECTED
-	}
-
-	static int getIntValue( lua_State* lua )
-	{
-		DECLARE_BEGIN_PROTECTED
-		unsigned int colIndex = 0;
-		unsigned int rowIndex = 0;
-		NSMysql::CProtocolExecuteSqlResponse* result = NULL;
-		luaStack >> result;
-		luaStack >> colIndex;
-		luaStack >> rowIndex;
-		if ( result->cellValid( colIndex, rowIndex ) == false )
-		{
-			static CNSString errorDesc;
-			errorDesc.format( _UTF8( "数据库字段访问越界 colInex = %d, rowIndex = %d" ), colIndex, rowIndex );
-			NSException( errorDesc );
-		}
-
-		lua_pushnumber( lua, result->getIntValue( colIndex, rowIndex ) );
 		DECLARE_END_PROTECTED
 	}
 
@@ -207,66 +176,6 @@ namespace NSMysql
 		}
 
 		return mColumn;
-	}
-
-	void CProtocolExecuteSqlResponse::getValue( CNSLuaStack& luaStack )
-	{
-		luaStack.newTable( );
-		for ( unsigned int rowIndex = 0; rowIndex < getRecordCount( ); rowIndex ++ )
-		{
-			luaStack.newTableField( rowIndex + 1 );
-			for ( unsigned int colIndex = 0; colIndex < mColumn; colIndex ++ )
-			{
-				int index = rowIndex * mColumn + colIndex;
-				CNSPair< int, CNSOctets >& cellData = mRecordSets[ index ];
-				switch ( cellData.mFirst )
-				{
-					case TYPE_LONGLONG:
-						luaStack.pushField( colIndex + 1, *(long long*) cellData.mSecond.begin( ) );
-						break;
-					case TYPE_LONG:
-						luaStack.pushField( colIndex + 1, *(int*) cellData.mSecond.begin( ) );
-						break;
-					case TYPE_FLOAT:
-						luaStack.pushField( colIndex + 1, *(float*) cellData.mSecond.begin( ) );
-						break;
-					case TYPE_DOUBLE:
-						luaStack.pushField( colIndex + 1, *(double*) cellData.mSecond.begin( ) );
-						break;
-					case TYPE_STRING:
-					case TYPE_VAR_STRING:
-					case TYPE_VARCHAR:
-					{
-						static CNSString stringValue;
-						stringValue.clear( );
-						stringValue.pushback( (char*) cellData.mSecond.begin( ), cellData.mSecond.length( ) );
-						luaStack.pushField( colIndex + 1, stringValue );
-						break;
-					}
-					case TYPE_BLOB:
-					case TYPE_TINY_BLOB:
-					case TYPE_MEDIUM_BLOB:
-					case TYPE_LONG_BLOB:
-					{
-						try
-						{
-							CNSMap< CNSString, CNSOctets > data;
-							CNSOctets buffer = cellData.mSecond.uncompress( );
-
-							CNSOctetsStream stream( buffer );
-							stream >> data;
-							luaStack.pushField( colIndex + 1, data );
-						}
-						catch ( CNSException& )
-						{
-							luaStack.newTableField( colIndex + 1 );
-							luaStack.setFieldTable( );
-						}
-					}
-				}
-			}
-			luaStack.setFieldTable( );
-		}
 	}
 
 	unsigned int CProtocolExecuteSqlResponse::getRecordCount( )

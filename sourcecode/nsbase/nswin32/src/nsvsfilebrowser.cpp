@@ -212,7 +212,7 @@ namespace NSWin32
 			int index = selItems[ 0 ];
 			CNSString fileName = list->getItemText( 0, index );
 			CNSString tempPath = fileList->mCurPath + fileName;
-			DWORD attrib = GetFileAttributes( CNSString::toTChar( tempPath ) );
+			DWORD attrib = GetFileAttributes( (TCHAR*) CNSString::toTChar( tempPath ) );
 			if ( attrib & FILE_ATTRIBUTE_DIRECTORY )
 				fileList->setCurPath( tempPath );
 			else
@@ -232,11 +232,11 @@ namespace NSWin32
 		if ( wParam == VK_RETURN )
 		{
 			CNSString input = edit->getText( );
-			if ( PathIsDirectory( CNSString::toTChar( input ) ) == FALSE )
+			if ( PathIsDirectory( (TCHAR*) CNSString::toTChar( input ) ) == FALSE )
 			{
 				static CNSString tips;
 				tips.format( _UTF8( "%s - 不是一个合法路径" ), input.getBuffer( ) );
-				MessageBox( fileList->getHWnd( ), CNSString::toTChar( tips ), _T( "FBLuaIde" ), MB_OK | MB_ICONERROR );
+				MessageBox( fileList->getHWnd( ), (TCHAR*) CNSString::toTChar( tips ), _T( "FBLuaIde" ), MB_OK | MB_ICONERROR );
 				return true;
 			}
 
@@ -298,14 +298,14 @@ namespace NSWin32
 				{
 					if ( item.mType == 1 )
 					{
-						int index = item.mListCtrl->addItem( CNSString::fromTChar( item.mFileName ) );
+						int index = item.mListCtrl->addItem( CNSString::fromTChar( (char*) item.mFileName ) );
 						item.mListCtrl->setImageList( item.mImageList );
 						item.mListCtrl->setItemImage( 0, index, item.mIImage );
-						item.mListCtrl->setItem( 2, index, CNSString::fromTChar( item.mTypeName ) );
+						item.mListCtrl->setItem( 2, index, CNSString::fromTChar( (char*) item.mTypeName ) );
 					}
 					else if ( item.mType == 0 )
 					{
-						int index = item.mListCtrl->addItem( CNSString::fromTChar( item.mFileName ) );
+						int index = item.mListCtrl->addItem( CNSString::fromTChar( (char*) item.mFileName ) );
 						item.mListCtrl->setImageList( item.mImageList );
 						item.mListCtrl->setItemImage( 0, index, item.mIImage );
 
@@ -318,7 +318,7 @@ namespace NSWin32
 										  stLocal.wHour, stLocal.wMinute );
 						item.mListCtrl->setItem( 1, index, lastWrite );
 
-						item.mListCtrl->setItem( 2, index, CNSString::fromTChar( item.mTypeName ) );
+						item.mListCtrl->setItem( 2, index, CNSString::fromTChar( (char*) item.mTypeName ) );
 						if ( !( item.mAttrib & FILE_ATTRIBUTE_DIRECTORY ) )
 						{
 							CNSString fileSize;
@@ -407,7 +407,7 @@ namespace NSWin32
 
 		TCHAR* path = NULL;
 		SHGetKnownFolderPath( FOLDERID_Desktop, KF_FLAG_DEFAULT, NULL, &path );
-		setCurPath( CNSString::fromTChar( path ) );
+		setCurPath( CNSString::fromTChar( (char*) path ) );
 		CoTaskMemFree( path );
 	}
 
@@ -429,9 +429,9 @@ namespace NSWin32
 			driver.pushback( i );
 			driver.pushback( ':' );
 			DWORD v1, v2, v3, v4;
-			if ( GetDiskFreeSpace( CNSString::toTChar( driver ), &v1, &v2, &v3, &v4 ) == TRUE )
+			if ( GetDiskFreeSpace( (TCHAR*) CNSString::toTChar( driver ), &v1, &v2, &v3, &v4 ) == TRUE )
 			{
-				TCHAR* driverText = CNSString::toTChar( driver );
+				TCHAR* driverText = (TCHAR*) CNSString::toTChar( driver );
 				EnterCriticalSection( &listCS );
 				listForQuery.pushback( CQueryIcon( list, driverText, FILETIME( ), 0, driverText, 0, 1 ) );
 				LeaveCriticalSection( &listCS );
@@ -452,7 +452,7 @@ namespace NSWin32
 
 		edit->setText( getCurPath( ) );
 		WIN32_FIND_DATA ffd;
-		HANDLE findHandle = FindFirstFile( CNSString::toTChar( mCurPath + "*.*" ), &ffd );
+		HANDLE findHandle = FindFirstFile( (TCHAR*) CNSString::toTChar( mCurPath + "*.*" ), &ffd );
 		if ( findHandle == NULL )
 			return;
 
@@ -467,7 +467,7 @@ namespace NSWin32
 		LeaveCriticalSection( &listCS );
 		for ( BOOL find = true; find == TRUE; find = FindNextFile( findHandle, &ffd ) )
 		{
-			CNSString findFile = CNSString::fromTChar( ffd.cFileName );
+			CNSString findFile = CNSString::fromTChar( (char*) ffd.cFileName );
 			if ( findFile == ".." )
 				continue;
 
@@ -489,7 +489,7 @@ namespace NSWin32
 				{
 					long long fileSize = ( (long long) ffd.nFileSizeHigh << 32 ) | ffd.nFileSizeLow;
 					EnterCriticalSection( &listCS );
-					listForQuery.pushback( CQueryIcon( list, ffd.cFileName, ffd.ftLastWriteTime, fileSize, CNSString::toTChar( mCurPath + findFile ), ffd.dwFileAttributes ) );
+					listForQuery.pushback( CQueryIcon( list, ffd.cFileName, ffd.ftLastWriteTime, fileSize, (TCHAR*) CNSString::toTChar( mCurPath + findFile ), ffd.dwFileAttributes ) );
 					LeaveCriticalSection( &listCS );
 				}
 			}
@@ -499,7 +499,7 @@ namespace NSWin32
 				{
 					long long fileSize = ( (long long) ffd.nFileSizeHigh << 32 ) | ffd.nFileSizeLow;
 					EnterCriticalSection( &listCS );
-					listForQuery.pushback( CQueryIcon( list, ffd.cFileName, ffd.ftLastWriteTime, fileSize, CNSString::toTChar( mCurPath + findFile ), ffd.dwFileAttributes ) );
+					listForQuery.pushback( CQueryIcon( list, ffd.cFileName, ffd.ftLastWriteTime, fileSize, (TCHAR*) CNSString::toTChar( mCurPath + findFile ), ffd.dwFileAttributes ) );
 					LeaveCriticalSection( &listCS );
 				}
 			}
@@ -535,7 +535,7 @@ namespace NSWin32
 		static CNSString result;
 		result = mCurPath;
 		result.replace( "/", "\\" );
-		if ( PathIsRoot( CNSString::toTChar( result ) ) == FALSE )
+		if ( PathIsRoot( (TCHAR*) CNSString::toTChar( result ) ) == FALSE )
 			result.erase( result.getLength( ) - 1 );
 
 		return result;
@@ -544,7 +544,7 @@ namespace NSWin32
 	void CVsFileBrowser::setCurPath( const CNSString& path )
 	{
 		mCurPath = path;
-		if ( PathIsDirectory( CNSString::toTChar( mCurPath ) ) == FALSE )
+		if ( PathIsDirectory( (TCHAR*) CNSString::toTChar( mCurPath ) ) == FALSE )
 			return;
 
 		unsigned int len = mCurPath.getLength( );

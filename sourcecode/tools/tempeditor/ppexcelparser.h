@@ -150,8 +150,6 @@ public:
 		return mClientData;
 	}
 
-	void SetFileBufferSize( int vSize );
-
 private:
 
 	void clear( );

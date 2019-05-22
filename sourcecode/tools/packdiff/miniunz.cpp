@@ -599,13 +599,13 @@ void ScanPack( const char* pPath, const char* pNewVersion, const char* pType )
 
 	CNSString findPath( ( std::string( pPath ) + "/*.*" ).c_str( ) );
 	WIN32_FIND_DATA ffd;
-	HANDLE tFindHandle = FindFirstFile( CNSString::toTChar( findPath ), &ffd );
+	HANDLE tFindHandle = FindFirstFile( (TCHAR*) CNSString::toTChar( findPath ), &ffd );
 	if ( tFindHandle == INVALID_HANDLE_VALUE )
 		return;
 
 	for ( BOOL tFind = TRUE; tFind == TRUE; tFind = FindNextFile( tFindHandle, &ffd ) )
 	{
-		CNSString fileName = CNSString::fromTChar( ffd.cFileName );
+		CNSString fileName = CNSString::fromTChar( (char*) ffd.cFileName );
 		if ( fileName == "." )
 			continue;
 

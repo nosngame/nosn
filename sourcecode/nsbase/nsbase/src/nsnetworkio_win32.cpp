@@ -616,7 +616,7 @@ namespace NSNet
 
 		CNSSockAddr peer( peerAddr );
 		mpSession->mSessionDesc.mPeer.format( "%s:%d", peer.GetIPString( ), peer.GetPort( ) );
-		mpManager->onAddSession( mName.getBuffer( ), 0, CNSSockAddr( tLocalAddr ), peer );
+		mpManager->onAddSession( mName, 0, CNSSockAddr( tLocalAddr ), peer );
 	}
 
 	void CNSActiveIO::pollEvent( unsigned int tickCount )

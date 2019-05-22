@@ -4,6 +4,7 @@
 
 #include <nsdeclare.h>
 #include <nslock.h>
+#include <iconv.h>
 #include <nstemplate.h>
 #include <nsfunctional.h>
 #include <nsoctets.h>
@@ -25,6 +26,7 @@ extern "C"
 #include <lualib.h>
 #endif
 
+#include <curl.h>
 #include <tinyxml.h>
 #include <nslog.h>
 #include <nsluawrapper.h>

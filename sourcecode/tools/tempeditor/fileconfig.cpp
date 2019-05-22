@@ -38,7 +38,7 @@ void FileConfig::LoadChildFiles( const CNSString& tDirectory )
 	WIN32_FIND_DATA FindData;
 	//	int tFileCount = 0;
 	CNSString tAllPath = tDirectory + "\\*.*";
-	HANDLE hError = FindFirstFile( CNSString::toTChar( tAllPath ), &FindData );
+	HANDLE hError = FindFirstFile( (TCHAR*) CNSString::toTChar( tAllPath ), &FindData );
 	if ( hError == INVALID_HANDLE_VALUE )
 		NSException( _UTF8( "搜索失败!输入目录无文件" ) );
 
@@ -49,7 +49,7 @@ void FileConfig::LoadChildFiles( const CNSString& tDirectory )
 			continue;
 
 		// 构造完整路径
-		CNSString tFilePathName = tDirectory + "\\" + CNSString::fromTChar( FindData.cFileName );
+		CNSString tFilePathName = tDirectory + "\\" + CNSString::fromTChar( (char*) FindData.cFileName );
 		/// 是XML文件则进行读取
 		if ( tFilePathName.findFirstOf( ".xml" ) != -1 )
 			mInputFiles.pushback( tFilePathName );

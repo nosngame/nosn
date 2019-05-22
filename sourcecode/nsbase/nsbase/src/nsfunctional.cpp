@@ -774,7 +774,7 @@ namespace NSBase
 
 				if ( SymGetLineFromAddr64( curProcess, sf.AddrPC.Offset, (DWORD*) &dwDisplament, &ImageLine ) == FALSE )
 				{
-					int a = GetLastError( );
+					int lastError = GetLastError( );
 					success = FALSE;
 				}
 

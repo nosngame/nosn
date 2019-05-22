@@ -3,7 +3,7 @@ void demoErrorProc( const char* text, int level )
 {
 	// 如果是异常才处理
 	if ( level == 1 )
-		MessageBox( NULL, CNSString::toTChar( text ), _T( "异常" ), MB_OK | MB_ICONERROR );
+		MessageBox( NULL, (TCHAR*) CNSString::toTChar( text ), _T( "异常" ), MB_OK | MB_ICONERROR );
 }
 
 int APIENTRY _tWinMain( _In_ HINSTANCE hInstance,
@@ -16,7 +16,7 @@ int APIENTRY _tWinMain( _In_ HINSTANCE hInstance,
 	{
 		CNSString errorDesc;
 		errorDesc.format( _UTF8( "模块nsclient.dll加载失败, 错误码 - %d" ), GetLastError( ) );
-		MessageBox( NULL, CNSString::toTChar( errorDesc ), _T( "异常" ), MB_OK | MB_ICONERROR );
+		MessageBox( NULL, (TCHAR*) CNSString::toTChar( errorDesc ), _T( "异常" ), MB_OK | MB_ICONERROR );
 		return 2;
 	}
 	

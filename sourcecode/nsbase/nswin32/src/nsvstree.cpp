@@ -162,7 +162,7 @@ namespace NSWin32
 
 			RECT rcText = rcItem;
 			rcText.left = ptStart.x;
-			DrawText( dc, CNSString::toTChar( itemText ), -1, &rcText, DT_LEFT | DT_VCENTER | DT_SINGLELINE );
+			DrawText( dc, (TCHAR*) CNSString::toTChar( itemText ), -1, &rcText, DT_LEFT | DT_VCENTER | DT_SINGLELINE );
 			SetTextColor( dc, oldTextColor );
 			SetBkMode( dc, oldTextMode );
 
@@ -219,7 +219,7 @@ namespace NSWin32
 	{
 		TVITEMEX tvItem = { 0 };
 		tvItem.mask = TVIF_TEXT;
-		tvItem.pszText = CNSString::toTChar( text );
+		tvItem.pszText = (TCHAR*) CNSString::toTChar( text );
 		tvItem.cchTextMax = lstrlen( tvItem.pszText );
 		tvItem.hItem = item;
 		TreeView_SetItem( mHWnd, &tvItem );
@@ -266,7 +266,7 @@ namespace NSWin32
 		item.hInsertAfter = after;
 		item.hParent = parent;
 		item.itemex.lParam = (LPARAM) data;
-		item.itemex.pszText = CNSString::toTChar( text );
+		item.itemex.pszText = (TCHAR*) CNSString::toTChar( text );
 		item.itemex.cchTextMax = lstrlen( item.itemex.pszText );
 		item.itemex.iImage = image;
 		item.itemex.iSelectedImage = image;
@@ -339,7 +339,7 @@ namespace NSWin32
 		tvItem.pszText = buffer;
 		tvItem.cchTextMax = 256;
 		TreeView_GetItem( mHWnd, &tvItem );
-		itemPath = CNSString::fromTChar( buffer );
+		itemPath = CNSString::fromTChar( (char*) buffer );
 		return itemPath;
 	}
 
@@ -358,9 +358,9 @@ namespace NSWin32
 			tvItem.cchTextMax = 256;
 			TreeView_GetItem( mHWnd, &tvItem );
 			if ( parent == item )
-				itemPath.insert( 0, CNSString::fromTChar( buffer ) );
+				itemPath.insert( 0, CNSString::fromTChar( (char*) buffer ) );
 			else
-				itemPath.insert( 0, CNSString::fromTChar( buffer ) + "/" );
+				itemPath.insert( 0, CNSString::fromTChar( (char*) buffer ) + "/" );
 		}
 
 		return itemPath;
@@ -379,7 +379,7 @@ namespace NSWin32
 			item.cchTextMax = 256;
 			TreeView_GetItem( mHWnd, &item );
 
-			itemText = CNSString::fromTChar( buffer );
+			itemText = CNSString::fromTChar( (char*) buffer );
 			if ( path[ index ] == itemText )
 			{
 				if ( index == path.getCount( ) - 1 )

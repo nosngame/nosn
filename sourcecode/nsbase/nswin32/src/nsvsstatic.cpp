@@ -98,11 +98,11 @@ namespace NSWin32
 					if ( vsStaticCtrl->mBackBrush != NULL )
 						FillRect( ps.hdc, &rc, vsStaticCtrl->mBackBrush );
 
-					int			oldMode = SetBkMode( ps.hdc, TRANSPARENT );
-					COLORREF	oldClr = SetTextColor( ps.hdc, vsStaticCtrl->mTextColor );
-					HFONT		oldFont = (HFONT) SelectObject( ps.hdc, CNSPreDefine::FB_FONT_BASE );
+					int oldMode = SetBkMode( ps.hdc, TRANSPARENT );
+					COLORREF oldClr = SetTextColor( ps.hdc, vsStaticCtrl->mTextColor );
+					HFONT oldFont = (HFONT) SelectObject( ps.hdc, CNSPreDefine::FB_FONT_BASE );
 
-					TCHAR* textChar = CNSString::toTChar( text );
+					TCHAR* textChar = (TCHAR*) CNSString::toTChar( text );
 					DrawText( ps.hdc, textChar, -1, &rc, DT_LEFT | DT_VCENTER | DT_SINGLELINE );
 
 					SelectObject( ps.hdc, oldFont );

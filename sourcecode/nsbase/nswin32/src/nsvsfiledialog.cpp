@@ -89,7 +89,7 @@ namespace NSWin32
 				if ( dlgResult->mSelectFiles.getCount( ) > 0 )
 				{
 					CNSString filePath = dlgResult->mCurPath + "\\" + dlgResult->mSelectFiles[ 0 ];
-					DWORD attrib = GetFileAttributes( CNSString::toTChar( filePath ) );
+					DWORD attrib = GetFileAttributes( (TCHAR*) CNSString::toTChar( filePath ) );
 
 					// 如果选中的是一个目录，那么不能触发窗口结束逻辑
 					if ( attrib & FILE_ATTRIBUTE_DIRECTORY )

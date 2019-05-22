@@ -1,5 +1,4 @@
 ﻿#include <nsbase.h>
-#include <curl.h>
 
 namespace NSHttp
 {
