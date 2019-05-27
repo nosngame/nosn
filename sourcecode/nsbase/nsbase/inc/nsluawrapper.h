@@ -1368,12 +1368,16 @@ namespace NSBase
 		{
 			CNSLuaWeakRef** objRef = (CNSLuaWeakRef**) luaL_testudata( mpLuaState, mPopIndex, metaName );
 			if ( objRef == NULL )
-				return NULL;
+			{
+				static CNSString errorDesc;
+				errorDesc.format( _UTF8( "参数[%d], 不是一个有效[%s]" ), mPopIndex, metaName );
+				NSException( errorDesc );
+			}
 
 			if ( *objRef == NULL )
 			{
 				static CNSString errorDesc;
-				errorDesc.format( _UTF8( "参数[%d], %s引用无效" ), mPopIndex, metaName );
+				errorDesc.format( _UTF8( "参数[%d], [%s]引用无效" ), mPopIndex, metaName );
 				NSException( errorDesc );
 			}
 
@@ -1427,7 +1431,11 @@ namespace NSBase
 		{
 			CNSLuaObject** objRef = (CNSLuaObject**) luaL_checkudata( mpLuaState, mPopIndex, metaName );
 			if ( objRef == NULL )
-				return NULL;
+			{
+				static CNSString errorDesc;
+				errorDesc.format( _UTF8( "参数[%d], 不是一个有效[%s]" ), mPopIndex, metaName );
+				NSException( errorDesc );
+			}
 
 			if ( *objRef == NULL )
 			{

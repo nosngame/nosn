@@ -22,13 +22,15 @@ namespace NSProxy
 		DECLARE_BEGIN_PROTECTED
 		CGoProxyComponent* proxyComp = NULL;
 		luaStack >> proxyComp;
+		if ( proxyComp == NULL )
+			NSException( _UTF8( "组件方法调用错误" ) );
 
 		CNSOctetsStream stream;
 		while ( luaStack.isEnd( ) == false )
 			luaStack >> stream;
 
 		int dataType = EDataType::TYPE_NONE;
-		void* buf = NULL;
+			void* buf = NULL;
 		if ( NSClient::gGoInvoke( proxyComp->mProxyObject->mType, proxyComp->mProxyObject->mInstanceID, proxyComp->mCompName, stream.begin( ), stream.length( ), buf, dataType ) == false )
 			NSException( NSClient::gGoGetLastError( ) );
 
@@ -68,6 +70,8 @@ namespace NSProxy
 		DECLARE_BEGIN_PROTECTED
 		CGoProxyObject* proxy = NULL;
 		luaStack >> proxy;
+		if ( proxy == NULL )
+			NSException( _UTF8( "destroy方法调用错误" ) );
 
 		// 销毁unity对象
 		if ( NSClient::gGoDestroyProc( proxy->mInstanceID ) == false )
