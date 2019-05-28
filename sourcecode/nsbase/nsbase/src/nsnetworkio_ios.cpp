@@ -1,207 +1,240 @@
 #include <fbbase.h>
-// ********************************************************************** //
-// CFBNetworkIO
-// ********************************************************************** //
-CFBNetworkIO::CFBNetworkIO( const CFBString& rName ) : mName( rName )
+namespace NSNet
 {
-}
-
-// ********************************************************************** //
-// CFBActiveIO
-// ********************************************************************** //
-CFBActiveIO::CFBActiveIO( CFBNetManager* pManager, const CFBString& rName ) : CFBNetworkIO( rName ), mpSession( NULL ), mpManager( pManager ), mSocket( 0 ), mSendReady( false )
-{
-}
-
-CFBActiveIO::~CFBActiveIO( )
-{
-	// 因为断开连接和链接失败都需要关闭socket
-	// 所以关闭socket要放在这里
-	close( mSocket );
-	mSocket = 0;
-	if ( mpSession != NULL )
-		DELETEPTR mpSession;
-}
-
-void CFBActiveIO::Destroy( TSessionID vSessionID )
-{
-	// 这里没有关闭socket,是因为不仅断开连接需要关闭socket
-	// 连接失败也需要关闭socket
-	spNetworkTombs->PushBack( this );
-	if ( mpSession == NULL )
-		return;
-	
-	mpManager->OnDelSession( mName, vSessionID );
-	mName.Clear( );
-}
-
-void CFBActiveIO::Create( const CFBString& rAddress, const CFBString& rPort )
-{
-	// 注册一个主动IO
-	if ( ( mSocket = ::socket( AF_INET, SOCK_STREAM, 0 ) ) == -1 )
-		FBExceptionEx( errno );
-
-	unsigned long tValue = 1;
-	::ioctl( mSocket, FIONBIO, &tValue );
-
-	sockaddr_in tAddr;
-	tAddr.sin_family = AF_INET;
-	tAddr.sin_addr.s_addr	= inet_addr( rAddress.GetBuffer( ) );
-	tAddr.sin_port = htons( rPort.ToInteger( ) );
-	if ( ::connect( mSocket, (sockaddr*) &tAddr, sizeof( sockaddr_in ) ) == -1 )
+	extern CNSMap< CNSString, CNSNetworkIO* >	networkIOs;
+	// ********************************************************************** //
+	// CNSNetworkIO
+	// ********************************************************************** //
+	CNSNetworkIO::CNSNetworkIO(const CNSString& name) : mName(name)
 	{
-		if ( errno == EINPROGRESS )
+	}
+
+	// ********************************************************************** //
+	// CNSActiveIO
+	// ********************************************************************** //
+	CNSActiveIO::CNSActiveIO(CFBNetManager* pManager, const CFBString& name) : CNSNetworkIO(name), mpSession(NULL), mpManager(pManager), mSocket(0), mSendReady(false)
+	{
+	}
+
+	CNSActiveIO::~CNSActiveIO()
+	{
+		// 因为断开连接和链接失败都需要关闭socket
+		// 所以关闭socket要放在这里
+		close(mSocket);
+		delete mpSession;
+		mSocket = 0;
+	}
+
+	void CNSActiveIO::Destroy(TSessionID sessionID)
+	{
+		if (mpSession == NULL)
 			return;
 
-		FBExceptionEx( errno );
+		mIsDeleted = true;
+		mpManager->onDelSession(mName, mpSession->mSessionID);
+
+		// 如果NetworkIO对象没有发生变化，说明没有重连，那么需要清除Manager中保存的指针
+		if (mpManager->getNetworkIO() == this)
+			mpManager->setNetworkIO(NULL);
 	}
-}
 
-void CFBActiveIO::OnConnect( int vCode )
-{
-	if ( vCode != 0 )
+	void CNSActiveIO::Create(const CNSString& address, const CNSString& port)
 	{
-		mpManager->OnAddSessionFault( mName, vCode );
-		spNetworkTombs->PushBack( this );
-		return;
-	}
-		
-	// 如果连接成功
-	mpSession = NEW CFBSession( mpManager, mSocket, this );
-	unsigned int tBufferSize = mpManager->GetBufferSize( );
-	int tRet = setsockopt( mSocket, SOL_SOCKET, SO_SNDBUF, (char*) &tBufferSize, sizeof( unsigned int ) );
+		// 注册一个主动IO
+		if ((mSocket = ::socket(AF_INET, SOCK_STREAM, 0)) == -1)
+			FBExceptionEx(errno);
 
-	bool tTcpDelay = true;
-	setsockopt( mSocket, IPPROTO_TCP, TCP_NODELAY, (char*) &tTcpDelay, sizeof( bool ) );
+		unsigned long value = 1;
+		::ioctl(mSocket, FIONBIO, &value);
 
-	tBufferSize = mpManager->GetBufferSize( );
-	tRet = setsockopt( mSocket, SOL_SOCKET, SO_RCVBUF, (char*) &tBufferSize, sizeof( unsigned int ) );
-
-	sockaddr_in tLocalAddr, tPeerAddr;
-	socklen_t tLocalLen	= sizeof( sockaddr_in );
-	socklen_t tPeerLen	= sizeof( sockaddr_in );
-	if ( ::getsockname( mSocket, (sockaddr*) &tLocalAddr, &tLocalLen ) == -1 )
-		FBExceptionEx( errno );
-
-	if ( ::getsockname( mSocket, (sockaddr*) &tPeerAddr, &tPeerLen ) == -1 )
-		FBExceptionEx( errno );
-
-	CFBSockAddr tPeer( tPeerAddr );
-	mpSession->mSessionDesc.mPeer.Format( "%s:%d", tPeer.GetIPString( ).GetBuffer( ), tPeer.GetPort( ) );
-
-	mpManager->OnAddSession( mName.GetBuffer( ), CFBSockAddr( tLocalAddr ), tPeer, 0 );
-}
-
-void CFBActiveIO::Run( unsigned int vMillsSeconds )
-{
-	if ( mSocket == 0 )
-		return;
-
-	struct timeval timeout = { 0, 0 };
-	fd_set	mReadSet;
-	fd_set	mWriteSet;
-	FD_ZERO( &mReadSet );
-	FD_ZERO( &mWriteSet );
-	FD_SET( mSocket, &mReadSet );
-	FD_SET( mSocket, &mWriteSet );
-	int tRet = select( mSocket + 1, &mReadSet, &mWriteSet, NULL, &timeout );
-	if ( tRet > 0 )
-	{
-		if ( FD_ISSET( mSocket, &mWriteSet ) != 0 && FD_ISSET( mSocket, &mReadSet ) != 0 )
+		sockaddr_in tAddr;
+		tAddr.sin_family = AF_INET;
+		tAddr.sin_addr.s_addr = inet_addr(address.GetBuffer());
+		tAddr.sin_port = htons(port.ToInteger());
+		if (::connect(mSocket, (sockaddr*)&tAddr, sizeof(sockaddr_in)) == -1)
 		{
-			if ( mpSession == NULL )
-			{
-				OnConnect( -1 );
+			if (errno == EINPROGRESS)
 				return;
-			}
-		}
-		
-		if ( FD_ISSET( mSocket, &mWriteSet ) != 0 )
-		{
-			if ( mpSession == NULL )
-				OnConnect( 0 );
-			else
-				OnSend( );
-		}
-		if ( FD_ISSET( mSocket, &mReadSet ) != 0 )
-		{
-			OnRecv( );
+
+			NSException(_UTF8("函数[connect]发生错误"));
 		}
 	}
 
-	return;
-}
-
-int CFBActiveIO::SendHelper( )
-{
-	int tBytesSend = 0;
-	do
+	void CNSActiveIO::OnConnect(int vCode)
 	{
-		char*	tpBuffer	= (char*) mpSession->mOBuffer.Begin( );
-		int		tLength		= mpSession->mOBuffer.Length( );
-		if ( tLength == 0 )
-			return ERESULT_SUCCESS;
-		
-		tBytesSend = ::send( mpSession->mPeerSocket, tpBuffer, tLength, 0 );
-		if ( tBytesSend == -1 )
+		if (vCode != 0)
 		{
-			switch( errno )
+			mIsDeleted = true;
+			mpManager->onAddSessionFault(mName, vCode);
+
+			// 如果NetworkIO对象没有发生变化，说明没有重连，那么需要清除Manager中保存的指针
+			if (mpManager->getNetworkIO() == this)
+				mpManager->setNetworkIO(NULL);
+			return;
+		}
+
+		// 如果连接成功
+		mpSession = new CFBSession(mpManager, mSocket, this);
+		unsigned int bufferSize = mpManager->GetBufferSize();
+		int tRet = setsockopt(mSocket, SOL_SOCKET, SO_SNDBUF, (char*)&bufferSize, sizeof(unsigned int));
+
+		bufferSize = mpManager->GetBufferSize();
+		tRet = setsockopt(mSocket, SOL_SOCKET, SO_RCVBUF, (char*)&bufferSize, sizeof(unsigned int));
+
+		bool tTcpDelay = true;
+		setsockopt(mSocket, IPPROTO_TCP, TCP_NODELAY, (char*)&tTcpDelay, sizeof(bool));
+
+		sockaddr_in localAddr, peerAddr;
+		socklen_t tLocalLen = sizeof(sockaddr_in);
+		socklen_t tPeerLen = sizeof(sockaddr_in);
+		if (::getsockname(mSocket, (sockaddr*)&localAddr, &tLocalLen) == -1)
+			NSException(_UTF8("函数[getsockname]发生错误"));
+
+		if (::getsockname(mSocket, (sockaddr*)&peerAddr, &tPeerLen) == -1)
+			NSException(_UTF8("函数[getsockname]发生错误"));
+
+		CFBSockAddr peer(peerAddr);
+		mpSession->mSessionDesc.mPeer.Format("%s:%d", peer.GetIPString().GetBuffer(), peer.GetPort());
+		mpManager->onAddSession(mName.GetBuffer(), CFBSockAddr(tLocalAddr), tPeer, 0);
+	}
+
+	void CNSActiveIO::pollEvent(unsigned int tickCount)
+	{
+		if (tickCount - mPollTick < mpManager->mPollInterval)
+			return;
+
+		mPollTick = tickCount;
+		struct timeval timeout = { 0, 0 };
+		fd_set	mReadSet;
+		fd_set	mWriteSet;
+		FD_ZERO(&mReadSet);
+		FD_ZERO(&mWriteSet);
+		FD_SET(mSocket, &mReadSet);
+		FD_SET(mSocket, &mWriteSet);
+		int tRet = select(mSocket + 1, &mReadSet, &mWriteSet, NULL, &timeout);
+		if (tRet > 0)
+		{
+			if (FD_ISSET(mSocket, &mWriteSet) != 0 && FD_ISSET(mSocket, &mReadSet) != 0)
 			{
-			case EAGAIN:
-				return ERESULT_SUCCESS;
-			default:
-				Destroy( 0 );
-				return ERESULT_CONNECTLOST;		
+				if (mpSession == NULL)
+				{
+					OnConnect(-1);
+					return;
+				}
+			}
+
+			if (FD_ISSET(mSocket, &mWriteSet) != 0)
+			{
+				if (mpSession == NULL)
+					OnConnect(0);
+				else
+					OnSend();
+			}
+			if (FD_ISSET(mSocket, &mReadSet) != 0)
+			{
+				OnRecv();
 			}
 		}
-	}while( mpSession->OnSessionSend( tBytesSend ) == true );
 
-	return ERESULT_SUCCESS;
-}
-
-CFBSessionDesc* CFBActiveIO::GetDesc( unsigned int vSessionID )
-{
-	if ( mpSession == NULL )
-		return NULL;
-
-	return &mpSession->mSessionDesc;
-}
-
-int CFBActiveIO::Send( TSessionID vSessionID, CFBProtocol* pProtocol )
-{
-	if ( mpSession == NULL )
-		return FBNet::ERESULT_SESSIONLOST;
-
-	mpSession->Send( pProtocol->Encode( CFBOctetsStream( ) ) );
-	return FBNet::ERESULT_SUCCESS;
-}
-
-void CFBActiveIO::OnSend( )
-{
-	if ( mpSession == NULL )
-		return;
-	
-	SendHelper( );
-}
-
-void CFBActiveIO::OnRecv( )
-{
-	if ( mpSession == NULL )
-		return;
-
-	char*	tpBuffer	= (char*) mpSession->mIBuffer.End( );
-	int		tLength		= mpSession->mIBuffer.Size( ) - mpSession->mIBuffer.Length( );
-
-	int tBytesRecv = recv( mpSession->mPeerSocket, tpBuffer, tLength, 0 );
-	if ( tBytesRecv == 0 || tBytesRecv == -1 )
-	{
-		// 如果收到0字节，如果接受失败, 都要断开连接
-		Destroy( 0 );
 		return;
 	}
 
-	// 如果解包失败，也要断开连接
-	if ( mpSession->OnSessionRecv( tBytesRecv ) == false )
-		Destroy( 0 );
+	int CNSActiveIO::sendHelper()
+	{
+		int bytesSend = 0;
+		do
+		{
+			char* buffer = (char*)mpSession->mOBuffer.Begin();
+			int length = mpSession->mOBuffer.Length();
+			if (length == 0)
+				return ERESULT_SUCCESS;
+
+			bytesSend = ::send(mpSession->mPeerSocket, buffer, length, 0);
+			if (bytesSend == -1)
+			{
+				switch (errno)
+				{
+				case EAGAIN:
+					return ERESULT_SUCCESS;
+				default:
+					destroy(0);
+					return ERESULT_CONNECTLOST;
+				}
+			}
+		} while (mpSession->onSessionSend(bytesSend) == true);
+
+		return ERESULT_SUCCESS;
+	}
+
+	CNSSessionDesc* CNSActiveIO::getDesc(unsigned int sessionID)
+	{
+		if (mpSession == NULL)
+			return NULL;
+
+		return &mpSession->mSessionDesc;
+	}
+
+
+	int CNSActiveIO::send(TSessionID sessionID, const CNSOctets& buffer)
+	{
+		if (mpSession == NULL)
+			return NSNet::ERESULT_SESSIONLOST;
+
+		if (mpSession->send(buffer) == true)
+			return sendHelper();
+
+		return NSNet::ERESULT_SUCCESS;
+	}
+
+	int CNSActiveIO::send(TSessionID sessionID, const void* begin, const void* end)
+	{
+		if (mpSession == NULL)
+			return NSNet::ERESULT_SESSIONLOST;
+
+		if (mpSession->send(begin, end) == true)
+			return sendHelper();
+
+		return NSNet::ERESULT_SUCCESS;
+	}
+
+	int CNSActiveIO::send(TSessionID sessionID, const void* begin, size_t size)
+	{
+		if (mpSession == NULL)
+			return NSNet::ERESULT_SESSIONLOST;
+
+		if (mpSession->send(begin, size) == true)
+			return sendHelper();
+
+		return NSNet::ERESULT_SUCCESS;
+	}
+
+	void CNSActiveIO::onSend()
+	{
+		if (mpSession == NULL)
+			return;
+
+		sendHelper();
+	}
+
+	void CNSActiveIO::onRecv()
+	{
+		if (mpSession == NULL)
+			return;
+
+		char* buffer = (char*)mpSession->mIBuffer.End();
+		int	length = mpSession->mIBuffer.Size() - mpSession->mIBuffer.Length();
+
+		int bytesRecv = recv(mpSession->mPeerSocket, buffer, length, 0);
+		if (bytesRecv == 0 || bytesRecv == -1)
+		{
+			// 如果收到0字节，如果接受失败, 都要断开连接
+			destroy(0);
+			return;
+		}
+
+		// 如果解包失败，也要断开连接
+		if (mpSession->onSessionRecv(bytesRecv) == false)
+			destroy(0);
+	}
 }
 

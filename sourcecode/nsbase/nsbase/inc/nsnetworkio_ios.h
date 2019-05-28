@@ -2,65 +2,83 @@
 namespace FBNet
 {
 
-// ********************************************************************** //
-// CNSNetworkIO
-// ********************************************************************** //
-
-class CNSNetworkIO
-{
-public:
-	CNSString			mName;
-
-public:
-	virtual ~CNSNetworkIO( )
+	class CNSNetworkIO
 	{
-	}
+	public:
+		CNSString			mName;
 
-public:
-	CNSNetworkIO( const CNSString& rName );
-	const CNSString& GetName( ) const { return mName; }
+	protected:
+		unsigned int	mPollTick = 0;
+		bool			mIsDeleted = false;
 
-public:
-	virtual void Destroy( unsigned int vSessionID ) = 0;
-	virtual int Send( TSessionID vSessionID, CNSProtocol* pProtocol ) = 0;
-	virtual int Send( TSessionID vSessionID, const CNSString& rText ) { return 0; }
-	virtual	void Run( unsigned int vMillsSeconds ) = 0;
-	virtual CFBSessionDesc* GetDesc( TSessionID vSessionID ) = 0;
-};
+	public:
+		CNSNetworkIO(const CNSString& rName);
 
-// ********************************************************************** //
-// CNSActiveIO
-// ********************************************************************** //
+	public:
+		virtual ~CNSNetworkIO()
+		{
+		}
 
-class CNSActiveIO : public CNSNetworkIO
-{
-	friend class CNSSession;
+	public:
+		const CNSString& GetName() const { return mName; }
+		bool isDeleted() const
+		{
+			return mIsDeleted;
+		}
 
-protected:
-	int					mSocket;
-	CNSNetManager*		mpManager;
-	CNSSession*			mpSession;
-	bool				mSendReady;
-public:
-	CNSActiveIO( CNSNetManager* pManager, const CNSString& rName );
+	public:
+		virtual void destroy(unsigned int vSessionID) = 0;
+		virtual int send(TSessionID vSessionID, const CNSOctets& buffer) = 0;
+		virtual int send(TSessionID vSessionID, const void* begin, const void* end) = 0;
+		virtual int send(TSessionID vSessionID, const void* begin, size_t len) = 0;
+		virtual CNSSessionDesc* getDesc(TSessionID vSessionID) = 0;
+		virtual void pollEvent(unsigned int tickCount) = 0;
+	};
 
-public:
-	virtual ~CNSActiveIO( );
+	class CNSActiveIO : public CNSNetworkIO
+	{
+		friend class CNSSession;
+		enum
+		{
+			EACTIVE_IDLE,
+			EACTIVE_CONNECTING,
+			EACTIVE_ESTABLISH,
+			EACTIVE_CLOSING,
+			EACTIVE_CONNECTFAULT,
+			EACTIVE_CLOSED,
+		};
 
-protected:
-	int SendHelper( );
+	protected:
+		SOCKET								mSocket;
+		HANDLE								mEObject;
+		CNSNetManager*						mpManager;
+		CNSSession*							mpSession;
+		bool								mSendReady;
 
-public:
-	void OnConnect( int vCode );
-	void OnRecv( );
-	void OnSend( );
+	public:
+		virtual void pollEvent(unsigned int tickCount);
 
-public:
-	virtual void Destroy( TSessionID vSessionID );
-	virtual int Send( TSessionID vSessionID, CNSProtocol* pProtocol );
-	virtual void Create( const CNSString& rAddress = "", const CNSString& rPort = "" );
-	virtual void Run( unsigned int vMillsSeconds );
-	virtual CFBSessionDesc* GetDesc( unsigned int vSessionID );
-};
+	public:
+		CNSActiveIO(CNSNetManager* pManager, const CNSString& rName);
+
+	public:
+		virtual ~CNSActiveIO();
+
+	protected:
+		int sendHelper();
+
+	public:
+		void onConnect(int code);
+		void onRecv();
+		void onSend();
+
+	public:
+		virtual void destroy(TSessionID sessionID);
+		virtual int send(TSessionID sessionID, const CNSOctets& buffer);
+		virtual int send(TSessionID sessionID, const void* begin, const void* end);
+		virtual int send(TSessionID sessionID, const void* begin, size_t len);
+		virtual void create(const CNSString& address = "", const CNSString& port = "");
+		virtual CNSSessionDesc* getDesc(unsigned int sessionID);
+	};
 
 };
