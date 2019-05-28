@@ -1,5 +1,4 @@
-﻿#include <nsbase.h>
-#include "io.h"
+#include <nsbase.h>
 
 namespace NSBase
 {
@@ -702,6 +701,103 @@ namespace NSBase
 		return *gpLuaStack;
 	}
 
+#ifdef PLATFROM_IOS
+    void CNSLuaStack::loadLuaDir( const CNSString& filePath, const CNSString& chunkPath )
+    {
+        DIR* fd = opendir( filePath + "*.*" );
+        if ( fd != NULL )
+        {
+            struct dirent* ent = readdir( &fd );
+            for ( ; ent != NULL; ent = readdir( &fd ) )
+            {
+                static CNSString luaFile;
+                luaFile = ent->d_name;
+                if ( luaFile == ".." )
+                    continue;
+                
+                if ( luaFile == "." )
+                    continue;
+                
+                if ( luaFile == ".svn" )
+                    continue;
+                
+                if ( luaFile.nocaseFindFirstOf( ".meta" ) != -1 )
+                    continue;
+                
+                if ( ent.d_type & DT_DIR )
+                {
+                    CNSString subFilePath = filePath + fd.name + "/";
+                    CNSString subChunkPath = chunkPath + fd.name + "/";
+                    loadLuaDir( subFilePath, subChunkPath );
+                }
+                else if ( ent.d_type & DT_REG )
+                {
+                    if ( CNSString( fd.name ).nocaseFindFirstOf( "main" ) == -1 )
+                    {
+                        CNSString fileName = filePath + fd.name;
+                        CNSString chunkName = chunkPath + fd.name;
+                        if ( openScriptFromFile( fileName, chunkName ) == false )
+                        {
+                            static CNSString errorDesc;
+                            errorDesc.format( _UTF8( "lua文件[%s]加载错误" ), fileName.getBuffer( ) );
+                            NSException( errorDesc );
+                        }
+                    }
+                }
+            }
+        }
+        closedir( fd );
+    }
+    
+    void CNSLuaStack::preload( const CNSString& workPath, CNSSet< CNSString >& dirList )
+    {
+        CNSVector< CNSString > preList;
+        DIR* fd = opendir( workPath + "/*.*" );
+        if ( fd != NULL )
+        {
+            struct direct* ent = readdir( &fd );
+            for ( ; ent != NULL; ent = readdir( &fd ) )
+            {
+                static CNSString luaFile;
+                luaFile = ent->d_name;
+                if ( luaFile == ".." )
+                    continue;
+                
+                if ( luaFile == "." )
+                    continue;
+                
+                if ( luaFile == ".svn" )
+                    continue;
+                
+                if ( luaFile.nocaseFindFirstOf( ".meta" ) != -1 )
+                    continue;
+                
+                if ( ent->d_type & DT_DIR )
+                {
+                    CNSString luaPath = workPath + "/" + fd.name + "/";
+                    dirList.insert( fd.name );
+                }
+                else if ( ent.d_type & DT_REG )
+                    preList.pushback( fd.name );
+            }
+        }
+        closedir( fd );
+        
+        for ( unsigned int i = 0; i < preList.getCount( ); i ++ )
+        {
+            CNSString fileName = workPath + "/" + preList[ i ];
+            const CNSString& chunkName = preList[ i ];
+            if ( openScriptFromFile( fileName, chunkName ) == false )
+            {
+                static CNSString errorDesc;
+                errorDesc.format( _UTF8( "预加载lua文件[%s]错误" ), fileName.getBuffer( ) );
+                NSException( errorDesc );
+            }
+        }
+    }
+#endif
+    
+#ifdef PLATFROM_WIN32
 	void CNSLuaStack::loadLuaDir( const CNSString& filePath, const CNSString& chunkPath )
 	{
 		_finddata_t fd;
@@ -797,7 +893,8 @@ namespace NSBase
 			}
 		}
 	}
-
+#endif
+    
 	void CNSLuaStack::loadMod( const CNSString& workPath, const CNSString& modName )
 	{
 		CNSString luaPath = workPath + "/" + modName + "/";

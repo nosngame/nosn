@@ -1,6 +1,4 @@
 #include <nsbase.h>
-using namespace NSWin32;
-
 namespace NSLog
 {
 	FLogHandler gLogHandler = NULL;
@@ -68,29 +66,35 @@ namespace NSLog
 	CNSString mkLogDir( )
 	{
 		CNSString rootPath = "./nosn";
+#ifdef PLATFORM_WIN32
 		_mkdir( rootPath );
 		_mkdir( rootPath + "/log" );
-
+#else
+        mkdir( rootPath, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH );
+        mkdir( rootPath + "/log", S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH );
+#endif
+        
 		CNSString fileName;
 		time_t curTime = time( NULL );
 		tm* tpTime = ::localtime( &curTime );
 		fileName.format( "%s/log/%04d%02d%02d-%02d-%02d", rootPath.getBuffer( ), 1900 + tpTime->tm_year, tpTime->tm_mon + 1, tpTime->tm_mday,
 			tpTime->tm_hour, tpTime->tm_min );
-
+#ifdef PLATFORM_WIN32
 		_mkdir( fileName );
+#else
+        mkdir( fileName, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH );
+#endif
 		return fileName;
 	}
 
 	void setLogHandler( FLogHandler handler )
 	{
-		// 处理函数只能设置一次
 		if ( gLogHandler == NULL )
 			gLogHandler = handler;
 	}
 
 	void setExceptionHandler( FExceptionHandler handler )
 	{
-		// 处理函数只能设置一次
 		if ( gExceptionHandler == NULL )
 			gExceptionHandler = handler;
 	}

@@ -1,6 +1,6 @@
-﻿#pragma once
+#pragma once
 #define BYTE_ORDER_BIG_ENDIAN
-#define PLATFORM_WIN32
+#define PLATFORM_IOS
 
 #include <nsdeclare.h>
 #include <nslock.h>
@@ -58,7 +58,7 @@ using namespace NSNet;
 #endif
 
 #ifdef PLATFORM_IOS
-#include "fbnetworkio_ios.h"
+#include <nsnetworkio_ios.h>
 #endif
 
 #ifdef PLATFORM_WIN32

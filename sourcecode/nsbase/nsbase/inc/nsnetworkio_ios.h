@@ -1,7 +1,6 @@
 #pragma once
-namespace FBNet
+namespace NSNet
 {
-
 	class CNSNetworkIO
 	{
 	public:
@@ -50,7 +49,6 @@ namespace FBNet
 
 	protected:
 		SOCKET								mSocket;
-		HANDLE								mEObject;
 		CNSNetManager*						mpManager;
 		CNSSession*							mpSession;
 		bool								mSendReady;
@@ -80,5 +78,4 @@ namespace FBNet
 		virtual void create(const CNSString& address = "", const CNSString& port = "");
 		virtual CNSSessionDesc* getDesc(unsigned int sessionID);
 	};
-
 };

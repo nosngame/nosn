@@ -1,9 +1,12 @@
-﻿#include <nsbase.h>
+#include <nsbase.h>
+#ifdef PLATFORM_WIN32
 #include <Iphlpapi.h>
 #pragma comment(lib, "iphlpapi.lib")
+#endif
 
 namespace NSNet
 {
+#ifdef PLATFORM_WIN32
 	bool CNSSockAddr::findTcpConnection( const CNSString& remoteAddr, int remotePort )
 	{
 		DWORD curPID = GetCurrentProcessId( );
@@ -87,4 +90,5 @@ namespace NSNet
 		free( pAddresses );
 		return macAddress;
 	}
+#endif
 }

@@ -1,4 +1,4 @@
-﻿#include <nsbase.h>
+#include <nsbase.h>
 
 namespace NSHttpDebugger
 {
@@ -28,7 +28,7 @@ namespace NSHttpDebugger
 	{
 		try
 		{
-			CNSString& tText = text.decodeURI( );
+			CNSString tText = text.decodeURI( );
 			int tStartIndex = tText.findFirstOf( "(" );
 			int tEndIndex = tText.findLastOf( ")", tStartIndex );
 			if (tStartIndex > 10)

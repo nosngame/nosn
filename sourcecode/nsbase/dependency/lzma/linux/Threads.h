@@ -5,7 +5,6 @@
 #define __7Z_THRESDS_H
 
 #include "7zTypes.h"
-#include "windows.h"
 
 #ifdef ENV_BEOS
 #include <kernel/OS.h>
@@ -36,7 +35,7 @@ typedef unsigned THREAD_FUNC_RET_TYPE;
 
 typedef THREAD_FUNC_RET_TYPE (THREAD_FUNC_CALL_TYPE * THREAD_FUNC_TYPE)(void *);
 
-WRes Thread_Create(CThread *thread, THREAD_FUNC_TYPE startAddress, LPVOID parameter);
+WRes Thread_Create(CThread *thread, THREAD_FUNC_TYPE startAddress, void* parameter);
 WRes Thread_Wait(CThread *thread);
 WRes Thread_Close(CThread *thread);
 

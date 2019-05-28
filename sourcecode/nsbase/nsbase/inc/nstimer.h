@@ -43,7 +43,7 @@ namespace NSBase
 					if ( (unsigned int) now.getUnixTime( ) > ( unsigned int ) backTime )
 					{
 						mTriggerHappened.insert( backTime );
-						mTriggerIndex = i + 1;
+						mTriggerIndex = (unsigned int) i + 1;
 					}
 				}
 			}

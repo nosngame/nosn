@@ -313,7 +313,9 @@ namespace NSBase
 	static int interrupt( lua_State* lua )
 	{
 		DECLARE_BEGIN_PROTECTED
+#ifdef PLATFORM_WIN32
 		NSConsole::interrupt( );
+#endif
 		DECLARE_END_PROTECTED
 		return 0;
 	}

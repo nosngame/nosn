@@ -1,4 +1,4 @@
-﻿#include <nsbase.h>
+#include <nsbase.h>
 
 namespace NSHttp
 {
@@ -77,7 +77,7 @@ namespace NSHttp
 			int tSocket = 0;
 			if ( result->mRunningHandles > 0 )
 			{
-				long tWait = 0;
+				long wait = 0;
 				fd_set tReadFD;
 				fd_set tWriteFD;
 				fd_set tExcepFD;
@@ -87,9 +87,11 @@ namespace NSHttp
 				curl_multi_fdset( result->mpCurlM, &tReadFD, &tWriteFD, &tExcepFD, &tSocket );
 				if ( tSocket != -1 )
 				{
-					struct timeval timeout = { tWait / 1000, ( tWait % 1000 ) * 1000 };
+                    struct timeval timeout;
+                    timeout.tv_sec = wait / 1000;
+                    timeout.tv_usec = ( wait % 1000 ) * 1000;
 					if ( select( tSocket + 1, &tReadFD, &tWriteFD, &tExcepFD, &timeout ) < 0 )
-						fprintf( stderr, "E: select(%i,,,,%li): %i: %s\n", tSocket + 1, tWait, errno, strerror( errno ) );
+						fprintf( stderr, "E: select(%i,,,,%li): %i: %s\n", tSocket + 1, wait, errno, strerror( errno ) );
 				}
 			}
 

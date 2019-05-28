@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 namespace NSBase
 {
@@ -15,5 +15,4 @@ namespace NSBase
 
 	HLOCK createLock( );
 	void destroyLock( HLOCK pLock );
-
 }
