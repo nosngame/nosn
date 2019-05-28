@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include <new>
 #include <stdio.h>
 #include <string.h>
@@ -37,7 +37,7 @@
 #include <apihook.h>
 #include <direct.h>
 #include <tchar.h>
-
+#define SOCKET SOCKET
 #define _UTF8( x ) CNSString::convertMbcsToUtf8( x )
 #define NSException( desc ) \
 	{	\
@@ -67,6 +67,9 @@
 #include <errno.h>
 #include <linux/tcp.h>
 #include <unistd.h>
+#include <sys/stat.h>
+#include <dirent.h>
+#define SOCKET int
 
 #define _UTF8( x ) CNSString::convertMbcsToUtf8( x )
 #define NSException( desc )	throw CNSException( desc );
@@ -86,6 +89,9 @@
 #include <pthread.h>
 #include <errno.h>
 #include <unistd.h>
+#include <sys/stat.h>
+#include <dirent.h>
+#define SOCKET int
 
 #define _UTF8( x ) CNSString::convertMbcsToUtf8( x )
 #define NSException( desc )	throw CNSException( desc );
@@ -105,6 +111,9 @@
 #include <pthread.h>
 #include <errno.h>
 #include <unistd.h>
+#include <sys/stat.h>
+#include <dirent.h>
+#define SOCKET int
 
 #define _UTF8( x )	( x )
 #define NSException( desc )	throw CNSException( desc );

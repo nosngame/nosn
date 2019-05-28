@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 namespace NSNet
 {
@@ -19,9 +19,14 @@ namespace NSNet
 			char ipAddress[ 16 ];
 			if (::inet_ntop( AF_INET, ( void* )&( (sockaddr_in*)mBuffer.begin( ) )->sin_addr, ipAddress, 16 ) == NULL)
 			{
+#ifdef PLATFORM_WIN32
 				static CNSString errorDesc;
-				errorDesc.format( "函数[inet_ntop] 调用失败, errorCode - %d", WSAGetLastError( ) );
-				NSException( errorDesc );
+				errorDesc.format( _UTF8("函数[inet_ntop] 调用失败, errorCode - %d" ), WSAGetLastError( ) );
+#else
+                static CNSString errorDesc;
+                errorDesc.format( _UTF8("函数[inet_ntop] 调用失败" ) );
+#endif
+                NSException( errorDesc );
 			}
 
 			return CNSString( ipAddress );
@@ -33,9 +38,10 @@ namespace NSNet
 		operator const sockaddr_in* ( ) const { return (const sockaddr_in*)mBuffer.begin( ); }
 		operator sockaddr_in* ( ) { return (sockaddr_in*)mBuffer.begin( ); }
 
-
+#ifdef PLATFORM_WIN32
 		static CNSString& getMacAddress( );
 		// 查找本进程是否有指定远程IP和端口的链接
 		static bool findTcpConnection( const CNSString& remoteAddr, int remotePort );
+#endif
 	};
 };

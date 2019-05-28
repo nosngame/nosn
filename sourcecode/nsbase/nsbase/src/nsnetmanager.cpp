@@ -1,4 +1,4 @@
-﻿#include <nsbase.h>
+#include <nsbase.h>
 namespace NSNet
 {
 	bool mNetInitialize = false;
@@ -18,7 +18,11 @@ namespace NSNet
 		if (gethostname( hostName, 128 ) != 0)
 		{
 			static CNSString errorDesc;
-			errorDesc.format( _UTF8( "gethostname 函数错误, 错误码: %d" ), WSAGetLastError( ) );
+#ifdef PLATFORM_WIN32
+			errorDesc.format( _UTF8( "函数[gethostname]错误, 错误码: %d" ), WSAGetLastError( ) );
+#else
+            errorDesc.format( _UTF8( "函数[gethostname]错误" ) );
+#endif
 			NSException( errorDesc );
 		}
 
@@ -27,12 +31,13 @@ namespace NSNet
 
 	void getIPV4Address( CNSVector< CNSString >& address )
 	{
+#ifdef PLATFORM_WIN32
 		char hostName[ 128 ] = { 0 };
 		if (gethostname( hostName, 128 ) != 0)
 		{
 			static CNSString errorDesc;
-			errorDesc.format( _UTF8( "gethostname 函数错误, 错误码: %d" ), WSAGetLastError( ) );
-			NSException( errorDesc );
+			errorDesc.format( _UTF8( "函数[gethostname]错误, 错误码: %d" ), WSAGetLastError( ) );
+            NSException( errorDesc );
 		}
 
 		struct addrinfo hints;
@@ -67,6 +72,7 @@ namespace NSNet
 		}
 
 		freeaddrinfo( res );
+#endif
 	}
 
 	void init( )
@@ -105,7 +111,8 @@ namespace NSNet
 		WSACleanup( );
 #endif
 	}
-
+    
+#ifdef PLATFORM_WIN32
 	CNSNetworkIO* registerServer( CNSNetManager* manager, unsigned int acceptNum )
 	{
 		if (mNetInitialize == false)
@@ -130,7 +137,7 @@ namespace NSNet
 		networkIOs.insert( manager->mName, passive );
 		return passive;
 	}
-
+#endif
 	// CNSNetManager的回调函数全都是处在网络线程锁中，
 	// 因此不能在CNSNetManager的回调函数中调用线程安全函数
 	CNSNetworkIO* registerClient( CNSNetManager* manager )

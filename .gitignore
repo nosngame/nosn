@@ -21,3 +21,11 @@
 
 
 
+sourcecode/client/nsclient/proj/.DS_Store
+sourcecode/client/nsclient/.DS_Store
+sourcecode/nsbase/nsbase/.DS_Store
+sourcecode/nsbase/nsbase/inc/.DS_Store
+*.enc
+sourcecode/client/nsclient/x64/Debug/goproxy.obj.enc
+sourcecode/client/nsclient/x64/Debug/goproxy.obj.enc
+*.enc
