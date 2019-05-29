@@ -1,4 +1,4 @@
-#include <nsbase.h>
+﻿#include <nsbase.h>
 
 namespace NSBase
 {
@@ -100,7 +100,7 @@ namespace NSBase
 		int level = 0;
 		while ( lineE != error.getLength( ) - 1 )
 		{
-			errorText = errorText + _UTF8( "\t层级：" ) + CNSString::number2String( level ++ ) + "\n";
+			errorText = errorText + _UTF8( "\t层级:" ) + CNSString::number2String( level ++ ) + "\n";
 
 			lineS = error.findFirstOf( "[", lineE );
 			if ( lineS == -1 )
@@ -294,13 +294,13 @@ namespace NSBase
 				retValue += "&nbsp;&nbsp;&nbsp;&nbsp-----------------------------------------------------------------<BR>";
 
 			lua_getinfo( mpLuaState, "Sln", &ar );
-			retValue += CNSString( "&nbsp;&nbsp;&nbsp;&nbsp;layer：" ) + CNSString::number2String( level + 1 ) + "<BR>";
-			retValue += CNSString( "&nbsp;&nbsp;&nbsp;&nbsp;file：" ) + ar.source + "<BR>";
-			retValue += CNSString( "&nbsp;&nbsp;&nbsp;&nbsp;line：" ) + CNSString::number2String( ar.currentline ) + "<BR>";
+			retValue += CNSString( "&nbsp;&nbsp;&nbsp;&nbsp;layer:" ) + CNSString::number2String( level + 1 ) + "<BR>";
+			retValue += CNSString( "&nbsp;&nbsp;&nbsp;&nbsp;file:" ) + ar.source + "<BR>";
+			retValue += CNSString( "&nbsp;&nbsp;&nbsp;&nbsp;line:" ) + CNSString::number2String( ar.currentline ) + "<BR>";
 			if ( ar.name != NULL )
-				retValue += CNSString( "&nbsp;&nbsp;&nbsp;&nbsp;function：" ) + ar.name + "<BR>";
+				retValue += CNSString( "&nbsp;&nbsp;&nbsp;&nbsp;function:" ) + ar.name + "<BR>";
 			else
-				retValue += CNSString( "&nbsp;&nbsp;&nbsp;&nbsp;function：" ) + ar.source + "<BR>";
+				retValue += CNSString( "&nbsp;&nbsp;&nbsp;&nbsp;function:" ) + ar.source + "<BR>";
 			level ++;
 		}
 
@@ -694,7 +694,7 @@ namespace NSBase
 		if ( gpLuaStack == NULL )
 		{
 			static CNSString errorDesc;
-			errorDesc.format( _UTF8( "CNSLuaStack::init 未调用" ) );
+			errorDesc.format(_UTF8("CNSLuaStack::init 未调用"));
 			NSException( errorDesc );
 		}
 
@@ -797,18 +797,18 @@ namespace NSBase
     }
 #endif
     
-#ifdef PLATFROM_WIN32
+#ifdef PLATFORM_WIN32
 	void CNSLuaStack::loadLuaDir( const CNSString& filePath, const CNSString& chunkPath )
 	{
-		_finddata_t fd;
-		intptr_t findPtr = ::_findfirst( filePath + "*.*", &fd );
+		_tfinddata_t fd;
+		intptr_t findPtr = ::_tfindfirst( (wchar_t*) CNSString::toTChar( filePath + "*.*" ), &fd );
 		if ( findPtr != -1 )
 		{
 			int tFindNext = 0;
-			for ( ; tFindNext == 0; tFindNext = ::_findnext( findPtr, &fd ) )
+			for ( ; tFindNext == 0; tFindNext = ::_tfindnext( findPtr, &fd ) )
 			{
 				static CNSString luaFile;
-				luaFile = fd.name;
+				luaFile = CNSString::fromTChar((char*) fd.name );
 				if ( luaFile == ".." )
 					continue;
 
@@ -823,16 +823,16 @@ namespace NSBase
 
 				if ( fd.attrib & _A_SUBDIR )
 				{
-					CNSString subFilePath = filePath + fd.name + "/";
-					CNSString subChunkPath = chunkPath + fd.name + "/";
+					CNSString subFilePath = filePath + luaFile + "/";
+					CNSString subChunkPath = chunkPath + luaFile + "/";
 					loadLuaDir( subFilePath, subChunkPath );
 				}
 				else
 				{
-					if ( CNSString( fd.name ).nocaseFindFirstOf( "main" ) == -1 )
+					if ( CNSString::fromTChar( (char*) fd.name ).nocaseFindFirstOf( "main" ) == -1 )
 					{
-						CNSString fileName = filePath + fd.name;
-						CNSString chunkName = chunkPath + fd.name;
+						CNSString fileName = filePath + luaFile;
+						CNSString chunkName = chunkPath + luaFile;
 						if ( openScriptFromFile( fileName, chunkName ) == false )
 						{
 							static CNSString errorDesc;

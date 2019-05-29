@@ -1,4 +1,4 @@
-#include <fbbase.h>
+﻿#include <fbbase.h>
 
 CFBLock::CFBLock( HLOCK pLock ) : mLock( pLock )
 {

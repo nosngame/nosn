@@ -1,4 +1,4 @@
-#include <nsbase.h>
+ï»¿#include <nsbase.h>
 namespace NSBase
 {
 	void CNSLocal::load( )
@@ -8,7 +8,7 @@ namespace NSBase
 		{
 			const CNSString& curDir = CNSString::getCurDir( );
 			static CNSString errorDesc;
-			errorDesc.format( _UTF8( "localization.xml´ò¿ª´íÎó, ´íÎóÂë[%s]" ), curDir.getBuffer( ), doc.ErrorDesc( ) );
+			errorDesc.format( _UTF8( "localization.xmlæ‰“å¼€é”™è¯¯, é”™è¯¯ç [%s]" ), curDir.getBuffer( ), doc.ErrorDesc( ) );
 			NSException( errorDesc );
 		}
 

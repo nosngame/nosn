@@ -1,4 +1,4 @@
-#include <nsbase.h>
+﻿#include <nsbase.h>
 #include <pthread.h>
 namespace NSBase
 {

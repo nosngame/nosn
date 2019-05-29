@@ -1,4 +1,4 @@
-#include <nsbase.h>
+ï»¿#include <nsbase.h>
 
 namespace NSBase
 {
@@ -50,14 +50,14 @@ namespace NSBase
 		close( );
 	}
 
-	// ÎÄ¼þ±ØÐë´æÔÚ
+	// æ–‡ä»¶å¿…é¡»å­˜åœ¨
 	void CNSFile::openExist( const CNSString& filename )
 	{
 		mFileName = filename;
 		if ( mpFile != NULL )
 		{
 			static CNSString errorDesc;
-			errorDesc.format( _UTF8( "ÎÄ¼þ[%s]ÖØ¸´´ò¿ª" ), mFileName.getBuffer( ) );
+			errorDesc.format( _UTF8( "æ–‡ä»¶[%s]é‡å¤æ‰“å¼€" ), mFileName.getBuffer( ) );
 			NSException( errorDesc );
 		}
 
@@ -65,19 +65,19 @@ namespace NSBase
 		if ( mpFile == NULL )
 		{
 			static CNSString errorDesc;
-			errorDesc.format( _UTF8( "ÎÄ¼þ[%s]´ò¿ªÊ§°Ü, ´íÎóÂë - %d" ), mFileName.getBuffer( ), errno );
+			errorDesc.format( _UTF8( "æ–‡ä»¶[%s]æ‰“å¼€å¤±è´¥, é”™è¯¯ç  - %d" ), mFileName.getBuffer( ), errno );
 			NSException( errorDesc );
 		}
 	}
 
-	// Ò»¶¨´ò¿ªÎÄ¼þ£¬ÎÄ¼þÈç¹û²»´æÔÚ¾ÍÐÂ½¨Ò»¸ö
+	// ä¸€å®šæ‰“å¼€æ–‡ä»¶ï¼Œæ–‡ä»¶å¦‚æžœä¸å­˜åœ¨å°±æ–°å»ºä¸€ä¸ª
 	void CNSFile::openAlways( const CNSString& filename )
 	{
 		mFileName = filename;
 		if ( mpFile != NULL )
 		{
 			static CNSString errorDesc;
-			errorDesc.format( _UTF8( "ÎÄ¼þ[%s]ÖØ¸´´ò¿ª" ), mFileName.getBuffer( ) );
+			errorDesc.format( _UTF8( "æ–‡ä»¶[%s]é‡å¤æ‰“å¼€" ), mFileName.getBuffer( ) );
 			NSException( errorDesc );
 		}
 
@@ -91,19 +91,19 @@ namespace NSBase
 			}
 
 			static CNSString errorDesc;	
-			errorDesc.format( _UTF8( "ÎÄ¼þ[%s]´ò¿ªÊ§°Ü, ´íÎóÂë - %d" ), mFileName.getBuffer( ), errno );
+			errorDesc.format( _UTF8( "æ–‡ä»¶[%s]æ‰“å¼€å¤±è´¥, é”™è¯¯ç  - %d" ), mFileName.getBuffer( ), errno );
 			NSException( errorDesc );
 		}
 	}
 
-	// Ò»¶¨´ò¿ªÎÄ¼þ£¬ÎÄ¼þÈç¹û´æÔÚ¾Í¸²¸Ç
+	// ä¸€å®šæ‰“å¼€æ–‡ä»¶ï¼Œæ–‡ä»¶å¦‚æžœå­˜åœ¨å°±è¦†ç›–
 	void CNSFile::createNew( const CNSString& filename )
 	{
 		mFileName = filename;
 		if ( mpFile != NULL )
 		{
 			static CNSString errorDesc;
-			errorDesc.format( _UTF8( "ÎÄ¼þ[%s]ÖØ¸´´ò¿ª" ), mFileName.getBuffer( ) );
+			errorDesc.format( _UTF8( "æ–‡ä»¶[%s]é‡å¤æ‰“å¼€" ), mFileName.getBuffer( ) );
 			NSException( errorDesc );
 		}
 
@@ -111,7 +111,7 @@ namespace NSBase
 		if ( mpFile == NULL )
 		{
 			static CNSString errorDesc;
-			errorDesc.format( _UTF8( "ÎÄ¼þ[%s]´ò¿ªÊ§°Ü, ´íÎóÂë - %d" ), mFileName.getBuffer( ), errno );
+			errorDesc.format( _UTF8( "æ–‡ä»¶[%s]æ‰“å¼€å¤±è´¥, é”™è¯¯ç  - %d" ), mFileName.getBuffer( ), errno );
 			NSException( errorDesc );
 		}
 	}
@@ -136,13 +136,13 @@ namespace NSBase
 	{
 		if ( mNeedRefresh == true )
 		{
-			// ¼ÇÂ¼ÎÄ¼þÎ»ÖÃ
+			// è®°å½•æ–‡ä»¶ä½ç½®
 			long curPos = ::ftell( mpFile );
-			// ÒÆ¶¯µ½ÎÄ¼þ½áÊø
+			// ç§»åŠ¨åˆ°æ–‡ä»¶ç»“æŸ
 			::fseek( mpFile, 0, SEEK_END );
 			mLength = ::ftell( mpFile );
 
-			// »¹Ô­ÎÄ¼þÎ»ÖÃ
+			// è¿˜åŽŸæ–‡ä»¶ä½ç½®
 			::fseek( mpFile, curPos, SEEK_SET );
 			mNeedRefresh = false;
 		}
@@ -154,7 +154,7 @@ namespace NSBase
 		if ( mpFile == NULL )
 		{
 			static CNSString errorDesc;
-			errorDesc.format( _UTF8( "ÎÄ¼þ[%s]ÒÑ¾­¹Ø±Õ" ), mFileName.getBuffer( ) );
+			errorDesc.format( _UTF8( "æ–‡ä»¶[%s]å·²ç»å…³é—­" ), mFileName.getBuffer( ) );
 			NSException( errorDesc );
 		}
 
@@ -163,7 +163,7 @@ namespace NSBase
 		if ( fread( NSFunction::removeConst( value ).begin( ), sizeof( char ), len, mpFile ) != len )
 		{
 			static CNSString errorDesc;
-			errorDesc.format( _UTF8( "crtº¯Êý[fread]ÎÄ¼þ[%s]¶ÁÈ¡Ê§°Ü, ´íÎóÂë - %d" ), mFileName.getBuffer( ), errno );
+			errorDesc.format( _UTF8( "crtå‡½æ•°[fread]æ–‡ä»¶[%s]è¯»å–å¤±è´¥, é”™è¯¯ç  - %d" ), mFileName.getBuffer( ), errno );
 			NSException( errorDesc );
 		}
 
@@ -181,7 +181,7 @@ namespace NSBase
 		if ( mpFile == NULL )
 		{
 			static CNSString errorDesc;
-			errorDesc.format( _UTF8( "ÎÄ¼þ[%s]ÒÑ¾­¹Ø±Õ" ), mFileName.getBuffer( ) );
+			errorDesc.format( _UTF8( "æ–‡ä»¶[%s]å·²ç»å…³é—­" ), mFileName.getBuffer( ) );
 			NSException( errorDesc );
 		}
 
@@ -191,7 +191,7 @@ namespace NSBase
 			if ( fwrite( &header, 1, 3, mpFile ) != 3 )
 			{
 				static CNSString errorDesc;
-				errorDesc.format( _UTF8( "crtº¯Êý[fwrite]ÎÄ¼þ[%s]¶ÁÈ¡Ê§°Ü, ´íÎóÂë - %d" ), mFileName.getBuffer( ), errno );
+				errorDesc.format( _UTF8( "crtå‡½æ•°[fwrite]æ–‡ä»¶[%s]è¯»å–å¤±è´¥, é”™è¯¯ç  - %d" ), mFileName.getBuffer( ), errno );
 				NSException( errorDesc );
 			}
 		}
@@ -199,7 +199,7 @@ namespace NSBase
 		if ( fwrite( value.begin( ), sizeof( char ), value.length( ), mpFile ) != value.length( ) )
 		{
 			static CNSString errorDesc;
-			errorDesc.format( _UTF8( "crtº¯Êý[fread]ÎÄ¼þ[%s]¶ÁÈ¡Ê§°Ü, ´íÎóÂë - %d" ), mFileName.getBuffer( ), errno );
+			errorDesc.format( _UTF8( "crtå‡½æ•°[fread]æ–‡ä»¶[%s]è¯»å–å¤±è´¥, é”™è¯¯ç  - %d" ), mFileName.getBuffer( ), errno );
 			NSException( errorDesc );
 		}
 	}
@@ -209,7 +209,7 @@ namespace NSBase
 		if ( mpFile == NULL )
 		{
 			static CNSString errorDesc;
-			errorDesc.format( _UTF8( "ÎÄ¼þ[%s]ÒÑ¾­¹Ø±Õ" ), mFileName.getBuffer( ) );
+			errorDesc.format( _UTF8( "æ–‡ä»¶[%s]å·²ç»å…³é—­" ), mFileName.getBuffer( ) );
 			NSException( errorDesc );
 		}
 
@@ -217,7 +217,7 @@ namespace NSBase
 		if ( fread( &value, sizeof( T ), 1, mpFile ) != 1 )
 		{
 			static CNSString errorDesc;
-			errorDesc.format( _UTF8( "crtº¯Êý[fread]ÎÄ¼þ[%s]¶ÁÈ¡Ê§°Ü, ´íÎóÂë - %d" ), mFileName.getBuffer( ), errno );
+			errorDesc.format( _UTF8( "crtå‡½æ•°[fread]æ–‡ä»¶[%s]è¯»å–å¤±è´¥, é”™è¯¯ç  - %d" ), mFileName.getBuffer( ), errno );
 			NSException( errorDesc );
 		}
 
@@ -230,14 +230,14 @@ namespace NSBase
 		if ( mpFile == NULL )
 		{
 			static CNSString errorDesc;
-			errorDesc.format( _UTF8( "ÎÄ¼þ[%s]ÒÑ¾­¹Ø±Õ" ), mFileName.getBuffer( ) );
+			errorDesc.format( _UTF8( "æ–‡ä»¶[%s]å·²ç»å…³é—­" ), mFileName.getBuffer( ) );
 			NSException( errorDesc );
 		}
 
 		if ( fwrite( &data, sizeof( T ), 1, mpFile ) != 1 )
 		{
 			static CNSString errorDesc;
-			errorDesc.format( _UTF8( "crtº¯Êý[fwrite]ÎÄ¼þ[%s]Ð´ÈëÊ§°Ü, ´íÎóÂë - %d" ), mFileName.getBuffer( ), errno );
+			errorDesc.format( _UTF8( "crtå‡½æ•°[fwrite]æ–‡ä»¶[%s]å†™å…¥å¤±è´¥, é”™è¯¯ç  - %d" ), mFileName.getBuffer( ), errno );
 			NSException( errorDesc );
 		}
 
@@ -249,7 +249,7 @@ namespace NSBase
 		if ( mpFile == NULL )
 		{
 			static CNSString errorDesc;
-			errorDesc.format( _UTF8( "ÎÄ¼þ[%s]ÒÑ¾­¹Ø±Õ" ), mFileName.getBuffer( ) );
+			errorDesc.format( _UTF8( "æ–‡ä»¶[%s]å·²ç»å…³é—­" ), mFileName.getBuffer( ) );
 			NSException( errorDesc );
 		}
 
@@ -261,7 +261,7 @@ namespace NSBase
 		if ( mpFile == NULL )
 		{
 			static CNSString errorDesc;
-			errorDesc.format( _UTF8( "ÎÄ¼þ[%s]ÒÑ¾­¹Ø±Õ" ), mFileName.getBuffer( ) );
+			errorDesc.format( _UTF8( "æ–‡ä»¶[%s]å·²ç»å…³é—­" ), mFileName.getBuffer( ) );
 			NSException( errorDesc );
 		}
 
@@ -273,7 +273,7 @@ namespace NSBase
 		if ( mpFile == NULL )
 		{
 			static CNSString errorDesc;
-			errorDesc.format( _UTF8( "ÎÄ¼þ[%s]ÒÑ¾­¹Ø±Õ" ), mFileName.getBuffer( ) );
+			errorDesc.format( _UTF8( "æ–‡ä»¶[%s]å·²ç»å…³é—­" ), mFileName.getBuffer( ) );
 			NSException( errorDesc );
 		}
 
@@ -377,7 +377,7 @@ namespace NSBase
 		if ( fread( buffer.begin( ), sizeof( char ), len, mpFile ) != len )
 		{
 			static CNSString errorDesc;
-			errorDesc.format( _UTF8( "crtº¯Êý[fread]ÎÄ¼þ[%s]¶ÁÈ¡Ê§°Ü, ´íÎóÂë - %d" ), mFileName.getBuffer( ), errno );
+			errorDesc.format( _UTF8( "crtå‡½æ•°[fread]æ–‡ä»¶[%s]è¯»å–å¤±è´¥, é”™è¯¯ç  - %d" ), mFileName.getBuffer( ), errno );
 			NSException( errorDesc );
 		}
 
@@ -394,7 +394,7 @@ namespace NSBase
 		if ( fread( (void*) value.begin( ), sizeof( char ), len, mpFile ) != len )
 		{
 			static CNSString errorDesc;
-			errorDesc.format( _UTF8( "crtº¯Êý[fread]ÎÄ¼þ[%s]¶ÁÈ¡Ê§°Ü, ´íÎóÂë - %d" ), mFileName.getBuffer( ), errno );
+			errorDesc.format( _UTF8( "crtå‡½æ•°[fread]æ–‡ä»¶[%s]è¯»å–å¤±è´¥, é”™è¯¯ç  - %d" ), mFileName.getBuffer( ), errno );
 			NSException( errorDesc );
 		}
 		return *this;
@@ -472,7 +472,7 @@ namespace NSBase
 		if ( fwrite( value.getBuffer( ), sizeof( char ), value.getLength( ), mpFile ) != value.getLength( ) )
 		{
 			static CNSString errorDesc;
-			errorDesc.format( _UTF8( "crtº¯Êý[fwrite]ÎÄ¼þ[%s]Ð´ÈëÊ§°Ü, ´íÎóÂë - %d" ), mFileName.getBuffer( ), errno );
+			errorDesc.format( _UTF8( "crtå‡½æ•°[fwrite]æ–‡ä»¶[%s]å†™å…¥å¤±è´¥, é”™è¯¯ç  - %d" ), mFileName.getBuffer( ), errno );
 			NSException( errorDesc );
 		}
 
@@ -486,7 +486,7 @@ namespace NSBase
 		if ( fwrite( value.begin( ), sizeof( char ), value.length( ), mpFile ) != value.length( ) )
 		{
 			static CNSString errorDesc;
-			errorDesc.format( _UTF8( "crtº¯Êý[fwrite]ÎÄ¼þ[%s]Ð´ÈëÊ§°Ü, ´íÎóÂë - %d" ), mFileName.getBuffer( ), errno );
+			errorDesc.format( _UTF8( "crtå‡½æ•°[fwrite]æ–‡ä»¶[%s]å†™å…¥å¤±è´¥, é”™è¯¯ç  - %d" ), mFileName.getBuffer( ), errno );
 			NSException( errorDesc );
 		}
 
@@ -567,7 +567,7 @@ namespace NSBase
 		{
 			luaStack >> NSBase::ERollback;
 			static CNSString errorDesc;
-			errorDesc.format( _UTF8( "ÎÄ¼þ[%s] %s" ), file->getFileName( ).getBuffer( ), e.mErrorDesc );
+			errorDesc.format( _UTF8( "æ–‡ä»¶[%s] %s" ), file->getFileName( ).getBuffer( ), e.mErrorDesc );
 			NSException( errorDesc )
 		}
 		DECLARE_END_PROTECTED

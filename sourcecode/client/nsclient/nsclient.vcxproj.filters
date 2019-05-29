@@ -32,10 +32,10 @@
     <ClInclude Include="inc\nsclient.h">
       <Filter>nsclient\inc</Filter>
     </ClInclude>
-    <ClInclude Include="inc\precomplie.h">
+    <ClInclude Include="inc\nsinterface.h">
       <Filter>nsclient\inc</Filter>
     </ClInclude>
-    <ClInclude Include="inc\nsinterface.h">
+    <ClInclude Include="inc\precomplie.h">
       <Filter>nsclient\inc</Filter>
     </ClInclude>
     <ClInclude Include="inc\goproxy.h">
@@ -43,8 +43,8 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\server\common\protocol.cpp">
-      <Filter>common\src</Filter>
+    <ClCompile Include="src\goproxy.cpp">
+      <Filter>nsclient\src</Filter>
     </ClCompile>
     <ClCompile Include="src\interface.cpp">
       <Filter>nsclient\src</Filter>
@@ -58,8 +58,8 @@
     <ClCompile Include="src\dllmain.cpp">
       <Filter>nsclient\src</Filter>
     </ClCompile>
-    <ClCompile Include="src\goproxy.cpp">
-      <Filter>nsclient\src</Filter>
+    <ClCompile Include="..\..\server\common\protocol.cpp">
+      <Filter>common\src</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

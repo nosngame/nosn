@@ -1,4 +1,4 @@
-#include <nsbase.h>
+ï»¿#include <nsbase.h>
 
 namespace NSConsole
 {
@@ -29,7 +29,7 @@ namespace NSConsole
 	CNSMap< CNSString, CNSString >		luaFiles;
 	CNSSet< CNSString >					luaBreaks;
 	NSWin32::CNSFrame*					console = NULL;
-	CNSString							mConsoleTitle = _UTF8( "NoSN - Luaµ÷ÊÔÆ÷" );
+	CNSString							mConsoleTitle = _UTF8( "NoSN - Luaè°ƒè¯•å™¨" );
 	CNSString							curLuaFile;
 
 	int									breakStack = 0;
@@ -41,13 +41,13 @@ namespace NSConsole
 	CNSString							searchText;
 	HWND								wndHost = NULL;
 
-	int									luaDebugStatus = EDebugStatus::DEBUG_NONE;	// ÊÇ·ñµ¥²½¸ú×Ù
+	int									luaDebugStatus = EDebugStatus::DEBUG_NONE;	// æ˜¯å¦å•æ­¥è·Ÿè¸ª
 
 	CNSMap< int, CNSString >			openFileIndex;
 	CNSMap< CNSString, int >			openFileList;
 	int									openFileID = 1;
 
-	// µ±Ç°ÖĞ¶ÏĞÅÏ¢
+	// å½“å‰ä¸­æ–­ä¿¡æ¯
 	CNSString							curIntrputFile;
 	int									curIntrputLine = -1;
 	bool								inBreak = false;
@@ -107,13 +107,13 @@ namespace NSConsole
 		if ( NSWin32::CNSWindow::getFocus( ) != editorCtrl )
 			editorCtrl->focus( );
 
-		// ÉèÖÃĞèÒªÌø×ªµÄÖĞ¶ÏÒ³±ß±ê¼Ç
+		// è®¾ç½®éœ€è¦è·³è½¬çš„ä¸­æ–­é¡µè¾¹æ ‡è®°
 		editorCtrl->showMargin( line, EMarkerType::MARKER_INTERRUPT );
 
-		// ÈÃÖĞ¶ÏĞĞºÅÔÚÆÁÄ»ÄÚÏÔÊ¾³öÀ´
+		// è®©ä¸­æ–­è¡Œå·åœ¨å±å¹•å†…æ˜¾ç¤ºå‡ºæ¥
 		editorCtrl->gotoLine( line );
 
-		// ÖØĞÂ¼ÇÂ¼µ±Ç°ÖĞ¶ÏĞÅÏ¢
+		// é‡æ–°è®°å½•å½“å‰ä¸­æ–­ä¿¡æ¯
 		curIntrputLine = line;
 		curIntrputFile = fileName;
 	}
@@ -149,21 +149,21 @@ namespace NSConsole
 
 	void DebugBreak( const CNSString& fileName, int line )
 	{
-		// Ë¢ĞÂµ÷ÓÃ¶ÑÕ»
+		// åˆ·æ–°è°ƒç”¨å †æ ˆ
 		NSWin32::CNSVsList* listStack = ( NSWin32::CNSVsList* ) NSWin32::CNSWindow::getWindow( "consoleListStack" );
 		if ( listStack != NULL )
 			refreshListStack( listStack );
 
 		inBreak = true;
-		// ´ò¿ªµ÷ÊÔ´°¿Ú
+		// æ‰“å¼€è°ƒè¯•çª—å£
 		CreateConsoleWindow( );
 
-		// ¶¨Î»µ½ÖĞ¶ÏÎÄ¼şºÍÖĞ¶ÏĞĞºÅ
+		// å®šä½åˆ°ä¸­æ–­æ–‡ä»¶å’Œä¸­æ–­è¡Œå·
 		DebugGoto( fileName, line );
 
-		// ¿ªÆôÏûÏ¢Ñ­»·Î¬³Ö×¡µ±Ç°´°¿ÚÂß¼­
+		// å¼€å¯æ¶ˆæ¯å¾ªç¯ç»´æŒä½å½“å‰çª—å£é€»è¾‘
 		if ( baseApp == NULL )
-			NSException( _UTF8( "Ã»ÓĞµ÷ÓÃNSConsole::init" ) );
+			NSException( _UTF8( "æ²¡æœ‰è°ƒç”¨NSConsole::init" ) );
 
 		while ( 1 )
 		{
@@ -183,13 +183,13 @@ namespace NSConsole
 						listStack != NULL && GetAncestor( msg.hwnd, GA_ROOTOWNER ) == listStack->getHWnd( ) ||
 						varWatch != NULL && GetAncestor( msg.hwnd, GA_ROOTOWNER ) == varWatch->getHWnd( ) )
 					{
-						// Ö»´¦ÀíÕâËÄ¸ö´°¿Ú¼°Æä×Ó´°¿ÚµÄÏûÏ¢
+						// åªå¤„ç†è¿™å››ä¸ªçª—å£åŠå…¶å­çª—å£çš„æ¶ˆæ¯
 						::TranslateMessage( &msg );
 						::DispatchMessage( &msg );
 					}
 					else
 					{
-						// ĞèÒª´¦ÀíÒ»ÏÂWM_PAINT, ÒòÎªWM_PAINT²»»áÉ¾³ıÕâ¸öÏûÏ¢
+						// éœ€è¦å¤„ç†ä¸€ä¸‹WM_PAINT, å› ä¸ºWM_PAINTä¸ä¼šåˆ é™¤è¿™ä¸ªæ¶ˆæ¯
 						if ( msg.message == WM_PAINT )
 						{
 							PAINTSTRUCT ps;
@@ -207,7 +207,7 @@ namespace NSConsole
 			}
 			catch ( CNSException& e )
 			{
-				NSLog::exception( _UTF8( "³ÌĞòµ÷ÊÔ¶Ïµã×èÈûÖ÷Ñ­»··¢ÉúÒì³£\n´íÎóÃèÊö: \n\t%s\nC++µ÷ÓÃ¶ÑÕ»:\n%s" ), e.mErrorDesc, NSBase::NSFunction::getStackInfo( ).getBuffer( ) );
+				NSLog::exception( _UTF8( "ç¨‹åºè°ƒè¯•æ–­ç‚¹é˜»å¡ä¸»å¾ªç¯å‘ç”Ÿå¼‚å¸¸\né”™è¯¯æè¿°: \n\t%s\nC++è°ƒç”¨å †æ ˆ:\n%s" ), e.mErrorDesc, NSBase::NSFunction::getStackInfo( ).getBuffer( ) );
 			}
 		}
 		inBreak = false;
@@ -246,7 +246,7 @@ namespace NSConsole
 			{
 				if ( luaDebugStatus == EDebugStatus::DEBUG_INTO )
 				{
-					// Èç¹ûÊÇ½øÈë¸ú×Ù
+					// å¦‚æœæ˜¯è¿›å…¥è·Ÿè¸ª
 					lua_getinfo( L, "nSl", ar );
 
 					static CNSString fileName;
@@ -263,11 +263,11 @@ namespace NSConsole
 				}
 				else if ( luaDebugStatus == EDebugStatus::DEBUG_STEP )
 				{
-					// Èç¹ûÊÇµ¥²½¸ú×Ù
+					// å¦‚æœæ˜¯å•æ­¥è·Ÿè¸ª
 					int curStackDeep = getCurStackDeep( );
 					if ( curStackDeep <= breakStack )
 					{
-						// Èç¹ûµ±Ç°Õ»Éî¶ÈĞ¡ÓÚÉÏ´Î¶ÏµãÖĞ¶ÏÊ±µÄÉî¶È£¬ÄÇÃ´¿ÉÒÔÖĞ¶Ï
+						// å¦‚æœå½“å‰æ ˆæ·±åº¦å°äºä¸Šæ¬¡æ–­ç‚¹ä¸­æ–­æ—¶çš„æ·±åº¦ï¼Œé‚£ä¹ˆå¯ä»¥ä¸­æ–­
 						lua_getinfo( L, "nSl", ar );
 
 						static CNSString fileName;
@@ -285,7 +285,7 @@ namespace NSConsole
 					}
 				}
 
-				// µ¥²½¸ú×Ù¿ÉÄÜ»áÌø¹ıºÜ¶à´úÂë£¬ÕâĞ©´úÂëÒ²ĞèÒª¼ì²é¶Ïµã£¬Ö»ÓĞ²½Èë¸ú×Ù²»ÓÃÔÙ´Î¼ì²é¶Ïµã
+				// å•æ­¥è·Ÿè¸ªå¯èƒ½ä¼šè·³è¿‡å¾ˆå¤šä»£ç ï¼Œè¿™äº›ä»£ç ä¹Ÿéœ€è¦æ£€æŸ¥æ–­ç‚¹ï¼Œåªæœ‰æ­¥å…¥è·Ÿè¸ªä¸ç”¨å†æ¬¡æ£€æŸ¥æ–­ç‚¹
 				if ( luaBreaks.getCount( ) > 0 )
 				{
 					lua_getinfo( L, "nSl", ar );
@@ -312,7 +312,7 @@ namespace NSConsole
 		}
 		catch ( CNSException& e )
 		{
-			NSLog::exception( _UTF8( "luaµ÷ÊÔ¹ı³Ì·¢ÉúÒì³£\n´íÎóÃèÊö: \n\t%s\nC++µ÷ÓÃ¶ÑÕ»:\n%s" ), e.mErrorDesc, NSBase::NSFunction::getStackInfo( ).getBuffer( ) );
+			NSLog::exception( _UTF8( "luaè°ƒè¯•è¿‡ç¨‹å‘ç”Ÿå¼‚å¸¸\né”™è¯¯æè¿°: \n\t%s\nC++è°ƒç”¨å †æ ˆ:\n%s" ), e.mErrorDesc, NSBase::NSFunction::getStackInfo( ).getBuffer( ) );
 		}
 	}
 
@@ -321,7 +321,7 @@ namespace NSConsole
 		if ( inBreak == false )
 			return;
 
-		// Çå³ıµ±Ç°¶Ïµã
+		// æ¸…é™¤å½“å‰æ–­ç‚¹
 		if ( curLuaFile == curIntrputFile )
 		{
 			NSWin32::CNSVsEdit* luaEditor = ( NSWin32::CNSVsEdit* ) NSWin32::CNSWindow::getWindow( "consoleEditor" );
@@ -332,7 +332,7 @@ namespace NSConsole
 		curIntrputLine = -1;
 		curIntrputFile.clear( );
 
-		// µ¥²½¸ú×Ù
+		// å•æ­¥è·Ÿè¸ª
 		PostQuitMessage( 0 );
 		luaDebugStatus = EDebugStatus::DEBUG_STEP;
 	}
@@ -342,7 +342,7 @@ namespace NSConsole
 		if ( inBreak == false )
 			return;
 
-		// Çå³ıµ±Ç°¶Ïµã
+		// æ¸…é™¤å½“å‰æ–­ç‚¹
 		if ( curLuaFile == curIntrputFile )
 		{
 			NSWin32::CNSVsEdit* luaEditor = ( NSWin32::CNSVsEdit* ) NSWin32::CNSWindow::getWindow( "consoleEditor" );
@@ -352,7 +352,7 @@ namespace NSConsole
 		curIntrputLine = -1;
 		curIntrputFile.clear( );
 
-		// ¼ÌĞø
+		// ç»§ç»­
 		PostQuitMessage( 0 );
 		luaDebugStatus = EDebugStatus::DEBUG_NONE;
 	}
@@ -362,7 +362,7 @@ namespace NSConsole
 		if ( inBreak == false )
 			return;
 
-		// Çå³ıµ±Ç°¶Ïµã
+		// æ¸…é™¤å½“å‰æ–­ç‚¹
 		if ( curLuaFile == curIntrputFile )
 		{
 			NSWin32::CNSVsEdit* luaEditor = ( NSWin32::CNSVsEdit* ) NSWin32::CNSWindow::getWindow( "consoleEditor" );
@@ -372,7 +372,7 @@ namespace NSConsole
 		curIntrputLine = -1;
 		curIntrputFile.clear( );
 
-		// ²½Èë¸ú×Ù
+		// æ­¥å…¥è·Ÿè¸ª
 		PostQuitMessage( 0 );
 		luaDebugStatus = EDebugStatus::DEBUG_INTO;
 	}
@@ -408,7 +408,7 @@ namespace NSConsole
 		if ( NSWin32::CNSWindow::getFocus( ) != editorCtrl )
 			editorCtrl->focus( );
 
-		// ÈÃÖĞ¶ÏĞĞºÅÔÚÆÁÄ»ÄÚÏÔÊ¾³öÀ´
+		// è®©ä¸­æ–­è¡Œå·åœ¨å±å¹•å†…æ˜¾ç¤ºå‡ºæ¥
 		editorCtrl->visibleLine( line.toInteger( ) );
 		editorCtrl->gotoLine( line.toInteger( ) );
 		return true;
@@ -466,11 +466,11 @@ namespace NSConsole
 		{
 			input->focus( );
 
-			// ·µ»Øtrue£¬×èÖ¹Ä¬ÈÏ´¦Àí(±£³Ö»æÖÆ¹â±ê)£¬Ä¬ÈÏ´¦Àí½«È¡Ïû¹â±ê»æÖÆ
+			// è¿”å›trueï¼Œé˜»æ­¢é»˜è®¤å¤„ç†(ä¿æŒç»˜åˆ¶å…‰æ ‡)ï¼Œé»˜è®¤å¤„ç†å°†å–æ¶ˆå…‰æ ‡ç»˜åˆ¶
 			return true;
 		}
 
-		// Èç¹û²»ĞèÒªÖØĞÂ»ñµÃ½¹µã£¬ÄÇÃ´ĞèÒª¼ÌĞøÄ¬ÈÏ´¦Àí
+		// å¦‚æœä¸éœ€è¦é‡æ–°è·å¾—ç„¦ç‚¹ï¼Œé‚£ä¹ˆéœ€è¦ç»§ç»­é»˜è®¤å¤„ç†
 		return false;
 	}
 
@@ -525,7 +525,7 @@ namespace NSConsole
 		rcFileListFrame.top = 0;
 		rcFileListFrame.bottom = 305;
 		fileFrame = ( NSWin32::CNSFrame* ) NSWin32::CNSWindow::newFrame( "consoleFileListFrame", NSWin32::CNSFrame::EFrameType::STYLE_POPUP, rcFileListFrame, NULL, true );
-		fileFrame->setText( _UTF8( "ÎÄ¼ş²éÕÒ" ) );
+		fileFrame->setText( _UTF8( "æ–‡ä»¶æŸ¥æ‰¾" ) );
 		fileFrame->show( );
 
 		RECT rcFileList;
@@ -534,8 +534,8 @@ namespace NSConsole
 		rcFileList.top = 2;
 		rcFileList.bottom = 250;
 		NSWin32::CNSVsList* fileList = NSWin32::CNSWindow::newVsList( "consoleFileList", 0, rcFileList, fileFrame );
-		fileList->addColumn( _UTF8( "ÎÄ¼şÃû" ), 200 );
-		fileList->addColumn( _UTF8( "ÎÄ¼şÂ·¾¶" ), 396 );
+		fileList->addColumn( _UTF8( "æ–‡ä»¶å" ), 200 );
+		fileList->addColumn( _UTF8( "æ–‡ä»¶è·¯å¾„" ), 396 );
 		fileList->registerEvent( NSWin32::CNSVsList::EListCtrlEvent::EventDblClicked, onFileListDblClicked );
 
 		fileList->setRedraw( false );
@@ -569,7 +569,7 @@ namespace NSConsole
 		rcCommit.bottom = rcCommit.top + 18;
 		NSWin32::CNSVsBtn* fileCommit = NSWin32::CNSWindow::newVsBtn( "consoleFileListSearchButton",
 			NSWin32::CNSVsBtn::EVsButtonStyle::STYLE_PUSHBUTTON | NSWin32::CNSVsBtn::EVsButtonStyle::STYLE_TEXT, rcCommit, fileFrame );
-		fileCommit->setText( _UTF8( "È·¶¨" ) );
+		fileCommit->setText( _UTF8( "ç¡®å®š" ) );
 		fileCommit->mTopAnchor = NSWin32::CNSWindow::ANCHOR_BOTTOM;
 		fileCommit->mLeftAnchor = NSWin32::CNSWindow::ANCHOR_RIGHT;
 		fileCommit->registerEvent( NSWin32::CNSVsBtn::EventClicked, onFileCommitClicked );
@@ -595,7 +595,7 @@ namespace NSConsole
 		}
 
 		stackFrame = ( NSWin32::CNSFrame* ) NSWin32::CNSWindow::newFrame( "consoleListStackFrame", NSWin32::CNSFrame::EFrameType::STYLE_POPUP, rcStack, console, false );
-		stackFrame->setText( _UTF8( "µ÷ÓÃ¶ÑÕ»" ) );
+		stackFrame->setText( _UTF8( "è°ƒç”¨å †æ ˆ" ) );
 		stackFrame->show( );
 
 		RECT rcStackList;
@@ -604,10 +604,10 @@ namespace NSConsole
 		rcStackList.top = 0;
 		rcStackList.bottom = 300;
 		NSWin32::CNSVsList* list = NSWin32::CNSWindow::newVsList( "consoleListStack", 0, rcStackList, stackFrame );
-		list->addColumn( _UTF8( "²ã¼¶" ), 50 );
-		list->addColumn( _UTF8( "ÎÄ¼ş" ), 250 );
-		list->addColumn( _UTF8( "º¯Êı" ), 250 );
-		list->addColumn( _UTF8( "ĞĞºÅ" ), 50 );
+		list->addColumn( _UTF8( "å±‚çº§" ), 50 );
+		list->addColumn( _UTF8( "æ–‡ä»¶" ), 250 );
+		list->addColumn( _UTF8( "å‡½æ•°" ), 250 );
+		list->addColumn( _UTF8( "è¡Œå·" ), 50 );
 		list->registerEvent( NSWin32::CNSVsList::EListCtrlEvent::EventClicked, onConsoleListStackClicked );
 		refreshListStack( list );
 	}
@@ -632,7 +632,7 @@ namespace NSConsole
 			if ( frame != NULL )
 				frame->enable( false );
 
-			MessageBox( console->getHWnd( ), _T( "ÎÄµµËÑË÷Íê³É" ), _T( "ÏµÍ³ÌáÊ¾" ), MB_OK | MB_ICONINFORMATION );
+			MessageBox( console->getHWnd( ), _T( "æ–‡æ¡£æœç´¢å®Œæˆ" ), _T( "ç³»ç»Ÿæç¤º" ), MB_OK | MB_ICONINFORMATION );
 			lastFindStart = findStart;
 			if ( frame != NULL )
 				frame->enable( true );
@@ -663,7 +663,7 @@ namespace NSConsole
 		CNSString& text = input->getText( );
 		if ( text.toInteger( ) > editorCtrl->getLineCount( ) )
 		{
-			MessageBox( console->getHWnd( ), _T( "³¬³öÎÄµµ·¶Î§" ), _T( "ÏµÍ³ÌáÊ¾" ), MB_OK | MB_ICONINFORMATION );
+			MessageBox( console->getHWnd( ), _T( "è¶…å‡ºæ–‡æ¡£èŒƒå›´" ), _T( "ç³»ç»Ÿæç¤º" ), MB_OK | MB_ICONINFORMATION );
 			input->focus( );
 			return true;
 		}
@@ -1006,7 +1006,7 @@ namespace NSConsole
 			NSWin32::CNSVsBtn::EVsButtonStyle::STYLE_PUSHBUTTON | NSWin32::CNSVsBtn::EVsButtonStyle::STYLE_TEXT, rcBtn, frame );
 		btnCommit->mRightAnchor = NSWin32::CNSWindow::ANCHOR_LEFT;
 		btnCommit->mBottomAnchor = NSWin32::CNSWindow::ANCHOR_TOP;
-		btnCommit->setText( _UTF8( "×ßÄã" ) );
+		btnCommit->setText( _UTF8( "èµ°ä½ " ) );
 		btnCommit->registerEvent( NSWin32::CNSVsBtn::EventClicked, onClickSearchBtn );
 
 		RECT rcCheck1;
@@ -1018,7 +1018,7 @@ namespace NSConsole
 			NSWin32::CNSVsBtn::EVsButtonStyle::STYLE_CHECK | NSWin32::CNSVsBtn::EVsButtonStyle::STYLE_TEXT, rcCheck1, frame );
 		btnCheck1->mRightAnchor = NSWin32::CNSWindow::ANCHOR_LEFT;
 		btnCheck1->mBottomAnchor = NSWin32::CNSWindow::ANCHOR_TOP;
-		btnCheck1->setText( _UTF8( "Çø·Ö´óĞ¡Ğ´" ) );
+		btnCheck1->setText( _UTF8( "åŒºåˆ†å¤§å°å†™" ) );
 		btnCheck1->registerEvent( NSWin32::CNSVsBtn::EventClicked, onClickSearchBtnCase );
 		btnCheck1->setCheck( searchCase );
 
@@ -1031,7 +1031,7 @@ namespace NSConsole
 			NSWin32::CNSVsBtn::EVsButtonStyle::STYLE_CHECK | NSWin32::CNSVsBtn::EVsButtonStyle::STYLE_TEXT, rcCheck2, frame );
 		btnCheck2->mRightAnchor = NSWin32::CNSWindow::ANCHOR_LEFT;
 		btnCheck2->mBottomAnchor = NSWin32::CNSWindow::ANCHOR_TOP;
-		btnCheck2->setText( _UTF8( "È«×ÖÆ¥Åä" ) );
+		btnCheck2->setText( _UTF8( "å…¨å­—åŒ¹é…" ) );
 		btnCheck2->registerEvent( NSWin32::CNSVsBtn::EventClicked, onClickSearchBtnWord );
 		btnCheck2->setCheck( searchWord );
 	}
@@ -1057,7 +1057,7 @@ namespace NSConsole
 		CNSString& luaText = luaFiles.insert( name, buffer );
 		if ( name == curLuaFile )
 		{
-			// Èç¹ûµ±Ç°´ò¿ªµÄÎÄ¼ş±»ĞŞ¸ÄÁË
+			// å¦‚æœå½“å‰æ‰“å¼€çš„æ–‡ä»¶è¢«ä¿®æ”¹äº†
 			curLuaFile.clear( );
 			showFile( name, buffer );
 		}
@@ -1103,7 +1103,7 @@ namespace NSConsole
 	{
 		if ( curLuaFile == curIntrputFile )
 		{
-			// Çå³ıµ±Ç°¶Ïµã
+			// æ¸…é™¤å½“å‰æ–­ç‚¹
 			NSWin32::CNSVsEdit* luaEditor = ( NSWin32::CNSVsEdit* ) NSWin32::CNSWindow::getWindow( "consoleEditor" );
 			if ( luaEditor != NULL )
 				luaEditor->hideMargin( curIntrputLine, EMarkerType::MARKER_INTERRUPT );
@@ -1131,7 +1131,7 @@ namespace NSConsole
 		memBmp = NULL;
 		luaBreaks.clear( );
 		console = NULL;
-		mConsoleTitle = _UTF8( "NoSN - Luaµ÷ÊÔÆ÷" );
+		mConsoleTitle = _UTF8( "NoSN - Luaè°ƒè¯•å™¨" );
 		curLuaFile.clear( );
 		breakStack = 0;
 		searchWord = false;
@@ -1182,7 +1182,7 @@ namespace NSConsole
 			if ( windowName.isEmpty( ) == true )
 				windowName = NSWin32::CNSWindow::getWindowText( wndHost );
 
-			NSWin32::CNSWindow::setWindowText( wndHost, windowName + _UTF8( " - ÓĞÒì³£" ) );
+			NSWin32::CNSWindow::setWindowText( wndHost, windowName + _UTF8( " - æœ‰å¼‚å¸¸" ) );
 		}
 	}
 
@@ -1190,9 +1190,9 @@ namespace NSConsole
 	{
 		baseApp = NSWin32::CNSBaseApp::getApp( );
 		if ( baseApp == NULL )
-			NSException( _UTF8( "Ã»ÓĞ´´½¨App¶ÔÏó" ) );
+			NSException( _UTF8( "æ²¡æœ‰åˆ›å»ºAppå¯¹è±¡" ) );
 
-		// Èç¹ûconsoleÒÑ¾­´ò¿ª£¬ÄÇÃ´ÏÈÏú»Ù£¬±£Ö¤consoleµÄ½çÃæÖØĞÂ¹¹Ôì
+		// å¦‚æœconsoleå·²ç»æ‰“å¼€ï¼Œé‚£ä¹ˆå…ˆé”€æ¯ï¼Œä¿è¯consoleçš„ç•Œé¢é‡æ–°æ„é€ 
 		NSWin32::CNSVsTree* treeCtrl = ( NSWin32::CNSVsTree* ) NSWin32::CNSWindow::getWindow( "consoleTree" );
 		if ( treeCtrl != NULL )
 			treeCtrl->clear( );
@@ -1313,7 +1313,7 @@ namespace NSConsole
 		SCNotification* notify = (SCNotification*) lParam;
 		unsigned int start, end = -1;
 		CNSString& word = luaEditor->getWordByPosition( (unsigned int) notify->position, start, end );
-		// Èç¹û²»ÔÚµ÷ÊÔÖĞ¶Ï×´Ì¬£¬²»ÄÜ²é¿´±äÁ¿
+		// å¦‚æœä¸åœ¨è°ƒè¯•ä¸­æ–­çŠ¶æ€ï¼Œä¸èƒ½æŸ¥çœ‹å˜é‡
 		if ( inBreak == false )
 			return true;
 
@@ -1344,7 +1344,7 @@ namespace NSConsole
 		if ( tips == NULL )
 		{
 			tips = NSWin32::CNSWindow::newFrame( "varWatchFrame", NSWin32::CNSFrame::EFrameType::STYLE_POPUP, rcWatch, NULL, false );
-			tips->setText( CNSString( _UTF8( "±äÁ¿²é¿´Æ÷ - " ) ) + word );
+			tips->setText( CNSString( _UTF8( "å˜é‡æŸ¥çœ‹å™¨ - " ) ) + word );
 			tips->show( );
 
 			RECT rcWatchTree;
@@ -1523,7 +1523,7 @@ namespace NSConsole
 		if ( textRef == NULL )
 			return true;
 
-		// ±£´æ×¡Ö®Ç°µÄ¹Û²ì
+		// ä¿å­˜ä½ä¹‹å‰çš„è§‚å¯Ÿ
 		showFile( filePath, ( *textRef ) );
 		return true;
 	}
@@ -1623,7 +1623,7 @@ namespace NSConsole
 
 	bool onConsoleClose( NSWin32::CNSWindow* window, WPARAM wParam, LPARAM lParam, LRESULT* result )
 	{
-		if ( MessageBox( console->getHWnd( ), _T( "¹Ø±Õ´°¿Ú½«»áÖØÖÃµ÷ÊÔ×´Ì¬" ), _T( "ÏµÍ³ÌáÊ¾" ), MB_YESNO | MB_ICONWARNING ) == IDYES )
+		if ( MessageBox( console->getHWnd( ), _T( "å…³é—­çª—å£å°†ä¼šé‡ç½®è°ƒè¯•çŠ¶æ€" ), _T( "ç³»ç»Ÿæç¤º" ), MB_YESNO | MB_ICONWARNING ) == IDYES )
 			window->destroy( );
 
 		return true;
@@ -1753,7 +1753,7 @@ namespace NSConsole
 		NSWin32::CNSVsTree* tree = NSWin32::CNSWindow::newVsTree( "consoleTree", 0, rcTree, debugFrame );
 		tree->registerEvent( NSWin32::CNSVsTree::CTreeCtrlEvent::EventSelectChanged, onConsoleTreeSelectChanged );
 		tree->enableTitle( true );
-		tree->setTitle( _UTF8( "¹¤×÷¿Õ¼ä" ) );
+		tree->setTitle( _UTF8( "å·¥ä½œç©ºé—´" ) );
 		debugFrame->bindLeft( tree );
 
 		RECT rcVsTab;
@@ -1772,25 +1772,25 @@ namespace NSConsole
 		editor->registerMessage( WM_SIZE, onEditorSize );
 		editor->setVisible( false );
 
-		PAGE_LOG = tab->addItem( _UTF8( "ÈÕÖ¾" ) );
-		PAGE_EXCEPTION = tab->addItem( _UTF8( "Òì³£" ) );
-		PAGE_DEBUG = tab->addItem( _UTF8( "µ÷ÊÔ" ) );
+		PAGE_LOG = tab->addItem( _UTF8( "æ—¥å¿—" ) );
+		PAGE_EXCEPTION = tab->addItem( _UTF8( "å¼‚å¸¸" ) );
+		PAGE_DEBUG = tab->addItem( _UTF8( "è°ƒè¯•" ) );
 		tab->setCurSel( PAGE_LOG );
 
 		edit->setEditorText( NSLog::sLogText );
 		buildFileTree( tree );
 
 		editor->enableLineNumber( true );
-		// ¿ªÆô1ºÅÒ³±ß£¬16¸öÏñËØ¿í£¬Ö»½ÓÊÜ0, 1, 2ºÅÒ³±ß·ûºÅ, ÉèÖÃ¶ÏµãÒ³±ß
+		// å¼€å¯1å·é¡µè¾¹ï¼Œ16ä¸ªåƒç´ å®½ï¼Œåªæ¥å—0, 1, 2å·é¡µè¾¹ç¬¦å·, è®¾ç½®æ–­ç‚¹é¡µè¾¹
 		editor->setMargin( 1, 16, 0x00000007, RGB( 51, 51, 51 ), true );
 
-		// ÉèÖÃ1ºÅÒ³±ß·ûºÅÍ¼ĞÎÎª4( SC_MARK_SHORTARROW )
+		// è®¾ç½®1å·é¡µè¾¹ç¬¦å·å›¾å½¢ä¸º4( SC_MARK_SHORTARROW )
 		editor->setMarginSymbol( NSConsole::EMarkerType::MARKER_INTERRUPT, SC_MARK_SHORTARROW, RGB( 99, 98, 90 ), RGB( 245, 208, 55 ) );
 
-		// ÉèÖÃ0ºÅÒ³±ß·ûºÅÍ¼ĞÎÎª0( SC_MARK_CIRCLE )
+		// è®¾ç½®0å·é¡µè¾¹ç¬¦å·å›¾å½¢ä¸º0( SC_MARK_CIRCLE )
 		editor->setMarginSymbol( NSConsole::EMarkerType::MARKER_BREAK, SC_MARK_CIRCLE, RGB( 255, 255, 255 ), RGB( 228, 20, 0 ) );
 
-		// ÉèÖÃ0ºÅÒ³±ß·ûºÅÍ¼ĞÎÎª0( SC_MARK_BACKGROUND  )
+		// è®¾ç½®0å·é¡µè¾¹ç¬¦å·å›¾å½¢ä¸º0( SC_MARK_BACKGROUND  )
 		editor->setMarginSymbol( NSConsole::EMarkerType::MARKER_LINETIP, SC_MARK_BACKGROUND, RGB( 255, 255, 255 ), RGB( 78, 78, 87 ) );
 
 		NSWin32::CNSWindow::registerGlobalHotkey( NSWin32::HOTKEY_ALT, NSWin32::KEYCODE_L, onDebugOpenFileList );
@@ -1812,11 +1812,11 @@ namespace NSConsole
 	{
 		if ( console != NULL )
 		{
-			// Èç¹û´°¿ÚÊÇ¼¤»î´°¿ÚÊ²Ã´¶¼²»ÓÃ×ö
+			// å¦‚æœçª—å£æ˜¯æ¿€æ´»çª—å£ä»€ä¹ˆéƒ½ä¸ç”¨åš
 			if ( NSWin32::CNSWindow::getActive( ) == console )
 				return;
 
-			// Èç¹û´°¿Ú²»ÊÇ¼¤»î´°¿Ú£¬ÖØĞÂÏÔÊ¾£¬²¢ÇÒÖØĞÂ¼ÓÔØÎÄ¼şÊ÷
+			// å¦‚æœçª—å£ä¸æ˜¯æ¿€æ´»çª—å£ï¼Œé‡æ–°æ˜¾ç¤ºï¼Œå¹¶ä¸”é‡æ–°åŠ è½½æ–‡ä»¶æ ‘
 			console->active( );
 			console->maximized( );
 
@@ -1829,8 +1829,8 @@ namespace NSConsole
 					CNSString& filePath = luaFiles.getKey( beginIndex );
 					if ( treeCtrl->findItem( filePath ) == NULL )
 					{
-						// Èç¹ûÎÄ¼şÁĞ±í·¢Éú±ä¶¯£¬ĞèÒªÖØĞÂ¹¹½¨ÎÄ¼şÊ÷
-						MessageBox( console->getHWnd( ), _T( "¼ì²âµ½ÎÄ¼şÁĞ±í·¢Éú±ä¶¯£¬µã»÷È·¶¨½«Ë¢ĞÂ" ), _T( "ÏµÍ³ÌáÊ¾" ), MB_OK | MB_ICONINFORMATION );
+						// å¦‚æœæ–‡ä»¶åˆ—è¡¨å‘ç”Ÿå˜åŠ¨ï¼Œéœ€è¦é‡æ–°æ„å»ºæ–‡ä»¶æ ‘
+						MessageBox( console->getHWnd( ), _T( "æ£€æµ‹åˆ°æ–‡ä»¶åˆ—è¡¨å‘ç”Ÿå˜åŠ¨ï¼Œç‚¹å‡»ç¡®å®šå°†åˆ·æ–°" ), _T( "ç³»ç»Ÿæç¤º" ), MB_OK | MB_ICONINFORMATION );
 						buildFileTree( treeCtrl );
 						break;
 					}
@@ -1848,7 +1848,7 @@ namespace NSConsole
 
 	void showConsole( )
 	{
-		// Í¨¹ı³ÌĞò×ÔÉíÏûÏ¢Ñ­»·Çı¶¯
+		// é€šè¿‡ç¨‹åºè‡ªèº«æ¶ˆæ¯å¾ªç¯é©±åŠ¨
 		CreateConsoleWindow( );
 	}
 };

@@ -1,8 +1,8 @@
-#pragma once
+ï»¿#pragma once
 
 namespace NSBase
 {
-	// ĞèÒªĞòÁĞ»¯µ½ÎÄ¼şµÄÀà£¬´ÓÕâÀïÅÉÉú
+	// éœ€è¦åºåˆ—åŒ–åˆ°æ–‡ä»¶çš„ç±»ï¼Œä»è¿™é‡Œæ´¾ç”Ÿ
 	class CNSFileMarshal
 	{
 	public:

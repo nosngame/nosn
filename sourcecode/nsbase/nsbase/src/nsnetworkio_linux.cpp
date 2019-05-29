@@ -1,4 +1,4 @@
-#include <fbbase.h>
+ï»¿#include <fbbase.h>
 // ********************************************************************** //
 // CFBNetworkIO
 // ********************************************************************** //
@@ -130,12 +130,12 @@ bool CFBPassiveIO::Create( const CFBString& rAddress, const CFBString& rPort )
 {
 	mIOPort = ::CreateIoCompletionPort( INVALID_HANDLE_VALUE, 0, 0, 1 );
 
-	// ×¢²áÒ»¸ö±»¶¯IO
+	// æ³¨å†Œä¸€ä¸ªè¢«åŠ¨IO
 	if ( ( mListenSocket = ::WSASocket( AF_INET, SOCK_STREAM, 0, 0, 0, WSA_FLAG_OVERLAPPED ) ) == INVALID_SOCKET )
 	{
 		DWORD errorCode = GetLastError( );
 		CFBString errorDesc;
-		errorDesc.Format( "·þÎñÆ÷´íÎó[WSASocket º¯Êýµ÷ÓÃÊ§°Ü£¬´íÎóÂë - %d]", errorCode );
+		errorDesc.Format( "æœåŠ¡å™¨é”™è¯¯[WSASocket å‡½æ•°è°ƒç”¨å¤±è´¥ï¼Œé”™è¯¯ç  - %d]", errorCode );
 		log( errorDesc );
 		return false;
 	}
@@ -149,7 +149,7 @@ bool CFBPassiveIO::Create( const CFBString& rAddress, const CFBString& rPort )
 	{
 		DWORD errorCode = GetLastError( );
 		CFBString errorDesc;
-		errorDesc.Format( "·þÎñÆ÷´íÎó[¶Ë¿Ú´ò¿ªÊ§°Ü, ¶Ë¿ÚµØÖ· - %s:%s]", rAddress.GetBuffer( ), rPort.GetBuffer( ) );
+		errorDesc.Format( "æœåŠ¡å™¨é”™è¯¯[ç«¯å£æ‰“å¼€å¤±è´¥, ç«¯å£åœ°å€ - %s:%s]", rAddress.GetBuffer( ), rPort.GetBuffer( ) );
 		log( errorDesc );
 		return false;
 	}
@@ -158,7 +158,7 @@ bool CFBPassiveIO::Create( const CFBString& rAddress, const CFBString& rPort )
 	{
 		DWORD errorCode = GetLastError( );
 		CFBString errorDesc;
-		errorDesc.Format( "·þÎñÆ÷´íÎó[listen º¯Êýµ÷ÓÃÊ§°Ü£¬´íÎóÂë - %d]", errorCode );
+		errorDesc.Format( "æœåŠ¡å™¨é”™è¯¯[listen å‡½æ•°è°ƒç”¨å¤±è´¥ï¼Œé”™è¯¯ç  - %d]", errorCode );
 		log( errorDesc );
 		return false;
 	}
@@ -167,7 +167,7 @@ bool CFBPassiveIO::Create( const CFBString& rAddress, const CFBString& rPort )
 	{
 		DWORD errorCode = GetLastError( );
 		CFBString errorDesc;
-		errorDesc.Format( "·þÎñÆ÷´íÎó[CreateIoCompletionPort º¯Êýµ÷ÓÃÊ§°Ü£¬´íÎóÂë - %d]", errorCode );
+		errorDesc.Format( "æœåŠ¡å™¨é”™è¯¯[CreateIoCompletionPort å‡½æ•°è°ƒç”¨å¤±è´¥ï¼Œé”™è¯¯ç  - %d]", errorCode );
 		log( errorDesc );
 		return false;
 	}
@@ -188,7 +188,7 @@ bool CFBPassiveIO::Accept( int vIndex )
 	{
 		DWORD errorCode = GetLastError( );
 		CFBString errorDesc;
-		errorDesc.Format( "·þÎñÆ÷´íÎó[Accept º¯Êýµ÷ÓÃÊ§°Ü£¬´íÎóÂë - %d]", errorCode );
+		errorDesc.Format( "æœåŠ¡å™¨é”™è¯¯[Accept å‡½æ•°è°ƒç”¨å¤±è´¥ï¼Œé”™è¯¯ç  - %d]", errorCode );
 		log( errorDesc );
 		return false;
 	}
@@ -212,7 +212,7 @@ bool CFBPassiveIO::Accept( int vIndex )
 		{
 			DWORD errorCode = GetLastError( );
 			CFBString errorDesc;
-			errorDesc.Format( "·þÎñÆ÷´íÎó[AcceptEx º¯Êýµ÷ÓÃÊ§°Ü£¬´íÎóÂë - %d]", errorCode );
+			errorDesc.Format( "æœåŠ¡å™¨é”™è¯¯[AcceptEx å‡½æ•°è°ƒç”¨å¤±è´¥ï¼Œé”™è¯¯ç  - %d]", errorCode );
 			log( errorDesc );
 			return false;
 		}
@@ -268,7 +268,7 @@ void CFBPassiveIO::Run( unsigned int vMilliSeconds )
 					Destroy( tSessionID );
 				else
 				{
-					// Èç¹û»á»°»¹ÔÚ£¬¾Í¼ÌÐø¶ÁÈ¡Êý¾Ý
+					// å¦‚æžœä¼šè¯è¿˜åœ¨ï¼Œå°±ç»§ç»­è¯»å–æ•°æ®
 					if ( tpSession->OnSessionRecv( tBytesTran ) == true && GetSession( tSessionID ) != NULL )
 						PermitRecv( tpSession );
 				}
@@ -312,7 +312,7 @@ void CFBPassiveIO::Run( unsigned int vMilliSeconds )
 		{
 			DWORD errorCode = tRetError;
 			CFBString errorDesc;
-			errorDesc.Format( "·þÎñÆ÷´íÎó[GetQueuedCompletionStatus º¯Êýµ÷ÓÃÊ§°Ü£¬´íÎóÂë - %d]", errorCode );
+			errorDesc.Format( "æœåŠ¡å™¨é”™è¯¯[GetQueuedCompletionStatus å‡½æ•°è°ƒç”¨å¤±è´¥ï¼Œé”™è¯¯ç  - %d]", errorCode );
 			log( errorDesc );
 			return;
 		}
@@ -387,8 +387,8 @@ CFBActiveIO::CFBActiveIO( CFBNetManager* pManager, const CFBString& rName ) : CF
 
 CFBActiveIO::~CFBActiveIO( )
 {
-	// ÒòÎª¶Ï¿ªÁ¬½ÓºÍÁ´½ÓÊ§°Ü¶¼ÐèÒª¹Ø±Õsocket
-	// ËùÒÔ¹Ø±ÕsocketÒª·ÅÔÚÕâÀï
+	// å› ä¸ºæ–­å¼€è¿žæŽ¥å’Œé“¾æŽ¥å¤±è´¥éƒ½éœ€è¦å…³é—­socket
+	// æ‰€ä»¥å…³é—­socketè¦æ”¾åœ¨è¿™é‡Œ
 	close( mSocket );
 	mSocket = 0;
 	if ( mpSession != NULL )
@@ -397,8 +397,8 @@ CFBActiveIO::~CFBActiveIO( )
 
 void CFBActiveIO::Destroy( TSessionID vSessionID )
 {
-	// ÕâÀïÃ»ÓÐ¹Ø±Õsocket,ÊÇÒòÎª²»½ö¶Ï¿ªÁ¬½ÓÐèÒª¹Ø±Õsocket
-	// Á¬½ÓÊ§°ÜÒ²ÐèÒª¹Ø±Õsocket
+	// è¿™é‡Œæ²¡æœ‰å…³é—­socket,æ˜¯å› ä¸ºä¸ä»…æ–­å¼€è¿žæŽ¥éœ€è¦å…³é—­socket
+	// è¿žæŽ¥å¤±è´¥ä¹Ÿéœ€è¦å…³é—­socket
 	spNetworkTombs->PushBack( this );
 	if ( mpSession == NULL )
 		return;
@@ -409,11 +409,11 @@ void CFBActiveIO::Destroy( TSessionID vSessionID )
 
 void CFBActiveIO::Create( const CFBString& rAddress, const CFBString& rPort )
 {
-	// ×¢²áÒ»¸öÖ÷¶¯IO
+	// æ³¨å†Œä¸€ä¸ªä¸»åŠ¨IO
 	if ( ( mSocket = ::socket( AF_INET, SOCK_STREAM, 0 ) ) == -1 )
 	{
 		CFBString errorDesc;
-		errorDesc.Format( "·þÎñÆ÷´íÎó[WSAStartup º¯Êýµ÷ÓÃÊ§°Ü£¬´íÎóÂë - %d]", errno );
+		errorDesc.Format( "æœåŠ¡å™¨é”™è¯¯[WSAStartup å‡½æ•°è°ƒç”¨å¤±è´¥ï¼Œé”™è¯¯ç  - %d]", errno );
 		log( errorDesc );
 		return;
 	}
@@ -431,7 +431,7 @@ void CFBActiveIO::Create( const CFBString& rAddress, const CFBString& rPort )
 			return;
 
 		CFBString errorDesc;
-		errorDesc.Format( "·þÎñÆ÷´íÎó[WSAConnect º¯Êýµ÷ÓÃÊ§°Ü£¬´íÎóÂë - %d]", errno );
+		errorDesc.Format( "æœåŠ¡å™¨é”™è¯¯[WSAConnect å‡½æ•°è°ƒç”¨å¤±è´¥ï¼Œé”™è¯¯ç  - %d]", errno );
 		log( errorDesc );
 		return;
 	}
@@ -446,7 +446,7 @@ void CFBActiveIO::OnConnect( int vCode )
 		return;
 	}
 		
-	// Èç¹ûÁ¬½Ó³É¹¦
+	// å¦‚æžœè¿žæŽ¥æˆåŠŸ
 	mpSession = new CFBSession( mpManager, mSocket, this );
 	unsigned int tBufferSize = mpManager->GetBufferSize( );
 	int tRet = setsockopt( mSocket, SOL_SOCKET, SO_SNDBUF, (char*) &tBufferSize, sizeof( unsigned int ) );
@@ -463,7 +463,7 @@ void CFBActiveIO::OnConnect( int vCode )
 	if ( ::getsockname( mSocket, (sockaddr*) &tLocalAddr, &tLocalLen ) == -1 )
 	{
 		CFBString errorDesc;
-		errorDesc.Format( "·þÎñÆ÷´íÎó[getsockname º¯Êýµ÷ÓÃÊ§°Ü£¬´íÎóÂë - %d]", errno );
+		errorDesc.Format( "æœåŠ¡å™¨é”™è¯¯[getsockname å‡½æ•°è°ƒç”¨å¤±è´¥ï¼Œé”™è¯¯ç  - %d]", errno );
 		log( errorDesc );
 		return;
 	}
@@ -471,7 +471,7 @@ void CFBActiveIO::OnConnect( int vCode )
 	if ( ::getsockname( mSocket, (sockaddr*) &tPeerAddr, &tPeerLen ) == -1 )
 	{
 		CFBString errorDesc;
-		errorDesc.Format( "·þÎñÆ÷´íÎó[getsockname º¯Êýµ÷ÓÃÊ§°Ü£¬´íÎóÂë - %d]", errno );
+		errorDesc.Format( "æœåŠ¡å™¨é”™è¯¯[getsockname å‡½æ•°è°ƒç”¨å¤±è´¥ï¼Œé”™è¯¯ç  - %d]", errno );
 		log( errorDesc );
 		return;
 	}
@@ -585,12 +585,12 @@ void CFBActiveIO::OnRecv( )
 	int tBytesRecv = recv( mpSession->mPeerSocket, tpBuffer, tLength, 0 );
 	if ( tBytesRecv == 0 || tBytesRecv == -1 )
 	{
-		// Èç¹ûÊÕµ½0×Ö½Ú£¬Èç¹û½ÓÊÜÊ§°Ü, ¶¼Òª¶Ï¿ªÁ¬½Ó
+		// å¦‚æžœæ”¶åˆ°0å­—èŠ‚ï¼Œå¦‚æžœæŽ¥å—å¤±è´¥, éƒ½è¦æ–­å¼€è¿žæŽ¥
 		Destroy( 0 );
 		return;
 	}
 
-	// Èç¹û½â°üÊ§°Ü£¬Ò²Òª¶Ï¿ªÁ¬½Ó
+	// å¦‚æžœè§£åŒ…å¤±è´¥ï¼Œä¹Ÿè¦æ–­å¼€è¿žæŽ¥
 	if ( mpSession->OnSessionRecv( tBytesRecv ) == false )
 		Destroy( 0 );
 }

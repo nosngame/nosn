@@ -1,4 +1,4 @@
-#include <nsbase.h>
+﻿#include <nsbase.h>
 
 CNSMap< int, CNSTimer::CTimerObject >	CNSTimer::sTimer;
 CNSSet< int >							CNSTimer::sRemoveList;

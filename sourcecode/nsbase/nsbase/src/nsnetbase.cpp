@@ -1,4 +1,4 @@
-#include <nsbase.h>
+﻿#include <nsbase.h>
 #ifdef PLATFORM_WIN32
 #include <Iphlpapi.h>
 #pragma comment(lib, "iphlpapi.lib")

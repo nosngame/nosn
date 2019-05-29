@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <new>
 #include <stdio.h>
 #include <string.h>
@@ -37,8 +37,11 @@
 #include <apihook.h>
 #include <direct.h>
 #include <tchar.h>
+#include <io.h>
 #define SOCKET SOCKET
+
 #define _UTF8( x ) CNSString::convertMbcsToUtf8( x )
+
 #define NSException( desc ) \
 	{	\
 		CONTEXT context;	\

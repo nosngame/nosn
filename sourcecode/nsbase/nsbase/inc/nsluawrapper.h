@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 namespace NSBase
 {
 #define DECLARE_BEGIN_PROTECTED					\
@@ -270,7 +270,7 @@ namespace NSBase
 			// 错误处理函数在上一句出栈了
 			// 参数会自动出栈
 			if ( lua_gettop( mpLuaState ) != curStack - 2 - argCount )
-				NSException( _UTF8( "lua栈发生泄露" ) );
+				NSException(_UTF8("lua栈发生泄露"));
 
 			return true;
 		}
@@ -944,7 +944,7 @@ namespace NSBase
 #ifdef PLATFORM_WIN32
 				int fpc = _fpclass( value );
 				if ( fpc != _FPCLASS_NN && fpc != _FPCLASS_PN && fpc != _FPCLASS_PZ && fpc != _FPCLASS_NZ )
-					NSException( _UTF8( "函数[pushStreamData]发生异常, 非法浮点数" ) );
+					NSException( _UTF8( "function[pushStreamData] exception, invalid float" ) );
 #endif
 				lua_pushnumber( mpLuaState, value );
 			}
@@ -956,7 +956,7 @@ namespace NSBase
 #ifdef PLATFORM_WIN32
 				int fpc = _fpclass( value );
 				if ( fpc != _FPCLASS_NN && fpc != _FPCLASS_PN && fpc != _FPCLASS_PZ && fpc != _FPCLASS_NZ )
-					NSException( _UTF8( "函数[pushStreamData]发生异常, 非法浮点数" ) );
+					NSException(_UTF8("函数[pushStreamData]发生异常, 非法浮点数"));
 #endif
 				lua_pushnumber( mpLuaState, value );
 			}
@@ -1023,7 +1023,7 @@ namespace NSBase
 			else if ( dataType == TYPE_TABLE )
 				pushStreamTable( stream );
 			else
-				NSException( _UTF8( "函数[pushStreamData]发生异常, 未知数据类型" ) );
+				NSException(_UTF8("函数[pushStreamData]发生异常, 未知数据类型"));
 		}
 
 		template< typename T >
@@ -1042,7 +1042,7 @@ namespace NSBase
 #ifdef PLATFORM_WIN32
 					int fpc = _fpclass( numberKey );
 					if ( fpc != _FPCLASS_NN && fpc != _FPCLASS_PN && fpc != _FPCLASS_PZ && fpc != _FPCLASS_NZ )
-						NSException( _UTF8( "函数[pushStreamTable]发生异常, 非法浮点数" ) );
+						NSException(_UTF8("函数[pushStreamTable]发生异常, 非法浮点数"));
 #endif
 				}
 				else if ( keyType == (char) TYPE_FLOAT )
@@ -1053,7 +1053,7 @@ namespace NSBase
 #ifdef PLATFORM_WIN32
 					int fpc = _fpclass( floatKey );
 					if ( fpc != _FPCLASS_NN && fpc != _FPCLASS_PN && fpc != _FPCLASS_PZ && fpc != _FPCLASS_NZ )
-						NSException( _UTF8( "函数[pushStreamTable]发生异常, 非法浮点数" ) );
+						NSException(_UTF8("函数[pushStreamTable]发生异常, 非法浮点数"));
 #endif
 					numberKey = floatKey;
 				}
@@ -1150,7 +1150,7 @@ namespace NSBase
 #ifdef PLATFORM_WIN32
 						int fpc = _fpclass( value );
 						if ( fpc != _FPCLASS_NN && fpc != _FPCLASS_PN && fpc != _FPCLASS_PZ && fpc != _FPCLASS_NZ )
-							NSException( _UTF8( "函数[pushStreamTable]发生异常, 非法浮点数" ) );
+							NSException(_UTF8("函数[pushStreamTable]发生异常, 非法浮点数"));
 #endif
 					}
 					else if ( dataType == (char) TYPE_FLOAT )
@@ -1161,7 +1161,7 @@ namespace NSBase
 #ifdef PLATFORM_WIN32
 						int fpc = _fpclass( floatValue );
 						if ( fpc != _FPCLASS_NN && fpc != _FPCLASS_PN && fpc != _FPCLASS_PZ && fpc != _FPCLASS_NZ )
-							NSException( _UTF8( "函数[pushStreamTable]发生异常, 非法浮点数" ) );
+							NSException(_UTF8("函数[pushStreamTable]发生异常, 非法浮点数"));
 #endif
 						value = floatValue;
 					}

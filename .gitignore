@@ -29,3 +29,4 @@ sourcecode/nsbase/nsbase/inc/.DS_Store
 sourcecode/client/nsclient/x64/Debug/goproxy.obj.enc
 sourcecode/client/nsclient/x64/Debug/goproxy.obj.enc
 *.enc
+/sourcecode/server/operserver/x64/Debug

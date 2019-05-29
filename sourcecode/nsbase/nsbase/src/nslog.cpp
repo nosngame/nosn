@@ -1,4 +1,4 @@
-#include <nsbase.h>
+ï»¿#include <nsbase.h>
 namespace NSLog
 {
 	FLogHandler gLogHandler = NULL;
@@ -11,20 +11,20 @@ namespace NSLog
 	{
 		va_list args;
 		va_start( args, format );
-		// ¼ÆËãĞèÒªµÃ³¤¶È
+		// è®¡ç®—éœ€è¦å¾—é•¿åº¦
 		int needLen = vsnprintf( NULL, 0, format, args ) + 1;
 		static CNSOctets errorBuffer;
 		errorBuffer.reserve( needLen );
 		errorBuffer.length( ) = needLen;
 
-		// ¸ñÊ½»¯ÎÄ±¾
+		// æ ¼å¼åŒ–æ–‡æœ¬
 		vsnprintf( (char*) errorBuffer.begin( ), needLen, format, args );
 		va_end( args );
 
 		CNSTimer curTime;
 		static CNSString text;
 		text.format( "[%s]%s\n", curTime.getTimeText( ).getBuffer( ), (char*) errorBuffer.begin( ) );
-		// printf±»Ğ´ÈëÎÄ¼şÁË£¬²¢ÇÒÎÄ¼şÊÇutf8¸ñÊ½£¬ËùÒÔÕâÀïĞ´Èëutf8Ã»ÓĞÎÊÌâ
+		// printfè¢«å†™å…¥æ–‡ä»¶äº†ï¼Œå¹¶ä¸”æ–‡ä»¶æ˜¯utf8æ ¼å¼ï¼Œæ‰€ä»¥è¿™é‡Œå†™å…¥utf8æ²¡æœ‰é—®é¢˜
 		printf( text.getBuffer( ) );
 
 		NSFunction::removeConst( sLogText ).pushback( text );
@@ -39,20 +39,20 @@ namespace NSLog
 	{
 		va_list tArgs;
 		va_start( tArgs, format );
-		// ¼ÆËãĞèÒªµÃ³¤¶È
+		// è®¡ç®—éœ€è¦å¾—é•¿åº¦
 		int needLen = vsnprintf( NULL, 0, format, tArgs ) + 1;
 		static CNSOctets errorBuffer;
 		errorBuffer.reserve( needLen );
 		errorBuffer.length( ) = needLen;
 
-		// ¸ñÊ½»¯ÎÄ±¾
+		// æ ¼å¼åŒ–æ–‡æœ¬
 		vsnprintf( (char*) errorBuffer.begin( ), needLen, format, tArgs );
 		va_end( tArgs );
 
 		CNSTimer curTime;
 		static CNSString error;
 		error.format( "[%s]%s\n", curTime.getTimeText( ).getBuffer( ), (char*) errorBuffer.begin( ) );
-		// printf±»Ğ´ÈëÎÄ¼şÁË£¬²¢ÇÒÎÄ¼şÊÇutf8¸ñÊ½£¬ËùÒÔÕâÀïĞ´Èëutf8Ã»ÓĞÎÊÌâ
+		// printfè¢«å†™å…¥æ–‡ä»¶äº†ï¼Œå¹¶ä¸”æ–‡ä»¶æ˜¯utf8æ ¼å¼ï¼Œæ‰€ä»¥è¿™é‡Œå†™å…¥utf8æ²¡æœ‰é—®é¢˜
 		printf( error.getBuffer( ) );
 
 		NSFunction::removeConst( sExceptionText ).pushback( error );
@@ -104,7 +104,7 @@ namespace NSLog
 		CNSString fileName = mkLogDir( ) + "/" + logFile;
 		gLogFileHandle = freopen( CNSString::convertUtf8ToMbcs( fileName ).getBuffer( ), "wb+", stdout );
 		if ( gLogFileHandle == NULL )
-			NSException( logFile + _UTF8( " - ´ò¿ªÊ§°Ü" ) );
+			NSException( logFile + _UTF8( " - æ‰“å¼€å¤±è´¥" ) );
 
 		unsigned int utf8Header = UTF8_BOM;
 		fwrite( &utf8Header, 3, 1, gLogFileHandle );
@@ -119,7 +119,7 @@ namespace NSLog
 			fflush( gLogFileHandle );
 			fclose( gLogFileHandle );
 
-			// »¹Ô­±ê×¼Êä³ö
+			// è¿˜åŸæ ‡å‡†è¾“å‡º
 			freopen( "CON", "w", stdout );
 		}
 	}

@@ -1,4 +1,4 @@
-#include <nsbase.h>
+ï»¿#include <nsbase.h>
 namespace NSNet
 {
 	extern CNSMap< CNSString, CNSNetworkIO* >	networkIOs;
@@ -31,14 +31,14 @@ namespace NSNet
 		mIsDeleted = true;
 		mpManager->onDelSession(mName, mpSession->mSessionID);
 
-		// Èç¹ûNetworkIO¶ÔÏóÃ»ÓÐ·¢Éú±ä»¯£¬ËµÃ÷Ã»ÓÐÖØÁ¬£¬ÄÇÃ´ÐèÒªÇå³ýManagerÖÐ±£´æµÄÖ¸Õë
+		// å¦‚æžœNetworkIOå¯¹è±¡æ²¡æœ‰å‘ç”Ÿå˜åŒ–ï¼Œè¯´æ˜Žæ²¡æœ‰é‡è¿žï¼Œé‚£ä¹ˆéœ€è¦æ¸…é™¤Managerä¸­ä¿å­˜çš„æŒ‡é’ˆ
 		if (mpManager->getNetworkIO() == this)
 			mpManager->setNetworkIO(NULL);
 	}
 
 	void CNSActiveIO::create(const CNSString& address, const CNSString& port)
 	{
-		// ×¢²áÒ»¸öÖ÷¶¯IO
+		// æ³¨å†Œä¸€ä¸ªä¸»åŠ¨IO
 		if ((mSocket = ::socket(AF_INET, SOCK_STREAM, 0)) == -1)
 			NSException(_UTF8("[create]"));
 
@@ -223,12 +223,12 @@ namespace NSNet
 		int bytesRecv = (int) recv(mpSession->mPeerSocket, buffer, length, 0);
 		if (bytesRecv == 0 || bytesRecv == -1)
 		{
-			// Èç¹ûÊÕµ½0×Ö½Ú£¬Èç¹û½ÓÊÜÊ§°Ü, ¶¼Òª¶Ï¿ªÁ¬½Ó
+			// å¦‚æžœæ”¶åˆ°0å­—èŠ‚ï¼Œå¦‚æžœæŽ¥å—å¤±è´¥, éƒ½è¦æ–­å¼€è¿žæŽ¥
 			destroy(0);
 			return;
 		}
 
-		// Èç¹û½â°üÊ§°Ü£¬Ò²Òª¶Ï¿ªÁ¬½Ó
+		// å¦‚æžœè§£åŒ…å¤±è´¥ï¼Œä¹Ÿè¦æ–­å¼€è¿žæŽ¥
 		if (mpSession->onSessionRecv(bytesRecv) == false)
 			destroy(0);
 	}

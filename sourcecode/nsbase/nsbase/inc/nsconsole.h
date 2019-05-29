@@ -1,29 +1,29 @@
-#pragma once
+ï»¿#pragma once
 namespace NSConsole
 {
 	void setConsoleTitle( const CNSString& title );
 
-	// ¿ªÆôµ÷ÊÔ¿ØÖÆÌ¨
+	// å¼€å¯è°ƒè¯•æ§åˆ¶å°
 	void init( );
 
-	// ½áÊø¿ØÖÆÌ¨
+	// ç»“æŸæ§åˆ¶å°
 	void exit( );
 
-	// °ó¶¨´°¿Ú
+	// ç»‘å®šçª—å£
 	void setHostWnd( HWND wnd );
 
-	// ¿ªÆôLuaµ÷ÊÔ, Õâ¸ö½Ó¿ÚÊÇÎªÁËunity²å¼şµ÷ÊÔluaÓÃµÄ
-	// ÒòÎª¼ÓÔØlua¹ı³ÌÖĞÈç¹û´¦ÓÚµ÷ÊÔ×´Ì¬, »áµ¼ÖÂunityÏîÄ¿Æô¶¯±È½ÏÂı
-	// ËùÒÔÔÚÆô¶¯¹ı³ÌÖĞ¿ÉÒÔ¹Ø±Õµ÷ÊÔ, Æô¶¯Íê±ÏÖ®ºóÔÙ¿ªÆôµ÷ÊÔ
+	// å¼€å¯Luaè°ƒè¯•, è¿™ä¸ªæ¥å£æ˜¯ä¸ºäº†unityæ’ä»¶è°ƒè¯•luaç”¨çš„
+	// å› ä¸ºåŠ è½½luaè¿‡ç¨‹ä¸­å¦‚æœå¤„äºè°ƒè¯•çŠ¶æ€, ä¼šå¯¼è‡´unityé¡¹ç›®å¯åŠ¨æ¯”è¾ƒæ…¢
+	// æ‰€ä»¥åœ¨å¯åŠ¨è¿‡ç¨‹ä¸­å¯ä»¥å…³é—­è°ƒè¯•, å¯åŠ¨å®Œæ¯•ä¹‹åå†å¼€å¯è°ƒè¯•
 	void enableDebug( bool enable );
 
-	// ÏÔÊ¾¿ØÖÆÌ¨
+	// æ˜¾ç¤ºæ§åˆ¶å°
 	void showConsole( );
 
-	// Ìí¼ÓluaÎÄ¼şÊı¾İ
+	// æ·»åŠ luaæ–‡ä»¶æ•°æ®
 	void addLuaFile( const CNSString& fileName, const CNSString& buffer );
 
-	// Ç¿ÖÆ¶Ïµã
+	// å¼ºåˆ¶æ–­ç‚¹
 	void interrupt( );
 	void consoleExceptionHandler( const NSBase::CNSString& exception );
 	void consoleLogHandler( const NSBase::CNSString& exception );

@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 namespace NSLog
 {
 	typedef void( *FLogHandler )( const NSBase::CNSString& log );
@@ -6,21 +6,21 @@ namespace NSLog
 	extern const CNSString sLogText;
 	extern const CNSString sExceptionText;
 
-	// ÉèÖÃLogÎÄ±¾´¦Àíº¯Êı
+	// è®¾ç½®Logæ–‡æœ¬å¤„ç†å‡½æ•°
 	void setLogHandler( FLogHandler handler );
 
-	// ÉèÖÃÒì³£ÎÄ±¾´¦Àíº¯Êı
+	// è®¾ç½®å¼‚å¸¸æ–‡æœ¬å¤„ç†å‡½æ•°
 	void setExceptionHandler( FExceptionHandler handler );
 
-	// ¹¹Ôìlog
+	// æ„é€ log
 	void init( const CNSString& logFile );
 
-	// Îö¹¹log
+	// ææ„log
 	void exit( );
 
-	// Ğ´ÈëÈÕÖ¾
+	// å†™å…¥æ—¥å¿—
 	void log( const char* format, ... );
 
-	// Ğ´ÈëÒì³£
+	// å†™å…¥å¼‚å¸¸
 	void exception( const char* format, ... );
 }

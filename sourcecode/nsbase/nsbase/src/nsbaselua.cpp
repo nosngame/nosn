@@ -1,4 +1,4 @@
-#include <nsbase.h>
+ï»¿#include <nsbase.h>
 
 namespace NSBase
 {
@@ -72,7 +72,7 @@ namespace NSBase
 			luaStack.call( );
 		}
 
-		// Èç¹ûÊ£Óà´ÎÊıÎª0
+		// å¦‚æœå‰©ä½™æ¬¡æ•°ä¸º0
 		if ( remain == 0 )
 		{
 			luaStack.clearFunc( func );
@@ -114,7 +114,7 @@ namespace NSBase
 		{
 			if ( (ptrdiff_t) data->value == 1 )
 			{
-				// table¿ªÊ¼
+				// tableå¼€å§‹
 				if ( key != NULL )
 				{
 					if ( key->type == LUA_TNUMBER )
@@ -131,7 +131,7 @@ namespace NSBase
 			}
 			else if ( (ptrdiff_t) data->value == 0 )
 			{
-				// table½áÊø
+				// tableç»“æŸ
 				gStackDeep --;
 				indent.clear( );
 				for ( int i = 0; i < gStackDeep; i ++ )
@@ -140,7 +140,7 @@ namespace NSBase
 			}
 			else if ( (ptrdiff_t) data->value == 2 )
 			{
-				// tableÄÚÈİ
+				// tableå†…å®¹
 				static CNSString keyText;
 				static CNSString valueText;
 				if ( key->type == LUA_TNUMBER )
@@ -328,7 +328,7 @@ namespace NSBase
 		luaStack >> duration;
 		luaStack >> func;
 		if ( func.isValid( ) == false )
-			NSException( _UTF8( "Luaº¯Êı[createTimer]²ÎÊı2 ²»ÊÇÒ»¸öluaº¯Êı" ) );
+			NSException( _UTF8( "Luaå‡½æ•°[createTimer]å‚æ•°2 ä¸æ˜¯ä¸€ä¸ªluaå‡½æ•°" ) );
 
 		int timerID = CNSTimer::createTimer( nsTimerLuaHanlder, duration, NULL );
 		gTimerHandler.insert( timerID, func );
@@ -345,7 +345,7 @@ namespace NSBase
 		luaStack >> duration;
 		luaStack >> func;
 		if ( func.isValid( ) == false )
-			NSException( _UTF8( "Luaº¯Êı[createTimer]²ÎÊı2 ²»ÊÇÒ»¸öluaº¯Êı" ) );
+			NSException( _UTF8( "Luaå‡½æ•°[createTimer]å‚æ•°2 ä¸æ˜¯ä¸€ä¸ªluaå‡½æ•°" ) );
 
 		int timerID = CNSTimer::createDelay( nsTimerLuaHanlder, duration, NULL );
 		gTimerHandler.insert( timerID, func );

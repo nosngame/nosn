@@ -1,4 +1,4 @@
-#include <fbbase.h>
+ï»¿#include <fbbase.h>
 // ********************************************************************** //
 // CFBNetworkIO
 // ********************************************************************** //
@@ -15,8 +15,8 @@ CFBActiveIO::CFBActiveIO( CFBNetManager* pManager, const CFBString& rName ) : CF
 
 CFBActiveIO::~CFBActiveIO( )
 {
-	// ÒòÎª¶Ï¿ªÁ¬½ÓºÍÁ´½ÓÊ§°Ü¶¼ÐèÒª¹Ø±Õsocket
-	// ËùÒÔ¹Ø±ÕsocketÒª·ÅÔÚÕâÀï
+	// å› ä¸ºæ–­å¼€è¿žæŽ¥å’Œé“¾æŽ¥å¤±è´¥éƒ½éœ€è¦å…³é—­socket
+	// æ‰€ä»¥å…³é—­socketè¦æ”¾åœ¨è¿™é‡Œ
 	close( mSocket );
 	mSocket = 0;
 	if ( mpSession != NULL )
@@ -25,8 +25,8 @@ CFBActiveIO::~CFBActiveIO( )
 
 void CFBActiveIO::Destroy( TSessionID vSessionID )
 {
-	// ÕâÀïÃ»ÓÐ¹Ø±Õsocket,ÊÇÒòÎª²»½ö¶Ï¿ªÁ¬½ÓÐèÒª¹Ø±Õsocket
-	// Á¬½ÓÊ§°ÜÒ²ÐèÒª¹Ø±Õsocket
+	// è¿™é‡Œæ²¡æœ‰å…³é—­socket,æ˜¯å› ä¸ºä¸ä»…æ–­å¼€è¿žæŽ¥éœ€è¦å…³é—­socket
+	// è¿žæŽ¥å¤±è´¥ä¹Ÿéœ€è¦å…³é—­socket
 	spNetworkTombs->PushBack( this );
 	if ( mpSession == NULL )
 		return;
@@ -37,7 +37,7 @@ void CFBActiveIO::Destroy( TSessionID vSessionID )
 
 void CFBActiveIO::Create( const CFBString& rAddress, const CFBString& rPort )
 {
-	// ×¢²áÒ»¸öÖ÷¶¯IO
+	// æ³¨å†Œä¸€ä¸ªä¸»åŠ¨IO
 	if ( ( mSocket = ::socket( AF_INET, SOCK_STREAM, 0 ) ) == -1 )
 		FBExceptionEx( errno );
 
@@ -66,7 +66,7 @@ void CFBActiveIO::OnConnect( int vCode )
 		return;
 	}
 		
-	// Èç¹ûÁ¬½Ó³É¹¦
+	// å¦‚æžœè¿žæŽ¥æˆåŠŸ
 	mpSession = NEW CFBSession( mpManager, mSocket, this );
 	unsigned int tBufferSize = mpManager->GetBufferSize( );
 	int tRet = setsockopt( mSocket, SOL_SOCKET, SO_SNDBUF, (char*) &tBufferSize, sizeof( unsigned int ) );
@@ -195,12 +195,12 @@ void CFBActiveIO::OnRecv( )
 	int tBytesRecv = recv( mpSession->mPeerSocket, tpBuffer, tLength, 0 );
 	if ( tBytesRecv == 0 || tBytesRecv == -1 )
 	{
-		// Èç¹ûÊÕµ½0×Ö½Ú£¬Èç¹û½ÓÊÜÊ§°Ü, ¶¼Òª¶Ï¿ªÁ¬½Ó
+		// å¦‚æžœæ”¶åˆ°0å­—èŠ‚ï¼Œå¦‚æžœæŽ¥å—å¤±è´¥, éƒ½è¦æ–­å¼€è¿žæŽ¥
 		Destroy( 0 );
 		return;
 	}
 
-	// Èç¹û½â°üÊ§°Ü£¬Ò²Òª¶Ï¿ªÁ¬½Ó
+	// å¦‚æžœè§£åŒ…å¤±è´¥ï¼Œä¹Ÿè¦æ–­å¼€è¿žæŽ¥
 	if ( mpSession->OnSessionRecv( tBytesRecv ) == false )
 		Destroy( 0 );
 }

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 namespace FBNet
 {
 
@@ -41,7 +41,7 @@ public:
 protected:
 	int					mEPollHandle;
 	int					mListenSocket;
-	TSessionMap			mSessions;				// �Ự�б�
+	TSessionMap			mSessions;				// 会话列表
 	CNSNetManager*		mpManager;
 
 public:

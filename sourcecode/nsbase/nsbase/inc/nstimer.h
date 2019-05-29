@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 namespace NSBase
 {
 	class CNSTimer
@@ -13,8 +13,8 @@ namespace NSBase
 		public:
 			unsigned int		mTick;
 			unsigned int		mDuration;
-			unsigned int		mCloseCounter;		// ´¥·¢Ö¸¶¨´ÎÊıÖ®ºó£¬¹Ø±Õ£¬0±íÊ¾ÓÀÔ¶²»¹Ø±Õ
-			unsigned int		mFireCounter;		// µ±Ç°´¥·¢´ÎÊı
+			unsigned int		mCloseCounter;		// è§¦å‘æŒ‡å®šæ¬¡æ•°ä¹‹åï¼Œå…³é—­ï¼Œ0è¡¨ç¤ºæ°¸è¿œä¸å…³é—­
+			unsigned int		mFireCounter;		// å½“å‰è§¦å‘æ¬¡æ•°
 
 			void*				mUserData;
 			CTimerTrigger*		mpTrigger;
@@ -97,19 +97,19 @@ namespace NSBase
 		public:
 			enum TriggerType
 			{
-				TRIGGER_DAY,		// Ã¿ÌìµÄ¼¸µã
-				TRIGGER_WEEK,		// Ã¿ÖÜµÄĞÇÆÚ¼¸£¬¼¸µã
-				TRIGGER_MONTH,		// Ã¿ÔÂµÄ¼¸ºÅ£¬¼¸µã
-				TRIGGER_YEAR,		// Ã¿ÄêµÄ¼¸ºÅ£¬¼¸µã
+				TRIGGER_DAY,		// æ¯å¤©çš„å‡ ç‚¹
+				TRIGGER_WEEK,		// æ¯å‘¨çš„æ˜ŸæœŸå‡ ï¼Œå‡ ç‚¹
+				TRIGGER_MONTH,		// æ¯æœˆçš„å‡ å·ï¼Œå‡ ç‚¹
+				TRIGGER_YEAR,		// æ¯å¹´çš„å‡ å·ï¼Œå‡ ç‚¹
 			};
 
 			class CTriggerData
 			{
 			public:
-				int		mDayMonth = 0;	// TRIGGER_YEAR ÓĞĞ§
-				int		mDayWeek = 0;	// TRIGGER_WEEK ÓĞĞ§
-				int		mHour = 0;		// TRIGGER_WEEK TRIGGER_YEAR TRIGGER_DAY ÓĞĞ§
-				int		mMin = 0;		// TRIGGER_WEEK TRIGGER_YEAR TRIGGER_DAY ÓĞĞ§
+				int		mDayMonth = 0;	// TRIGGER_YEAR æœ‰æ•ˆ
+				int		mDayWeek = 0;	// TRIGGER_WEEK æœ‰æ•ˆ
+				int		mHour = 0;		// TRIGGER_WEEK TRIGGER_YEAR TRIGGER_DAY æœ‰æ•ˆ
+				int		mMin = 0;		// TRIGGER_WEEK TRIGGER_YEAR TRIGGER_DAY æœ‰æ•ˆ
 
 			public:
 				CTriggerData( int h, int m ) : mHour( h ), mMin( m )

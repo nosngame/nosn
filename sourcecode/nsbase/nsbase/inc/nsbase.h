@@ -1,6 +1,5 @@
-#pragma once
+﻿#pragma once
 #define BYTE_ORDER_BIG_ENDIAN
-#define PLATFORM_IOS
 
 #include <nsdeclare.h>
 #include <nslock.h>
@@ -19,14 +18,15 @@ extern "C"
 #include <lua.h>
 #include <lauxlib.h>
 #include <lualib.h>
+#include <curl.h>
 }
 #else
 #include <lua.h>
 #include <lauxlib.h>
 #include <lualib.h>
+#include <curl.h>
 #endif
 
-#include <curl.h>
 #include <tinyxml.h>
 #include <nslog.h>
 #include <nsluawrapper.h>

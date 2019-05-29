@@ -28,141 +28,8 @@
     <ClInclude Include="..\dependency\libcurl\include\system.h" />
     <ClInclude Include="..\dependency\libcurl\include\typecheck-gcc.h" />
     <ClInclude Include="..\dependency\libcurl\include\urlapi.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\altsvc.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\amigaos.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\arpa_telnet.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\asyn.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\config-amigaos.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\config-dos.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\config-mac.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\config-os400.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\config-riscos.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\config-symbian.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\config-tpf.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\config-vxworks.h" />
     <ClInclude Include="..\dependency\libcurl\lib\config-win32.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\config-win32ce.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\conncache.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\connect.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\content_encoding.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\cookie.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\curlx.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\curl_addrinfo.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\curl_base64.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\curl_ctype.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\curl_des.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\curl_endian.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\curl_fnmatch.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\curl_gethostname.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\curl_get_line.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\curl_gssapi.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\curl_hmac.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\curl_ldap.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\curl_md4.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\curl_md5.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\curl_memory.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\curl_memrchr.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\curl_multibyte.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\curl_ntlm_core.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\curl_ntlm_wb.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\curl_path.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\curl_printf.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\curl_range.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\curl_rtmp.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\curl_sasl.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\curl_sec.h" />
     <ClInclude Include="..\dependency\libcurl\lib\curl_setup.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\curl_setup_once.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\curl_sha256.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\curl_sspi.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\curl_threads.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\dict.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\doh.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\dotdot.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\easyif.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\escape.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\file.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\fileinfo.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\formdata.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\ftp.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\ftplistparser.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\getinfo.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\gopher.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\hash.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\hostcheck.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\hostip.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\http.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\http2.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\http_chunks.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\http_digest.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\http_negotiate.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\http_ntlm.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\http_proxy.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\if2ip.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\imap.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\inet_ntop.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\inet_pton.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\llist.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\memdebug.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\mime.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\multihandle.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\multiif.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\netrc.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\non-ascii.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\nonblock.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\parsedate.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\pingpong.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\pop3.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\progress.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\psl.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\rand.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\rtsp.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\select.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\sendf.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\setopt.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\setup-os400.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\setup-vms.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\share.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\sigpipe.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\slist.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\smb.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\smtp.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\sockaddr.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\socks.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\speedcheck.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\splay.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\ssh.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\strcase.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\strdup.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\strerror.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\strtok.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\strtoofft.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\system_win32.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\telnet.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\tftp.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\timeval.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\transfer.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\url.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\urlapi-int.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\urldata.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\vauth\digest.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\vauth\ntlm.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\vauth\vauth.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\vtls\cyassl.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\vtls\gskit.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\vtls\gtls.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\vtls\mbedtls.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\vtls\mesalink.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\vtls\nssg.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\vtls\openssl.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\vtls\polarssl.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\vtls\polarssl_threadlock.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\vtls\schannel.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\vtls\sectransp.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\vtls\vtls.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\warnless.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\wildcard.h" />
-    <ClInclude Include="..\dependency\libcurl\lib\x509asn1.h" />
     <ClInclude Include="..\dependency\libiconv\inc\aliases.h" />
     <ClInclude Include="..\dependency\libiconv\inc\aliases2.h" />
     <ClInclude Include="..\dependency\libiconv\inc\aliases_aix.h" />
@@ -576,145 +443,6 @@
     <ClInclude Include="inc\nstimer.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\dependency\libcurl\lib\altsvc.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\amigaos.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\asyn-ares.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\asyn-thread.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\curlbase64.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\conncache.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\connect.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\content_encoding.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\cookie.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\curl_addrinfo.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\curl_ctype.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\curl_des.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\curl_endian.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\curl_fnmatch.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\curl_gethostname.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\curl_get_line.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\curl_gssapi.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\curl_memrchr.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\curl_multibyte.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\curl_ntlm_core.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\curl_ntlm_wb.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\curl_path.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\curl_range.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\curl_rtmp.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\curl_sasl.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\curl_sspi.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\curl_threads.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\dict.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\doh.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\dotdot.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\easy.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\escape.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\file.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\fileinfo.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\formdata.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\ftp.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\ftplistparser.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\getenv.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\getinfo.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\gopher.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\hash.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\hmac.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\hostasyn.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\hostcheck.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\hostip.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\hostip4.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\hostip6.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\hostsyn.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\http.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\http2.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\http_chunks.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\http_digest.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\http_negotiate.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\http_ntlm.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\http_proxy.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\idn_win32.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\if2ip.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\imap.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\inet_ntop.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\inet_pton.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\krb5.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\ldap.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\llist.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\curlmd4.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\curlmd5.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\memdebug.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\mime.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\mprintf.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\multi.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\netrc.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\non-ascii.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\nonblock.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\nwlib.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\nwos.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\openldap.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\parsedate.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\pingpong.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\pop3.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\progress.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\psl.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\rand.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\rtsp.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\security.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\select.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\sendf.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\setopt.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\curlsha256.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\share.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\slist.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\smb.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\smtp.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\socks.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\socks_gssapi.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\socks_sspi.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\speedcheck.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\splay.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\ssh-libssh.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\ssh.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\strcase.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\strdup.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\strerror.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\strtok.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\strtoofft.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\system_win32.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\telnet.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\tftp.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\timeval.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\transfer.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\url.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\urlapi.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\vauth\cleartext.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\vauth\cram.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\vauth\digest.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\vauth\digest_sspi.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\vauth\krb5_gssapi.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\vauth\krb5_sspi.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\vauth\ntlm.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\vauth\ntlm_sspi.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\vauth\oauth2.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\vauth\spnego_gssapi.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\vauth\spnego_sspi.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\vauth\vauth.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\curlversion.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\vtls\cyassl.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\vtls\gskit.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\vtls\gtls.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\vtls\mbedtls.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\vtls\mesalink.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\vtls\nss.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\vtls\openssl.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\vtls\polarssl.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\vtls\polarssl_threadlock.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\vtls\schannel.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\vtls\schannel_verify.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\vtls\sectransp.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\vtls\vtls.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\warnless.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\wildcard.c" />
-    <ClCompile Include="..\dependency\libcurl\lib\x509asn1.c" />
     <ClCompile Include="..\dependency\libiconv\src\iconv.c" />
     <ClCompile Include="..\dependency\libiconv\src\localcharset.c" />
     <ClCompile Include="..\dependency\libiconv\src\relocatable.c" />
@@ -2167,7 +1895,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;WINAPI_FAMILY=WINAPI_FAMILY_DESKTOP_APP;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;CURL_STATICLIB;PLATFORM_WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;WINAPI_FAMILY=WINAPI_FAMILY_DESKTOP_APP;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeaderFile />
       <PrecompiledHeaderOutputFile />
       <AdditionalIncludeDirectories>..\..\nsbase\nsbase\inc;..\..\nsbase\nswin32\inc;..\..\nsbase\nsnav\inc;..\..\nsbase\nstools\inc;..\..\nsbase\dependency\lua\src;..\..\nsbase\dependency\tinyxml;..\..\nsbase\dependency\lzma\win32;..\..\nsbase\dependency\libcurl\include;..\..\nsbase\dependency\zlib;..\..\nsbase\dependency\scintilla\include;..\..\nsbase\dependency\mbedtls;..\..\nsbase\dependency\mysql\include;..\..\nsbase\dependency\libpng;..\..\nsbase\dependency\libiconv\inc</AdditionalIncludeDirectories>
@@ -2186,7 +1914,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;WINAPI_FAMILY=WINAPI_FAMILY_DESKTOP_APP;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;CURL_STATICLIB;PLATFORM_WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;WINAPI_FAMILY=WINAPI_FAMILY_DESKTOP_APP;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>
@@ -2205,7 +1933,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;WINAPI_FAMILY=WINAPI_FAMILY_DESKTOP_APP;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;CURL_STATICLIB;PLATFORM_WIN32;NDEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;WINAPI_FAMILY=WINAPI_FAMILY_DESKTOP_APP;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeaderFile />
       <PrecompiledHeaderOutputFile />
       <AdditionalIncludeDirectories>..\..\nsbase\nsbase\inc;..\..\nsbase\nswin32\inc;..\..\nsbase\nsnav\inc;..\..\nsbase\nstools\inc;..\..\nsbase\dependency\lua\src;..\..\nsbase\dependency\tinyxml;..\..\nsbase\dependency\lzma\win32;..\..\nsbase\dependency\libcurl\include;..\..\nsbase\dependency\zlib;..\..\nsbase\dependency\scintilla\include;..\..\nsbase\dependency\mbedtls;..\..\nsbase\dependency\mysql\include;..\..\nsbase\dependency\libpng;..\..\nsbase\dependency\libiconv\inc</AdditionalIncludeDirectories>
@@ -2228,7 +1956,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;WINAPI_FAMILY=WINAPI_FAMILY_DESKTOP_APP;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;CURL_STATICLIB;PLATFORM_WIN32;NDEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;WINAPI_FAMILY=WINAPI_FAMILY_DESKTOP_APP;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>
