@@ -1,4 +1,4 @@
-﻿#include <nsbase.h>
+#include <nsbase.h>
 namespace NSLog
 {
 	FLogHandler gLogHandler = NULL;
@@ -25,7 +25,7 @@ namespace NSLog
 		static CNSString text;
 		text.format( "[%s]%s\n", curTime.getTimeText( ).getBuffer( ), (char*) errorBuffer.begin( ) );
 		// printf被写入文件了，并且文件是utf8格式，所以这里写入utf8没有问题
-		printf( text.getBuffer( ) );
+		printf( "%s", text.getBuffer( ) );
 
 		NSFunction::removeConst( sLogText ).pushback( text );
 		if ( sLogText.getLength( ) > 65535 )
@@ -53,7 +53,7 @@ namespace NSLog
 		static CNSString error;
 		error.format( "[%s]%s\n", curTime.getTimeText( ).getBuffer( ), (char*) errorBuffer.begin( ) );
 		// printf被写入文件了，并且文件是utf8格式，所以这里写入utf8没有问题
-		printf( error.getBuffer( ) );
+		printf( "%s", error.getBuffer( ) );
 
 		NSFunction::removeConst( sExceptionText ).pushback( error );
 		if ( sExceptionText.getLength( ) > 65535 )

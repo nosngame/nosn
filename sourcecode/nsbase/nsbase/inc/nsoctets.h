@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 namespace NSBase
 {
 	enum ETransaction
@@ -216,7 +216,7 @@ namespace NSBase
 			if ( mpBase == NULL || mpSize == NULL )
 				throw CNSMarshal::CException( );
 
-			unsigned int len;
+			unsigned int len = 0;
 			*this >> len;
 			unsigned int progress = *mpSize - mPos;
 			if ( len > progress )
@@ -232,7 +232,7 @@ namespace NSBase
 			if ( mpBase == NULL || mpSize == NULL )
 				throw CNSMarshal::CException( );
 
-			unsigned short len;
+			unsigned short len = 0;
 			operator >> ( len );
 			NSFunction::removeConst( text ).clear( );
 			if ( len > *mpSize - mPos )
@@ -254,6 +254,8 @@ namespace NSBase
 				case NSBase::ERollback:
 					mPos = mTranPos;
 					break;
+                case NSBase::ECommit:
+                    break;
 			}
 			return *this;
 		}

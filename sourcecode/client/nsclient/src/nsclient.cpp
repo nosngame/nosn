@@ -300,32 +300,31 @@ bool nsClientInit( const char* authName, FHostErrorProc proc, bool enableDebug )
 		NSClient::CNSClient::sAuthName = authName;
 #else
 		// 这里可以通过手机的语言环境设置
-		CNSLocal::getNSLocal( ).setLang( "ch" );
 		NSLog::init( "NSPlugins" );
-		NSLog::setLogHandler( NSPluginLogHandler );
-		NSLog::setExceptionHandler( NSPluginExceptionHandler );
+        NSLog::setLogHandler( NSClient::NSPluginLogHandler );
+        NSLog::setExceptionHandler( NSClient::NSPluginExceptionHandler );
 
 		// 初始化网络库
 		NSNet::init( );
 
-		// 加载本地化文件
-		loadLocalization( );
+        // 初始化curl
+        NSHttp::init( );
 
-		// 初始化curl
-		NSHttp::init( );
+        // 加载本地化文件
+        CNSLocal::getNSLocal().load( );
+		CNSLocal::getNSLocal( ).setLang( "ch" );
 
 		// 初始化Lua库
 		NSBase::CNSLuaStack::init( enableDebug );
-		NSBase::regLuaLib( );
+        NSBase::regLuaLib( );
 
-		// 注册脚本函数
-		NSClientLua::regLuaLib( );
+        // 注册脚本函数
+        NSClient::regLuaLib( );
 
 		// 加载脚本
 		NSBase::CNSLuaStack& luaStack = NSBase::CNSLuaStack::getLuaStack( );
 		luaStack.load( "assets/script" );
 
-		NSBase::CNSLuaStack& luaStack = NSBase::CNSLuaStack::getLuaStack( );
 		luaStack.preCall( "onLaunchClient" );
 		luaStack.call( );
 #endif
@@ -351,7 +350,7 @@ void nsClientExit( )
 #else
 		NSLog::exit( );
 		NSNet::exit( );
-		HttpHelper::exit( );
+		NSHttp::exit( );
 		CNSLuaStack::exit( );
 		NSClient::CNSClient::cleanUp( );
 #endif

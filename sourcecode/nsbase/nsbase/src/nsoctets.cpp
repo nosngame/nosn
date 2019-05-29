@@ -1,4 +1,4 @@
-﻿#include <nsbase.h>
+#include <nsbase.h>
 #include <LzmaLib.h>
 #include <zlib.h>
 #include <mbedtls/pk.h>
@@ -62,9 +62,9 @@ namespace NSBase
 			if ( deflateInit2( &c_stream, Z_DEFAULT_COMPRESSION, Z_DEFLATED,
 				MAX_WBITS + 16, 8, Z_DEFAULT_STRATEGY ) != Z_OK ) return -1;
 			c_stream.next_in = data;
-			c_stream.avail_in = ndata;
+			c_stream.avail_in = (unsigned int) ndata;
 			c_stream.next_out = zdata;
-			c_stream.avail_out = *nzdata;
+			c_stream.avail_out = (unsigned int) *nzdata;
 			while ( c_stream.avail_in != 0 && c_stream.total_out < *nzdata )
 			{
 				if ( deflate( &c_stream, Z_NO_FLUSH ) != Z_OK ) return -1;
@@ -176,7 +176,7 @@ namespace NSBase
 	// 预约指定大小的空间
 	void* CFBOctetsBuffer::reserve( unsigned int size )
 	{
-		size = NSFunction::forbsize( size );
+		size = (unsigned int) NSFunction::forbsize( size );
 		if ( size > mSize )
 		{
 			CFBOctetsBuffer* oct = create( size );
@@ -220,10 +220,10 @@ namespace NSBase
 		OctetsBuffer( mpBase )->addRef( );
 	}
 
-	CNSOctets::CNSOctets( const CNSString& text ) : mpBase( CFBOctetsBuffer::create( text.getLength( ) )->getData( ) )
+	CNSOctets::CNSOctets( const CNSString& text ) : mpBase( CFBOctetsBuffer::create( (unsigned int) text.getLength( ) )->getData( ) )
 	{
 		NSFunction::memcpy_fast( mpBase, text.getBuffer( ), text.getLength( ) );
-		length( ) = text.getLength( );
+		length( ) = (unsigned int) text.getLength( );
 	}
 
 	CNSOctets::~CNSOctets( )
@@ -266,7 +266,7 @@ namespace NSBase
 
 	CNSOctets& CNSOctets::operator = ( const CNSString& text )
 	{
-		replace( text.getBuffer( ), text.getLength( ) );
+		replace( text.getBuffer( ), (unsigned int) text.getLength( ) );
 		return *this;
 	}
 
@@ -449,8 +449,8 @@ namespace NSBase
 		}
 
 		static CNSOctets value;
-		value.reserve( rsa->len );
-		value.length( ) = rsa->len;
+		value.reserve( (unsigned int) rsa->len );
+		value.length( ) = (unsigned int) rsa->len;
 		if ( ( ret = mbedtls_rsa_private( rsa, NULL, 0, (const unsigned char*) begin( ), (unsigned char*) value.begin( ) ) ) != 0 )
 		{
 			static CNSString errorDesc;
@@ -489,8 +489,8 @@ namespace NSBase
 		}
 
 		static CNSOctets value;
-		value.reserve( rsa->len );
-		value.length( ) = rsa->len;
+		value.reserve( (unsigned int) rsa->len );
+		value.length( ) = (unsigned int) rsa->len;
 		if ( ( ret = mbedtls_rsa_public( rsa, (const unsigned char*) begin( ), (unsigned char*) value.begin( ) ) ) != 0 )
 		{
 			static CNSString errorDesc;
@@ -555,8 +555,8 @@ namespace NSBase
 
 		size_t uSize = *( (unsigned int*) ( data + 2 ) );
 		size_t cSize = len - LZMA_PROPS_SIZE - sizeof( unsigned int ) - 2;
-		value.reserve( uSize );
-		value.length( ) = uSize;
+		value.reserve( (unsigned int) uSize );
+		value.length( ) = (unsigned int) uSize;
 
 		unsigned char* propBuffer = data + sizeof( unsigned int ) + 2;
 		int result = LzmaUncompress( (unsigned char*) value.begin( ), &uSize, (unsigned char*) propBuffer + LZMA_PROPS_SIZE, &cSize, propBuffer, LZMA_PROPS_SIZE );
@@ -584,9 +584,9 @@ namespace NSBase
 		size_t headerSize = sizeof( unsigned int ) + LZMA_PROPS_SIZE + 2;
 
 		static CNSOctets value;
-		value.reserve( uSize * 3 + headerSize );
-		value.length( ) = uSize * 3 + headerSize;
-		size_t cSize = uSize * 3 + headerSize;
+		value.reserve( (unsigned int) ( uSize * 3 + headerSize ) );
+		value.length( ) = (unsigned int) ( uSize * 3 + headerSize );
+		size_t cSize = (unsigned int) ( uSize * 3 + headerSize );
 		unsigned char* tpCBuffer = (unsigned char*) value.begin( );
 		int result = LzmaCompress( tpCBuffer + headerSize, &cSize, (unsigned char*) begin, uSize, prop, &propSize, 5, 1 << 16, 3, 0, 2, 32, 2 );
 		if ( propSize != LZMA_PROPS_SIZE )

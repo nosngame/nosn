@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 namespace NSBase
 {
 	class CNSTimer
@@ -35,7 +35,7 @@ namespace NSBase
 				CNSTimer curTime;
 				for ( size_t i = 0; i < mpTrigger->mData.getCount( ); i ++ )
 				{
-					CTimerTrigger::CTriggerData& curTrigger = mpTrigger->mData[ i ];
+					CTimerTrigger::CTriggerData& curTrigger = mpTrigger->mData[ (unsigned int) i ];
 					curTime.setHour( curTrigger.mHour );
 					curTime.setMin( curTrigger.mMin );
 					curTime.setSec( 0 );

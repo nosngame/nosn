@@ -41,3 +41,9 @@ sourcecode/nsbase/thirdproject/curl-7.65.0/tests/.DS_Store
 sourcecode/nsbase/dependency/libcurl/.DS_Store
 sourcecode/nsbase/dependency/libcurl/lib/.DS_Store
 sourcecode/nsbase/dependency/libcurl/lib/ios/.DS_Store
+sourcecode/.DS_Store
+sourcecode/nsbase/.DS_Store
+sourcecode/nsbase/dependency/.DS_Store
+sourcecode/nsbase/dependency/lua/.DS_Store
+sourcecode/nsbase/dependency/lzma/.DS_Store
+sourcecode/nsbase/dependency/mbedtls/.DS_Store

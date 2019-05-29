@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 namespace NSBase
 {
@@ -297,7 +297,6 @@ namespace NSBase
 
 			int leftIndex = 0;
 			int rightIndex = mCount - 1;
-			int count = 0;
 			for ( ; 1; )
 			{
 				int halfIndex = leftIndex + ( ( rightIndex - leftIndex + 1 ) >> 1 );
@@ -2415,7 +2414,7 @@ namespace NSBase
 
 		size_t hashCode( ) const
 		{
-			register size_t hashValue = 0;
+            size_t hashValue = 0;
 			for ( size_t i = 0; i < getLength( ); i ++ )
 				hashValue = hashValue * 131 + (size_t) mpText[ i ];
 
@@ -2911,7 +2910,7 @@ namespace NSBase
 						copy( temp, endIndex - beginIndex, beginIndex );
 
 					result.pushback( temp );
-					offset = split.getLength( );
+					offset = (int) split.getLength( );
 					beginIndex = i + offset;
 				}
 
@@ -2943,7 +2942,7 @@ namespace NSBase
 			for ( size_t i = off; i < mCount; i ++ )
 			{
 				if ( mpText[ i ] == ch )
-					return i;
+					return (int) i;
 			}
 
 			return -1;
@@ -2955,7 +2954,7 @@ namespace NSBase
 			for ( size_t i = off; i < mCount; i ++ )
 			{
 				if ( tolower( mpText[ i ] ) == tolower( ch ) )
-					return i;
+					return (int) i;
 			}
 
 			return -1;
@@ -2967,7 +2966,7 @@ namespace NSBase
 			for ( size_t i = off; i < mCount; i ++ )
 			{
 				if ( mpText[ i ] != ch )
-					return i;
+					return (int) i;
 			}
 
 			return -1;
@@ -2979,7 +2978,7 @@ namespace NSBase
 			for ( size_t i = off; i < mCount; i ++ )
 			{
 				if ( tolower( mpText[ i ] ) != tolower( ch ) )
-					return i;
+					return (int) i;
 			}
 
 			return -1;
@@ -2988,10 +2987,10 @@ namespace NSBase
 		// 查找最后一个指定字符，off表示结束位置
 		int findLastOf( char ch, int off = 0 ) const
 		{
-			for ( int i = mCount - 2; i >= off; i -- )
+			for ( int i = (int) mCount - 2; i >= off; i -- )
 			{
 				if ( mpText[ i ] == ch )
-					return i;
+					return (int) i;
 			}
 
 			return -1;
@@ -3000,10 +2999,10 @@ namespace NSBase
 		// 查找最后一个指定字符，off表示结束位置
 		int nocaseFindLastOf( char ch, int off = 0 ) const
 		{
-			for ( int i = mCount - 2; i >= off; i -- )
+			for ( int i = (int) mCount - 2; i >= off; i -- )
 			{
 				if ( tolower( mpText[ i ] ) == tolower( ch ) )
-					return i;
+					return (int) i;
 			}
 
 			return -1;
@@ -3012,10 +3011,10 @@ namespace NSBase
 		// 查找最后一个非指定字符，off表示结束位置
 		int findLastNotOf( char ch, int off = 0 ) const
 		{
-			for ( int i = mCount - 2; i >= off; i -- )
+			for ( int i = (int) mCount - 2; i >= off; i -- )
 			{
 				if ( mpText[ i ] != ch )
-					return i;
+					return (int) i;
 			}
 
 			return -1;
@@ -3024,10 +3023,10 @@ namespace NSBase
 		// 查找最后一个非指定字符，off表示结束位置
 		int nocaseFindLastNotOf( char ch, int off = 0 ) const
 		{
-			for ( int i = mCount - 2; i >= off; i -- )
+			for ( int i = (int) mCount - 2; i >= off; i -- )
 			{
 				if ( tolower( mpText[ i ] ) != tolower( ch ) )
-					return i;
+					return (int) i;
 			}
 
 			return -1;
@@ -3063,7 +3062,7 @@ namespace NSBase
 				}
 
 				if ( find == true )
-					return i;
+					return (int) i;
 			}
 
 			return -1;
@@ -3086,7 +3085,7 @@ namespace NSBase
 				}
 
 				if ( tFind == true )
-					return i;
+					return (int) i;
 			}
 
 			return -1;
@@ -3107,7 +3106,7 @@ namespace NSBase
 		// 查找最后一个指定字符串，off表示结束位置, count表示匹配几个字符
 		int findLastOf( const char* text, int off, size_t count ) const
 		{
-			for ( int i = mCount - 2; i >= off; i -- )
+			for ( int i = (int) mCount - 2; i >= off; i -- )
 			{
 				bool tFind = true;
 				size_t tIndex = 0;
@@ -3130,7 +3129,7 @@ namespace NSBase
 		// 查找最后一个指定字符串，off表示结束位置, count表示匹配几个字符
 		int nocaseFindLastOf( const char* text, int off, size_t count ) const
 		{
-			for ( int i = mCount - 2; i >= off; i -- )
+			for ( int i = (int) mCount - 2; i >= off; i -- )
 			{
 				bool tFind = true;
 				size_t tIndex = 0;
@@ -3179,7 +3178,7 @@ namespace NSBase
 				}
 
 				if ( tFind == false )
-					return i;
+					return (int) i;
 			}
 
 			return -1;
@@ -3202,7 +3201,7 @@ namespace NSBase
 				}
 
 				if ( tFind == false )
-					return i;
+					return (int) i;
 			}
 
 			return -1;

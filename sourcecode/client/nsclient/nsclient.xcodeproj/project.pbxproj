@@ -8,18 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		1423F186229D24B800F42298 /* nsnetworkio_ios.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1423F185229D24B800F42298 /* nsnetworkio_ios.cpp */; };
-		14BB606F229CFBE7004DCF78 /* nsclient.m in Sources */ = {isa = PBXBuildFile; fileRef = 14BB606E229CFBE7004DCF78 /* nsclient.m */; };
-		14BB6070229CFBE7004DCF78 /* nsclient.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 14BB606D229CFBE7004DCF78 /* nsclient.h */; };
+		1437AD62229E36FD00D0B07F /* lapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 1437AD61229E36FD00D0B07F /* lapi.c */; };
+		1437AD70229E375700D0B07F /* nsclient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1437AD6B229E375700D0B07F /* nsclient.cpp */; };
+		1437AD71229E375700D0B07F /* interface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1437AD6C229E375700D0B07F /* interface.cpp */; };
+		1437AD72229E375700D0B07F /* precomplie.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1437AD6D229E375700D0B07F /* precomplie.cpp */; };
+		1437AD73229E375700D0B07F /* goproxy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1437AD6E229E375700D0B07F /* goproxy.cpp */; };
 		14BB64BD229D0B9C004DCF78 /* iconv.c in Sources */ = {isa = PBXBuildFile; fileRef = 14BB64BA229D0B9C004DCF78 /* iconv.c */; };
 		14BB64BE229D0B9C004DCF78 /* relocatable.c in Sources */ = {isa = PBXBuildFile; fileRef = 14BB64BB229D0B9C004DCF78 /* relocatable.c */; };
 		14BB64BF229D0B9C004DCF78 /* localcharset.c in Sources */ = {isa = PBXBuildFile; fileRef = 14BB64BC229D0B9C004DCF78 /* localcharset.c */; };
-		14BB650A229D0D64004DCF78 /* lapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 14BB64D6229D0D61004DCF78 /* lapi.c */; };
 		14BB655B229D0DD9004DCF78 /* lstrlib.c in Sources */ = {isa = PBXBuildFile; fileRef = 14BB651F229D0DD7004DCF78 /* lstrlib.c */; };
 		14BB655C229D0DD9004DCF78 /* ltm.c in Sources */ = {isa = PBXBuildFile; fileRef = 14BB6520229D0DD7004DCF78 /* ltm.c */; };
 		14BB655D229D0DD9004DCF78 /* ltable.c in Sources */ = {isa = PBXBuildFile; fileRef = 14BB6522229D0DD7004DCF78 /* ltable.c */; };
 		14BB655E229D0DD9004DCF78 /* lobject.c in Sources */ = {isa = PBXBuildFile; fileRef = 14BB6523229D0DD7004DCF78 /* lobject.c */; };
 		14BB655F229D0DD9004DCF78 /* ldebug.c in Sources */ = {isa = PBXBuildFile; fileRef = 14BB6524229D0DD7004DCF78 /* ldebug.c */; };
-		14BB6560229D0DD9004DCF78 /* lapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 14BB6525229D0DD7004DCF78 /* lapi.c */; };
 		14BB6562229D0DD9004DCF78 /* lopcodes.c in Sources */ = {isa = PBXBuildFile; fileRef = 14BB652E229D0DD7004DCF78 /* lopcodes.c */; };
 		14BB6563229D0DDA004DCF78 /* ldump.c in Sources */ = {isa = PBXBuildFile; fileRef = 14BB6530229D0DD7004DCF78 /* ldump.c */; };
 		14BB6564229D0DDA004DCF78 /* liolib.c in Sources */ = {isa = PBXBuildFile; fileRef = 14BB6532229D0DD7004DCF78 /* liolib.c */; };
@@ -167,7 +168,6 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
-				14BB6070229CFBE7004DCF78 /* nsclient.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -175,9 +175,17 @@
 
 /* Begin PBXFileReference section */
 		1423F185229D24B800F42298 /* nsnetworkio_ios.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = nsnetworkio_ios.cpp; sourceTree = "<group>"; };
+		1437AD61229E36FD00D0B07F /* lapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lapi.c; sourceTree = "<group>"; };
+		1437AD64229E375700D0B07F /* goproxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = goproxy.h; sourceTree = "<group>"; };
+		1437AD65229E375700D0B07F /* nsclient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nsclient.h; sourceTree = "<group>"; };
+		1437AD66229E375700D0B07F /* precomplie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = precomplie.h; sourceTree = "<group>"; };
+		1437AD67229E375700D0B07F /* nsinterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nsinterface.h; sourceTree = "<group>"; };
+		1437AD68229E375700D0B07F /* interface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = interface.h; sourceTree = "<group>"; };
+		1437AD6B229E375700D0B07F /* nsclient.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = nsclient.cpp; sourceTree = "<group>"; };
+		1437AD6C229E375700D0B07F /* interface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = interface.cpp; sourceTree = "<group>"; };
+		1437AD6D229E375700D0B07F /* precomplie.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = precomplie.cpp; sourceTree = "<group>"; };
+		1437AD6E229E375700D0B07F /* goproxy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = goproxy.cpp; sourceTree = "<group>"; };
 		14BB606A229CFBE7004DCF78 /* libnsclient.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libnsclient.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		14BB606D229CFBE7004DCF78 /* nsclient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = nsclient.h; sourceTree = "<group>"; };
-		14BB606E229CFBE7004DCF78 /* nsclient.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = nsclient.m; sourceTree = "<group>"; };
 		14BB63D3229D0B9B004DCF78 /* gb2312.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gb2312.h; sourceTree = "<group>"; };
 		14BB63D4229D0B9B004DCF78 /* translit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = translit.h; sourceTree = "<group>"; };
 		14BB63D5229D0B9B004DCF78 /* dec_hanyu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dec_hanyu.h; sourceTree = "<group>"; };
@@ -411,14 +419,12 @@
 		14BB64BA229D0B9C004DCF78 /* iconv.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = iconv.c; sourceTree = "<group>"; };
 		14BB64BB229D0B9C004DCF78 /* relocatable.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = relocatable.c; sourceTree = "<group>"; };
 		14BB64BC229D0B9C004DCF78 /* localcharset.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = localcharset.c; sourceTree = "<group>"; };
-		14BB64D6229D0D61004DCF78 /* lapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = lapi.c; path = ../../../nsbase/dependency/lua/src/lapi.c; sourceTree = SOURCE_ROOT; };
 		14BB651F229D0DD7004DCF78 /* lstrlib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lstrlib.c; sourceTree = "<group>"; };
 		14BB6520229D0DD7004DCF78 /* ltm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ltm.c; sourceTree = "<group>"; };
 		14BB6521229D0DD7004DCF78 /* lvm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lvm.h; sourceTree = "<group>"; };
 		14BB6522229D0DD7004DCF78 /* ltable.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ltable.c; sourceTree = "<group>"; };
 		14BB6523229D0DD7004DCF78 /* lobject.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lobject.c; sourceTree = "<group>"; };
 		14BB6524229D0DD7004DCF78 /* ldebug.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ldebug.c; sourceTree = "<group>"; };
-		14BB6525229D0DD7004DCF78 /* lapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lapi.c; sourceTree = "<group>"; };
 		14BB6527229D0DD7004DCF78 /* llex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = llex.h; sourceTree = "<group>"; };
 		14BB6528229D0DD7004DCF78 /* lctype.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lctype.h; sourceTree = "<group>"; };
 		14BB6529229D0DD7004DCF78 /* lualib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lualib.h; sourceTree = "<group>"; };
@@ -468,20 +474,20 @@
 		14BB6558229D0DD9004DCF78 /* lopcodes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lopcodes.h; sourceTree = "<group>"; };
 		14BB6559229D0DD9004DCF78 /* ldo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ldo.h; sourceTree = "<group>"; };
 		14BB655A229D0DD9004DCF78 /* lfunc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lfunc.h; sourceTree = "<group>"; };
-		14BB65F7229D0F8E004DCF78 /* Alloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Alloc.h; path = ../dependency/lzma/linux/Alloc.h; sourceTree = "<group>"; };
-		14BB65F8229D0FC6004DCF78 /* LzFind.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LzFind.h; path = ../dependency/lzma/linux/LzFind.h; sourceTree = "<group>"; };
-		14BB65F9229D0FC6004DCF78 /* LzFindMt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LzFindMt.h; path = ../dependency/lzma/linux/LzFindMt.h; sourceTree = "<group>"; };
-		14BB65FA229D0FD7004DCF78 /* LzHash.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = LzHash.h; path = ../dependency/lzma/linux/LzHash.h; sourceTree = "<group>"; };
-		14BB65FB229D0FF5004DCF78 /* LzmaLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = LzmaLib.h; path = ../dependency/lzma/linux/LzmaLib.h; sourceTree = "<group>"; };
-		14BB65FC229D0FF5004DCF78 /* LzmaEnc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = LzmaEnc.h; path = ../dependency/lzma/linux/LzmaEnc.h; sourceTree = "<group>"; };
-		14BB65FD229D0FF5004DCF78 /* LzmaDec.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = LzmaDec.h; path = ../dependency/lzma/linux/LzmaDec.h; sourceTree = "<group>"; };
-		14BB65FE229D1006004DCF78 /* Threads.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Threads.h; path = ../dependency/lzma/linux/Threads.h; sourceTree = "<group>"; };
-		14BB65FF229D105E004DCF78 /* Alloc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Alloc.c; path = ../dependency/lzma/linux/Alloc.c; sourceTree = "<group>"; };
-		14BB6600229D105E004DCF78 /* LzmaLib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = LzmaLib.c; path = ../dependency/lzma/linux/LzmaLib.c; sourceTree = "<group>"; };
-		14BB6601229D105E004DCF78 /* LzmaDec.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = LzmaDec.c; path = ../dependency/lzma/linux/LzmaDec.c; sourceTree = "<group>"; };
-		14BB6602229D105E004DCF78 /* LzFindMt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = LzFindMt.c; path = ../dependency/lzma/linux/LzFindMt.c; sourceTree = "<group>"; };
-		14BB6603229D105F004DCF78 /* LzmaEnc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = LzmaEnc.c; path = ../dependency/lzma/linux/LzmaEnc.c; sourceTree = "<group>"; };
-		14BB6604229D105F004DCF78 /* LzFind.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = LzFind.c; path = ../dependency/lzma/linux/LzFind.c; sourceTree = "<group>"; };
+		14BB65F7229D0F8E004DCF78 /* Alloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Alloc.h; sourceTree = "<group>"; };
+		14BB65F8229D0FC6004DCF78 /* LzFind.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LzFind.h; sourceTree = "<group>"; };
+		14BB65F9229D0FC6004DCF78 /* LzFindMt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LzFindMt.h; sourceTree = "<group>"; };
+		14BB65FA229D0FD7004DCF78 /* LzHash.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LzHash.h; sourceTree = "<group>"; };
+		14BB65FB229D0FF5004DCF78 /* LzmaLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LzmaLib.h; sourceTree = "<group>"; };
+		14BB65FC229D0FF5004DCF78 /* LzmaEnc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LzmaEnc.h; sourceTree = "<group>"; };
+		14BB65FD229D0FF5004DCF78 /* LzmaDec.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LzmaDec.h; sourceTree = "<group>"; };
+		14BB65FE229D1006004DCF78 /* Threads.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Threads.h; sourceTree = "<group>"; };
+		14BB65FF229D105E004DCF78 /* Alloc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Alloc.c; sourceTree = "<group>"; };
+		14BB6600229D105E004DCF78 /* LzmaLib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = LzmaLib.c; sourceTree = "<group>"; };
+		14BB6601229D105E004DCF78 /* LzmaDec.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = LzmaDec.c; sourceTree = "<group>"; };
+		14BB6602229D105E004DCF78 /* LzFindMt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = LzFindMt.c; sourceTree = "<group>"; };
+		14BB6603229D105F004DCF78 /* LzmaEnc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = LzmaEnc.c; sourceTree = "<group>"; };
+		14BB6604229D105F004DCF78 /* LzFind.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = LzFind.c; sourceTree = "<group>"; };
 		14BB660D229D1135004DCF78 /* pem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pem.h; sourceTree = "<group>"; };
 		14BB660E229D1135004DCF78 /* check_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = check_config.h; sourceTree = "<group>"; };
 		14BB660F229D1135004DCF78 /* error.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = error.h; sourceTree = "<group>"; };
@@ -707,6 +713,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1437AD63229E375700D0B07F /* inc */ = {
+			isa = PBXGroup;
+			children = (
+				1437AD64229E375700D0B07F /* goproxy.h */,
+				1437AD65229E375700D0B07F /* nsclient.h */,
+				1437AD66229E375700D0B07F /* precomplie.h */,
+				1437AD67229E375700D0B07F /* nsinterface.h */,
+				1437AD68229E375700D0B07F /* interface.h */,
+			);
+			path = inc;
+			sourceTree = "<group>";
+		};
+		1437AD69229E375700D0B07F /* src */ = {
+			isa = PBXGroup;
+			children = (
+				1437AD6B229E375700D0B07F /* nsclient.cpp */,
+				1437AD6C229E375700D0B07F /* interface.cpp */,
+				1437AD6D229E375700D0B07F /* precomplie.cpp */,
+				1437AD6E229E375700D0B07F /* goproxy.cpp */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
 		14BB6061229CFBE7004DCF78 = {
 			isa = PBXGroup;
 			children = (
@@ -727,8 +756,8 @@
 		14BB606C229CFBE7004DCF78 /* nsclient */ = {
 			isa = PBXGroup;
 			children = (
-				14BB606D229CFBE7004DCF78 /* nsclient.h */,
-				14BB606E229CFBE7004DCF78 /* nsclient.m */,
+				1437AD63229E375700D0B07F /* inc */,
+				1437AD69229E375700D0B07F /* src */,
 			);
 			name = nsclient;
 			sourceTree = SOURCE_ROOT;
@@ -740,7 +769,7 @@
 				14BB64B9229D0B9C004DCF78 /* src */,
 			);
 			name = libiconv;
-			path = ../../../nsbase/dependency/libiconv;
+			path = ../../nsbase/dependency/libiconv;
 			sourceTree = SOURCE_ROOT;
 		};
 		14BB63D2229D0B9B004DCF78 /* inc */ = {
@@ -1002,14 +1031,14 @@
 				14BB63D1229D0B9B004DCF78 /* libiconv */,
 			);
 			name = nsbase;
-			path = ../../../nsbase;
+			path = ../../nsbase;
 			sourceTree = SOURCE_ROOT;
 		};
 		14BB64C1229D0D31004DCF78 /* lua */ = {
 			isa = PBXGroup;
 			children = (
-				14BB6525229D0DD7004DCF78 /* lapi.c */,
 				14BB6553229D0DD9004DCF78 /* lapi.h */,
+				1437AD61229E36FD00D0B07F /* lapi.c */,
 				14BB6548229D0DD8004DCF78 /* lauxlib.c */,
 				14BB653F229D0DD8004DCF78 /* lauxlib.h */,
 				14BB654D229D0DD9004DCF78 /* lbaselib.c */,
@@ -1064,10 +1093,9 @@
 				14BB6521229D0DD7004DCF78 /* lvm.h */,
 				14BB6554229D0DD9004DCF78 /* lzio.c */,
 				14BB6537229D0DD7004DCF78 /* lzio.h */,
-				14BB64D6229D0D61004DCF78 /* lapi.c */,
 			);
 			name = lua;
-			path = ../../../nsbase/dependency/lua/src;
+			path = ../../nsbase/dependency/lua/src;
 			sourceTree = SOURCE_ROOT;
 		};
 		14BB657E229D0E67004DCF78 /* lzma */ = {
@@ -1089,7 +1117,7 @@
 				14BB65F9229D0FC6004DCF78 /* LzFindMt.h */,
 			);
 			name = lzma;
-			path = ../../../nsbase/lzma;
+			path = ../../nsbase/dependency/lzma/linux;
 			sourceTree = SOURCE_ROOT;
 		};
 		14BB660B229D1135004DCF78 /* mbedtls */ = {
@@ -1099,7 +1127,7 @@
 				14BB6653229D1135004DCF78 /* library */,
 			);
 			name = mbedtls;
-			path = ../../../nsbase/dependency/mbedtls;
+			path = ../../nsbase/dependency/mbedtls;
 			sourceTree = SOURCE_ROOT;
 		};
 		14BB660C229D1135004DCF78 /* mbedtls */ = {
@@ -1268,7 +1296,7 @@
 				14BB66E9229D125C004DCF78 /* tinyxml.cpp */,
 			);
 			name = tinyxml;
-			path = ../../../nsbase/dependency/tinyxml;
+			path = ../../nsbase/dependency/tinyxml;
 			sourceTree = SOURCE_ROOT;
 		};
 		14BB6719229D12B2004DCF78 /* zlib */ = {
@@ -1302,7 +1330,7 @@
 				14BB6733229D12B2004DCF78 /* zconf.h */,
 			);
 			name = zlib;
-			path = ../../../nsbase/dependency/zlib;
+			path = ../../nsbase/dependency/zlib;
 			sourceTree = SOURCE_ROOT;
 		};
 		14BB6743229D1692004DCF78 /* nsbase */ = {
@@ -1312,7 +1340,7 @@
 				14BB6761229D1692004DCF78 /* src */,
 			);
 			name = nsbase;
-			path = ../../../nsbase/nsbase;
+			path = ../../nsbase/nsbase;
 			sourceTree = SOURCE_ROOT;
 		};
 		14BB6745229D1692004DCF78 /* inc */ = {
@@ -1342,7 +1370,7 @@
 				14BB675E229D1692004DCF78 /* nsnetbase.h */,
 			);
 			name = inc;
-			path = ../../../nsbase/nsbase/inc;
+			path = ../../nsbase/nsbase/inc;
 			sourceTree = SOURCE_ROOT;
 		};
 		14BB6761229D1692004DCF78 /* src */ = {
@@ -1368,7 +1396,7 @@
 				14BB6779229D1692004DCF78 /* nslock_ios.cpp */,
 			);
 			name = src;
-			path = ../../../nsbase/nsbase/src;
+			path = ../../nsbase/nsbase/src;
 			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
@@ -1444,7 +1472,6 @@
 				14BB678F229D1692004DCF78 /* nslocal.cpp in Sources */,
 				14BB64BE229D0B9C004DCF78 /* relocatable.c in Sources */,
 				14BB66BA229D1136004DCF78 /* entropy_poll.c in Sources */,
-				14BB606F229CFBE7004DCF78 /* nsclient.m in Sources */,
 				14BB673C229D12B2004DCF78 /* inftrees.c in Sources */,
 				14BB6576229D0DDA004DCF78 /* lbaselib.c in Sources */,
 				14BB66C0229D1136004DCF78 /* debug.c in Sources */,
@@ -1459,11 +1486,11 @@
 				14BB6783229D1692004DCF78 /* nsluawrapper.cpp in Sources */,
 				14BB6792229D1692004DCF78 /* nstimer.cpp in Sources */,
 				14BB66AD229D1136004DCF78 /* ssl_ciphersuites.c in Sources */,
+				1437AD72229E375700D0B07F /* precomplie.cpp in Sources */,
 				1423F186229D24B800F42298 /* nsnetworkio_ios.cpp in Sources */,
 				14BB6738229D12B2004DCF78 /* crc32.c in Sources */,
 				14BB66BD229D1136004DCF78 /* cmac.c in Sources */,
 				14BB678E229D1692004DCF78 /* nstemplate.cpp in Sources */,
-				14BB6560229D0DD9004DCF78 /* lapi.c in Sources */,
 				14BB66A5229D1136004DCF78 /* x509_crl.c in Sources */,
 				14BB657A229D0DDA004DCF78 /* lctype.c in Sources */,
 				14BB655E229D0DD9004DCF78 /* lobject.c in Sources */,
@@ -1487,7 +1514,6 @@
 				14BB66B2229D1136004DCF78 /* certs.c in Sources */,
 				14BB66AE229D1136004DCF78 /* hmac_drbg.c in Sources */,
 				14BB6606229D105F004DCF78 /* LzmaLib.c in Sources */,
-				14BB650A229D0D64004DCF78 /* lapi.c in Sources */,
 				14BB655F229D0DD9004DCF78 /* ldebug.c in Sources */,
 				14BB66B7229D1136004DCF78 /* havege.c in Sources */,
 				14BB656C229D0DDA004DCF78 /* lgc.c in Sources */,
@@ -1507,6 +1533,7 @@
 				14BB66CE229D1136004DCF78 /* ecp.c in Sources */,
 				14BB66D0229D1136004DCF78 /* x509.c in Sources */,
 				14BB66A6229D1136004DCF78 /* cipher_wrap.c in Sources */,
+				1437AD70229E375700D0B07F /* nsclient.cpp in Sources */,
 				14BB669F229D1136004DCF78 /* ssl_srv.c in Sources */,
 				14BB656E229D0DDA004DCF78 /* loadlib.c in Sources */,
 				14BB66ED229D125C004DCF78 /* tinyxmlerror.cpp in Sources */,
@@ -1524,6 +1551,7 @@
 				14BB6563229D0DDA004DCF78 /* ldump.c in Sources */,
 				14BB656B229D0DDA004DCF78 /* lmem.c in Sources */,
 				14BB657B229D0DDA004DCF78 /* lzio.c in Sources */,
+				1437AD73229E375700D0B07F /* goproxy.cpp in Sources */,
 				14BB66C9229D1136004DCF78 /* md_wrap.c in Sources */,
 				14BB66EC229D125C004DCF78 /* tinyxmlparser.cpp in Sources */,
 				14BB656A229D0DDA004DCF78 /* lstate.c in Sources */,
@@ -1546,6 +1574,7 @@
 				14BB66A3229D1136004DCF78 /* ecdh.c in Sources */,
 				14BB66AA229D1136004DCF78 /* aesni.c in Sources */,
 				14BB6736229D12B2004DCF78 /* deflate.c in Sources */,
+				1437AD71229E375700D0B07F /* interface.cpp in Sources */,
 				14BB66C8229D1136004DCF78 /* md2.c in Sources */,
 				14BB655B229D0DD9004DCF78 /* lstrlib.c in Sources */,
 				14BB6609229D105F004DCF78 /* LzmaEnc.c in Sources */,
@@ -1567,6 +1596,7 @@
 				14BB66CA229D1136004DCF78 /* x509_csr.c in Sources */,
 				14BB66B3229D1136004DCF78 /* pkwrite.c in Sources */,
 				14BB6578229D0DDA004DCF78 /* lfunc.c in Sources */,
+				1437AD62229E36FD00D0B07F /* lapi.c in Sources */,
 				14BB66B6229D1136004DCF78 /* asn1write.c in Sources */,
 				14BB66B1229D1136004DCF78 /* asn1parse.c in Sources */,
 				14BB6577229D0DDA004DCF78 /* loslib.c in Sources */,
@@ -1702,21 +1732,30 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = T3V9Q4P3VF;
-				GCC_PREPROCESSOR_DEFINITIONS = "Debug=1";
-				HEADER_SEARCH_PATHS = (
-					"$(SRCROOT)/../../../nsbase/dependency/libcurl/include",
-					"$(SRCROOT)/../../../nsbase/dependency/libiconv/inc",
-					"$(SRCROOT)/../../../nsbase/dependency/lua/src",
-					"$(SRCROOT)/../../../nsbase/dependency/lzma/linux",
-					"$(SRCROOT)/../../../nsbase/dependency/mbedtls",
-					"$(SRCROOT)/../../../nsbase/dependency/tinyxml",
-					"$(SRCROOT)/../../../nsbase/dependency/zlib",
-					"$(SRCROOT)/../../../nsbase/nsbase/inc",
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"Debug=1",
+					PLATFORM_IOS,
+					CURL_STATICLIB,
 				);
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/../../nsbase/dependency/libcurl/include",
+					"$(SRCROOT)/../../nsbase/dependency/libiconv/inc",
+					"$(SRCROOT)/../../nsbase/dependency/lua/src",
+					"$(SRCROOT)/../../nsbase/dependency/lzma/linux",
+					"$(SRCROOT)/../../nsbase/dependency/mbedtls",
+					"$(SRCROOT)/../../nsbase/dependency/tinyxml",
+					"$(SRCROOT)/../../nsbase/dependency/zlib",
+					"$(SRCROOT)/../../nsbase/nsbase/inc",
+					"$(SRCROOT)/../../server/common",
+				);
+				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../../../nsbase/dependency/libcurl/lib/ios";
 				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "-ObjC";
-				"OTHER_LDFLAGS[sdk=iphoneos*]" = "-ObjC";
-				"OTHER_LDFLAGS[sdk=iphonesimulator*]" = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					libcurl.a,
+					libcrypto.a,
+					libssl.a,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1729,21 +1768,29 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = T3V9Q4P3VF;
-				GCC_PREPROCESSOR_DEFINITIONS = "";
-				HEADER_SEARCH_PATHS = (
-					"$(SRCROOT)/../../../nsbase/dependency/libcurl/include",
-					"$(SRCROOT)/../../../nsbase/dependency/libiconv/inc",
-					"$(SRCROOT)/../../../nsbase/dependency/lua/src",
-					"$(SRCROOT)/../../../nsbase/dependency/lzma/linux",
-					"$(SRCROOT)/../../../nsbase/dependency/mbedtls",
-					"$(SRCROOT)/../../../nsbase/dependency/tinyxml",
-					"$(SRCROOT)/../../../nsbase/dependency/zlib",
-					"$(SRCROOT)/../../../nsbase/nsbase/inc",
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					PLATFORM_IOS,
+					CURL_STATICLIB,
 				);
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/../../nsbase/dependency/libcurl/include",
+					"$(SRCROOT)/../../nsbase/dependency/libiconv/inc",
+					"$(SRCROOT)/../../nsbase/dependency/lua/src",
+					"$(SRCROOT)/../../nsbase/dependency/lzma/linux",
+					"$(SRCROOT)/../../nsbase/dependency/mbedtls",
+					"$(SRCROOT)/../../nsbase/dependency/tinyxml",
+					"$(SRCROOT)/../../nsbase/dependency/zlib",
+					"$(SRCROOT)/../../nsbase/nsbase/inc",
+					"$(SRCROOT)/../../server/common",
+				);
+				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../../../nsbase/dependency/libcurl/lib/ios";
 				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "-ObjC";
-				"OTHER_LDFLAGS[sdk=iphoneos*]" = "-ObjC";
-				"OTHER_LDFLAGS[sdk=iphonesimulator*]" = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					libcurl.a,
+					libcrypto.a,
+					libssl.a,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";

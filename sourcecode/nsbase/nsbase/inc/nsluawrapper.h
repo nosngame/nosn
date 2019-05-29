@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 namespace NSBase
 {
 #define DECLARE_BEGIN_PROTECTED					\
@@ -344,7 +344,7 @@ namespace NSBase
 
 			size_t len = 0;
 			const char* text = lua_tolstring( mpLuaState, mPopIndex, &len );
-			value.insert( value.end( ), text, len );
+			value.insert( value.end( ), text, (unsigned int) len );
 			return *this;
 		}
 
