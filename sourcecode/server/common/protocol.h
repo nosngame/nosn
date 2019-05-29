@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #define ScriptProtoImpl								\
 		const CNSOctetsShadow* mpShadowBuffer;		\
 		CNSOctets* mpScriptBuffer;					\
@@ -24,11 +24,11 @@
 			\
 		virtual CNSOctetsStream& marshal( CNSOctetsStream& stream ) const	\
 		{	\
-			size_t oldLen = stream.length( );					\
+			unsigned int oldLen = stream.length( );	    		\
 			for ( ; mpLuaStack->isEnd( ) == false; )			\
 				*mpLuaStack >> stream;							\
 																\
-			size_t len = stream.length( ) - oldLen;				\
+			unsigned len = stream.length( ) - oldLen;			\
 			if ( len >= 65530 )									\
 			{													\
 				unsigned int pid = 0;							\
@@ -68,7 +68,7 @@
 		virtual const CNSOctetsStream& unMarshal( const CNSOctetsStream& stream )			\
 		{																					\
 			static CNSOctets scriptBuffer;													\
-			size_t progress = stream.mBuffer.length( ) - stream.mPos;						\
+			unsigned int progress = stream.mBuffer.length( ) - stream.mPos;						\
 																							\
 			scriptBuffer.replace( (char*) stream.mBuffer.begin( ) + stream.mPos, progress );	\
 			stream.mPos += progress;															\

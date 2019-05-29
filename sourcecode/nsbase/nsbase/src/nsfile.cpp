@@ -1,4 +1,4 @@
-﻿#include <nsbase.h>
+#include <nsbase.h>
 
 namespace NSBase
 {
@@ -146,7 +146,7 @@ namespace NSBase
 			::fseek( mpFile, curPos, SEEK_SET );
 			mNeedRefresh = false;
 		}
-		return mLength;
+		return (int) mLength;
 	}
 
 	void CNSFile::readAllBytes( const CNSOctets& value ) const
@@ -290,7 +290,7 @@ namespace NSBase
 		switch ( trans )
 		{
 		case NSBase::EBegin:
-			mTranPos = ftell( mpFile );
+			mTranPos = (int) ftell( mpFile );
 			break;
 		case NSBase::ERollback:
 			fseek( mpFile, mTranPos, SEEK_SET );
@@ -626,7 +626,6 @@ namespace NSBase
 		DECLARE_BEGIN_PROTECTED
 		CNSFile* file = NULL;
 		luaStack >> file;
-		int pos = 0;
 		file->flush( );
 		DECLARE_END_PROTECTED
 	}

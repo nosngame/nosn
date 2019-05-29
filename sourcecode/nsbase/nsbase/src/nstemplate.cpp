@@ -1,4 +1,4 @@
-﻿#include <nsbase.h>
+#include <nsbase.h>
 
 namespace NSBase
 {
@@ -41,7 +41,7 @@ namespace NSBase
 		char* utf8Buf = utf8;
 		size_t inBytesLeft = strlen( mbcs );
 		size_t outBytesLeft = 4096;
-		int ret = iconv( ic, &mbcs, &inBytesLeft, &utf8, &outBytesLeft );
+		int ret = (int) iconv( ic, &mbcs, &inBytesLeft, &utf8, &outBytesLeft );
 		if ( ret != 0 )
 		{
 			static CNSString errorDesc;
@@ -72,7 +72,7 @@ namespace NSBase
 		char* mbcsBuf = mbcs;
 		size_t inBytesLeft = strlen( utf8 );
 		size_t outBytesLeft = 4096;
-		int ret = iconv( ic, &utf8, &inBytesLeft, &mbcs, &outBytesLeft );
+		int ret = (int) iconv( ic, &utf8, &inBytesLeft, &mbcs, &outBytesLeft );
 		if ( ret != 0 )
 		{
 			static CNSString errorDesc;

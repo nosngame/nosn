@@ -1,4 +1,4 @@
-﻿#include <nsbase.h>
+#include <nsbase.h>
 
 namespace NSBase
 {
@@ -24,6 +24,7 @@ namespace NSBase
 			return round( value + magic_delta );
 		}
 
+#if USE_CRT_MEMCPY == 0
 		void memcpy_sse2_16( void *dst, const void *src )
 		{
 			__m128i m0 = _mm_loadu_si128( ( ( const __m128i* )src ) + 0 );
@@ -560,7 +561,8 @@ namespace NSBase
 
 			return dst;
 		}
-
+#endif
+        
 		void* memcpy_fast( void *destination, const void *source, size_t size )
 		{
 #if SHOW_MEM_COPY == 1

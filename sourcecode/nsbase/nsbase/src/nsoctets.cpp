@@ -1,4 +1,4 @@
-﻿#include <nsbase.h>
+#include <nsbase.h>
 #include <LzmaLib.h>
 #include <zlib.h>
 #include <mbedtls/pk.h>
@@ -613,7 +613,7 @@ namespace NSBase
 		NSFunction::memcpy_fast( tpCBuffer + sizeof( unsigned int ) + 2, prop, LZMA_PROPS_SIZE );
 
 		// 设置压缩后buffer大小
-		value.length( ) = cSize + headerSize;
+		value.length( ) = (unsigned int)( cSize + headerSize );
 		return value;
 	}
 
@@ -628,8 +628,8 @@ namespace NSBase
 		size_t olen = 0;
 		mbedtls_base64_encode( NULL, 0, &olen, (const unsigned char*) begin( ), length( ) );
 
-		value.reserve( olen );
-		value.length( ) = olen - 1;
+		value.reserve( (unsigned int) olen );
+		value.length( ) = (unsigned int) olen - 1;
 		int ret = mbedtls_base64_encode( (unsigned char*) value.begin( ), olen, &olen, (const unsigned char*) begin( ), length( ) );
 		if ( ret != 0 )
 		{
@@ -647,8 +647,8 @@ namespace NSBase
 		size_t olen = 0;
 		mbedtls_base64_decode( NULL, 0, &olen, (const unsigned char*) begin( ), length( ) );
 
-		value.reserve( olen );
-		value.length( ) = olen;
+		value.reserve( (unsigned int) olen );
+		value.length( ) = (unsigned int) olen;
 		int ret = mbedtls_base64_decode( (unsigned char*) value.begin( ), olen, &olen, (const unsigned char*) begin( ), length( ) );
 		if ( ret != 0 )
 		{
@@ -921,7 +921,7 @@ namespace NSBase
 	CNSOctetsStream& CNSOctetsStream::operator << ( const CNSString& text )
 	{
 		operator << ( (unsigned short) text.getLength( ) );
-		mBuffer.insert( mBuffer.end( ), text.getBuffer( ), text.getLength( ) );
+		mBuffer.insert( mBuffer.end( ), text.getBuffer( ), (unsigned int) text.getLength( ) );
 		return *this;
 	}
 

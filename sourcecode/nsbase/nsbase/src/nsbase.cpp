@@ -1,4 +1,4 @@
-﻿#include <nsbase.h>
+#include <nsbase.h>
 
 #ifdef PLATFORM_WIN32
 #pragma comment(lib, "dbghelp.lib")
@@ -8,6 +8,7 @@
 #pragma comment(lib, "wldap32.lib")
 #pragma comment(lib, "crypt32.lib")
 #pragma comment(lib, "normaliz.lib")
+#pragma comment(lib, "iphlpapi.lib")
 #endif
 
 #ifdef _M_X64

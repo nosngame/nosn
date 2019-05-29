@@ -1,4 +1,4 @@
-﻿#include <nsbase.h>
+#include <nsbase.h>
 
 namespace NSBase
 {
@@ -48,7 +48,7 @@ namespace NSBase
 
 			CNSString errorDesc;
 			firstSym = error.nocaseFindFirstOf( ":", endSym ) + 1;
-			endSym = error.getLength( );
+			endSym = (int) error.getLength( );
 			error.copy( errorDesc, endSym - firstSym - 1, firstSym + 1 );
 			errorText = errorText + _UTF8( "lua error: 编译时期错误\n" );
 			errorText = errorText + _UTF8( "文件: \n\t[" ) + fileName + "]\n";
@@ -87,7 +87,7 @@ namespace NSBase
 		firstSym = endSym;
 		endSym = error.nocaseFindFirstOf( "\nstack traceback:", firstSym + 1 );
 		if ( endSym == -1 )
-			endSym = error.getLength( );
+			endSym = (int) error.getLength( );
 		error.copy( errorDesc, endSym - firstSym - 2, firstSym + 2 );
 
 		errorText = errorText + _UTF8( "文件: \n\t[" ) + filename + "]\n";
@@ -108,7 +108,7 @@ namespace NSBase
 
 			lineE = error.findFirstOf( "\n", lineS );
 			if ( lineE == -1 )
-				lineE = error.getLength( ) - 1;
+				lineE = (int) error.getLength( ) - 1;
 
 			CNSString line;
 			error.copy( line, lineE - lineS + 1, lineS );
@@ -136,7 +136,7 @@ namespace NSBase
 				if ( endSym == -1 )
 					endSym = line.nocaseFindFirstOf( ">", firstSym + 1 );
 				if ( endSym == -1 )
-					endSym = line.getLength( );
+					endSym = (int) line.getLength( );
 
 				line.copy( funcName, endSym - firstSym - 1, firstSym + 1 );
 				errorText = errorText + _UTF8( "\t文件:[" ) + fileName + "]\n";
@@ -309,7 +309,6 @@ namespace NSBase
 
 	int CNSLuaStack::queryVar( const CNSString& varName, int& stackIndex )
 	{
-		bool findVar = false;
 		lua_Debug ar;
 		unsigned int level = 0;
 

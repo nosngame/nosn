@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include <new>
 #include <stdio.h>
 #include <string.h>
@@ -11,7 +11,6 @@
 #include <time.h>
 #include <stddef.h>
 #include <stdint.h>
-#include <emmintrin.h>
 
 #pragma warning ( disable : 4267 )
 #pragma warning ( disable : 4819 )
@@ -38,10 +37,10 @@
 #include <direct.h>
 #include <tchar.h>
 #include <io.h>
+#include <Iphlpapi.h>
+
 #define SOCKET SOCKET
-
 #define _UTF8( x ) CNSString::convertMbcsToUtf8( x )
-
 #define NSException( desc ) \
 	{	\
 		CONTEXT context;	\
@@ -135,12 +134,12 @@ namespace NSMath
 namespace NSBase
 {
 
-	// utf8		文本头
+// utf8		文本头
 #define	UTF8_BOM 0xBFBBEF
 #define unused( x )	(void)(x) 
 
 // 是否使用CRT memcpy
-#define USE_CRT_MEMCPY 0
+#define USE_CRT_MEMCPY 1
 
 // 是否开启内存分配次数检测
 #define SHOW_MEM_ALLOC 0
@@ -157,6 +156,10 @@ namespace NSBase
 // 统计数据显示间隔时间
 #define SHOW_TICK	60000
 
+#if USE_CRT_MEMCPY == 0
+#include <emmintrin.h>
+#endif
+    
 	// 数据类型
 	enum EDataType
 	{

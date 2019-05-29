@@ -1,4 +1,4 @@
-﻿#include <nsbase.h>
+#include <nsbase.h>
 
 namespace NSHttp
 {
@@ -56,7 +56,7 @@ namespace NSHttp
 	size_t getGZipData( void *ptr, size_t size, size_t nmemb, void *userdata )
 	{
 		CHttpResult* result = (CHttpResult*) userdata;
-		result->mResultData.insert( result->mResultData.begin( ), ptr, size * nmemb );
+		result->mResultData.insert( result->mResultData.begin( ), ptr, (unsigned int)( size * nmemb ) );
 
 		CNSOctets data = result->mResultData.gzipUncompress( 2048 );
 		result->mResult = CNSString( (char*) data.begin( ), data.length( ) );
@@ -155,7 +155,7 @@ namespace NSHttp
 		response.pushback( "Content-Type: image/x-icon\n" );
 		response.pushback( "\n" );
 		response.pushback( "\n" );
-		CNSOctets buffer( response.getBuffer( ), response.getLength( ) );
+		CNSOctets buffer( response.getBuffer( ), (unsigned int) response.getLength( ) );
 		NSNet::send( name, buffer, sessionID );
 	}
 
@@ -183,7 +183,7 @@ namespace NSHttp
 		response.pushback( "\n" );
 		response.pushback( tData.getBuffer( ) );
 		response.pushback( "\n" );
-		CNSOctets buffer( response.getBuffer( ), response.getLength( ) );
+		CNSOctets buffer( response.getBuffer( ), (unsigned int) response.getLength( ) );
 		NSNet::send( name, buffer, sessionID );
 	}
 
@@ -211,7 +211,7 @@ namespace NSHttp
 		response.pushback( "\n" );
 		response.pushback( tData.getBuffer( ) );
 		response.pushback( "\n" );
-		CNSOctets buffer( response.getBuffer( ), response.getLength( ) );
+		CNSOctets buffer( response.getBuffer( ), (unsigned int) response.getLength( ) );
 		NSNet::send( name, buffer, sessionID );
 	}
 #pragma endregion
@@ -284,7 +284,7 @@ namespace NSHttp
 		result->mpCurl = easyCurl;
 		result->mLuaFunc = func;
 		result->mpCurlM = multiCurl;
-		result->mPostData = CNSOctets( postData, strlen( postData ) ).gzipCompress( );
+		result->mPostData = CNSOctets( postData, (unsigned int) strlen( postData ) ).gzipCompress( );
 
 		NSHttp::getHttpReq( )->insert( easyCurl, result );
 		curl_easy_setopt( easyCurl, CURLOPT_URL, url.getBuffer( ) );
@@ -315,7 +315,7 @@ namespace NSHttp
 		result->mpCurl = easyCurl;
 		result->mLuaFunc = func;
 		result->mpCurlM = multiCurl;
-		result->mPostData = CNSOctets( postData, strlen( postData ) );
+		result->mPostData = CNSOctets( postData, (unsigned int) strlen( postData ) );
 
 		NSHttp::getHttpReq( )->insert( easyCurl, result );
 		curl_easy_setopt( easyCurl, CURLOPT_URL, url.getBuffer( ) );
@@ -347,7 +347,7 @@ namespace NSHttp
 		result->mpCurl = easyCurl;
 		result->mLuaFunc = func;
 		result->mpCurlM = multiCurl;
-		result->mPostData = CNSOctets( postData, strlen( postData ) );;
+		result->mPostData = CNSOctets( postData, (unsigned int) strlen( postData ) );;
 
 		/* init to NULL is important */
 		struct curl_slist* httpHeader = NULL;
@@ -382,7 +382,7 @@ namespace NSHttp
 		result->mpCurl = easyCurl;
 		result->mLuaFunc = func;
 		result->mpCurlM = multiCurl;
-		result->mPostData = CNSOctets( postData, strlen( postData ) );
+		result->mPostData = CNSOctets( postData, (unsigned int) strlen( postData ) );
 
 		NSHttp::getHttpReq( )->insert( easyCurl, result );
 		curl_easy_setopt( easyCurl, CURLOPT_URL, url.getBuffer( ) );

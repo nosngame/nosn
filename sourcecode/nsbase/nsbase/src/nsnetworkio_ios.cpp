@@ -1,4 +1,4 @@
-﻿#include <nsbase.h>
+#include <nsbase.h>
 namespace NSNet
 {
 	extern CNSMap< CNSString, CNSNetworkIO* >	networkIOs;
@@ -72,10 +72,10 @@ namespace NSNet
 
 		mpSession = new CNSSession(mpManager, mSocket, this);
 		unsigned int bufferSize = mpManager->getBufferSize();
-		int tRet = setsockopt(mSocket, SOL_SOCKET, SO_SNDBUF, (char*)&bufferSize, sizeof(unsigned int));
+		setsockopt(mSocket, SOL_SOCKET, SO_SNDBUF, (char*)&bufferSize, sizeof(unsigned int));
 
 		bufferSize = mpManager->getBufferSize();
-		tRet = setsockopt(mSocket, SOL_SOCKET, SO_RCVBUF, (char*)&bufferSize, sizeof(unsigned int));
+		setsockopt(mSocket, SOL_SOCKET, SO_RCVBUF, (char*)&bufferSize, sizeof(unsigned int));
 
 		bool tTcpDelay = true;
 		setsockopt(mSocket, IPPROTO_TCP, TCP_NODELAY, (char*)&tTcpDelay, sizeof(bool));
@@ -145,7 +145,7 @@ namespace NSNet
 			if (length == 0)
 				return ERESULT_SUCCESS;
 
-			bytesSend = ::send(mpSession->mPeerSocket, buffer, length, 0);
+			bytesSend = (int) ::send(mpSession->mPeerSocket, buffer, length, 0);
 			if (bytesSend == -1)
 			{
 				switch (errno)
