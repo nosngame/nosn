@@ -41,9 +41,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="operserver.rc" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="html\mainpage.html">
       <Filter>html</Filter>
     </None>
