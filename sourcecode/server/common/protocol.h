@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #define ScriptProtoImpl								\
 		const CNSOctetsShadow* mpShadowBuffer;		\
 		CNSOctets* mpScriptBuffer;					\
@@ -59,7 +59,7 @@
 				}																			\
 																							\
 				static CNSString errorDesc;													\
-				errorDesc.format( _UTF8("½Å±¾Ğ­Òé³¬¹ı65530ÏŞÖÆ£¬½Å±¾Ğ­ÒéID - %d"), pid );	\
+				errorDesc.format( _UTF8("è„šæœ¬åè®®è¶…è¿‡65530é™åˆ¶ï¼Œè„šæœ¬åè®®ID - %d"), pid );	\
 				NSException( errorDesc );													\
 			} \
 			return stream;	\
@@ -84,8 +84,8 @@ namespace NSGateProto
 	public:
 		enum
 		{
-			PID = 0,	// ·¢ËÍ¸øÍæ¼Òµ±Ç°·şÎñ
-			PPID = 1,	// ·¢ËÍ¸øoper·şÎñ£¬Õû¸öÓÎÏ·Ò»¸öoper·şÎñ
+			PID = 0,	// å‘é€ç»™ç©å®¶å½“å‰æœåŠ¡
+			PPID = 1,	// å‘é€ç»™operæœåŠ¡ï¼Œæ•´ä¸ªæ¸¸æˆä¸€ä¸ªoperæœåŠ¡
 		};
 
 	public:
@@ -94,7 +94,7 @@ namespace NSGateProto
 		static CNSMap< TProtocolID, CNSProtocol* >	sProtoStubs;
 
 	public:
-		// buffer µÄÄÚ´æÊÇÒ»¸öÍêÕûĞ­Òé£¬²»°üº¬³¤¶È
+		// buffer çš„å†…å­˜æ˜¯ä¸€ä¸ªå®Œæ•´åè®®ï¼Œä¸åŒ…å«é•¿åº¦
 		CProtocolTunnel( CNSOctets* buffer = NULL, TSessionID sessionID = 0, TProtocolID pid = PID )
 			: CNSProtocol( pid, true ), mSessionID( sessionID ), mpBuffer( buffer )
 		{
@@ -114,7 +114,7 @@ namespace NSGateProto
 			CNSProtocol** protoRef = sProtoStubs.get( *tunnelPid );
 			if ( protoRef == NULL )
 			{
-				NSLog::log( _UTF8( "Ğ­ÒéID - %d Ã»ÓĞÕÒµ½" ), *tunnelPid );
+				NSLog::log( _UTF8( "åè®®ID - %d æ²¡æœ‰æ‰¾åˆ°" ), *tunnelPid );
 				return NULL;
 			}
 
@@ -128,7 +128,7 @@ namespace NSGateProto
 		{
 			stream << *mpBuffer;
 
-			// Èç¹ûÊÇ¿Í»§¶Ë·¢ËÍ¸øÍø¹ØµÄËíµÀĞ­Òé£¬²»ĞèÒª·¢ËÍmSessionID;
+			// å¦‚æœæ˜¯å®¢æˆ·ç«¯å‘é€ç»™ç½‘å…³çš„éš§é“åè®®ï¼Œä¸éœ€è¦å‘é€mSessionID;
 			if ( mSessionID != 0 )
 				stream << mSessionID;
 			return stream;
@@ -140,7 +140,7 @@ namespace NSGateProto
 		}
 	};
 
-	// Íø¹ØÍ¨ÖªÍæ¼ÒÏÂÏß
+	// ç½‘å…³é€šçŸ¥ç©å®¶ä¸‹çº¿
 	class CProtocolLogout : public CNSProtocol
 	{
 	public:
@@ -187,7 +187,7 @@ namespace NSGateProto
 		}
 	};
 
-	// ×¢²áÂß¼­·şÎñ
+	// æ³¨å†Œé€»è¾‘æœåŠ¡
 	class CProtocolRegisterLogicService : public CNSProtocol
 	{
 	public:
@@ -195,7 +195,7 @@ namespace NSGateProto
 
 	public:
 		CNSString		mName;
-		unsigned int	mServiceID;		// Âß¼­·şÎñID
+		unsigned int	mServiceID;		// é€»è¾‘æœåŠ¡ID
 
 	public:
 		CProtocolRegisterLogicService( const CNSString& name = "", unsigned int serviceID = 0 )
@@ -219,7 +219,7 @@ namespace NSGateProto
 		}
 	};
 
-	// ×¢²áÖ÷·şÎñ
+	// æ³¨å†Œä¸»æœåŠ¡
 	class CProtocolRegisterOperService : public CNSProtocol
 	{
 	public:
@@ -242,7 +242,7 @@ namespace NSGateProto
 		}
 	};
 
-	// Í¨ÖªÄÚÍø·şÎñÆ÷Íæ¼ÒµÇÂ¼³É¹¦
+	// é€šçŸ¥å†…ç½‘æœåŠ¡å™¨ç©å®¶ç™»å½•æˆåŠŸ
 	class CProtocolClientLogin : public CNSProtocol
 	{
 	public:
@@ -273,7 +273,7 @@ namespace NSGateProto
 		}
 	};
 
-	// Í¨ÖªÄÚÍø·şÎñÆ÷Íæ¼ÒÁ¬½Ó¶ªÊ§
+	// é€šçŸ¥å†…ç½‘æœåŠ¡å™¨ç©å®¶è¿æ¥ä¸¢å¤±
 	class CProtocolClientLost : public CNSProtocol
 	{
 	public:
@@ -301,7 +301,7 @@ namespace NSGateProto
 		}
 	};
 
-	// ÄÚÍø·şÎñÆ÷Í¨ÖªÍø¹ØÎ´ÖªÍæ¼Ò
+	// å†…ç½‘æœåŠ¡å™¨é€šçŸ¥ç½‘å…³æœªçŸ¥ç©å®¶
 	class CProtocolUnknownUser : public CNSProtocol
 	{
 	public:
@@ -309,7 +309,7 @@ namespace NSGateProto
 
 	public:
 		TSessionID mSessionID;
-		int	mReasonID;			// Ö»ÓĞµ±²»¶Ï¿ªÁ¬½ÓÊ±£¬²ÅÓĞĞ§
+		int	mReasonID;			// åªæœ‰å½“ä¸æ–­å¼€è¿æ¥æ—¶ï¼Œæ‰æœ‰æ•ˆ
 
 	public:
 		CProtocolUnknownUser( TSessionID sessionID = 0, int reasonID = 0 ) : CNSProtocol( PID ), mSessionID( sessionID ), mReasonID( reasonID )
@@ -440,7 +440,7 @@ namespace NSGateProto
 		}
 	};
 
-	// ÓÃÓÚ¿Í»§¶ËÖ®¼äÎ»ÖÃÍ¬²½
+	// ç”¨äºå®¢æˆ·ç«¯ä¹‹é—´ä½ç½®åŒæ­¥
 	class CProtocolBatchTunnel : public CNSProtocol
 	{
 	public:
@@ -471,7 +471,7 @@ namespace NSGateProto
 // client<->logic
 namespace NSClientProto
 {
-	// ¿Í»§¶Ë·¢ËÍ¸øÍø¹Ø·şÎñÆ÷µÇÂ¼ÇëÇó
+	// å®¢æˆ·ç«¯å‘é€ç»™ç½‘å…³æœåŠ¡å™¨ç™»å½•è¯·æ±‚
 	class CProtocolLogin : public CNSProtocol
 	{
 	public:
