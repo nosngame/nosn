@@ -1,4 +1,4 @@
-#include <nsbase.h>
+﻿#include <nsbase.h>
 namespace NSLog
 {
 	FLogHandler gLogHandler = NULL;
