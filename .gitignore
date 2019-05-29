@@ -30,3 +30,5 @@ sourcecode/client/nsclient/x64/Debug/goproxy.obj.enc
 sourcecode/client/nsclient/x64/Debug/goproxy.obj.enc
 *.enc
 /sourcecode/server/operserver/x64/Debug
+sourcecode/server/operserver/.DS_Store
+sourcecode/server/.DS_Store
