@@ -159,6 +159,7 @@
 		14BB6792229D1692004DCF78 /* nstimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14BB6778229D1692004DCF78 /* nstimer.cpp */; };
 		14BB6793229D1692004DCF78 /* nslock_ios.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14BB6779229D1692004DCF78 /* nslock_ios.cpp */; };
 		14BB6796229D16C9004DCF78 /* nshttp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14BB6772229D1692004DCF78 /* nshttp.cpp */; };
+		14C785EA229E735F00400016 /* protocol.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14C785E8229E735F00400016 /* protocol.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -700,6 +701,8 @@
 		14BB6776229D1692004DCF78 /* nslog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = nslog.cpp; sourceTree = "<group>"; };
 		14BB6778229D1692004DCF78 /* nstimer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = nstimer.cpp; sourceTree = "<group>"; };
 		14BB6779229D1692004DCF78 /* nslock_ios.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = nslock_ios.cpp; sourceTree = "<group>"; };
+		14C785E8229E735F00400016 /* protocol.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = protocol.cpp; sourceTree = "<group>"; };
+		14C785E9229E735F00400016 /* protocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = protocol.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -756,6 +759,7 @@
 		14BB606C229CFBE7004DCF78 /* nsclient */ = {
 			isa = PBXGroup;
 			children = (
+				14C785E5229E72D900400016 /* common */,
 				1437AD63229E375700D0B07F /* inc */,
 				1437AD69229E375700D0B07F /* src */,
 			);
@@ -1399,6 +1403,32 @@
 			path = ../../nsbase/nsbase/src;
 			sourceTree = SOURCE_ROOT;
 		};
+		14C785E5229E72D900400016 /* common */ = {
+			isa = PBXGroup;
+			children = (
+				14C785E7229E72E700400016 /* src */,
+				14C785E6229E72E200400016 /* inc */,
+			);
+			name = common;
+			path = ../../server/common;
+			sourceTree = SOURCE_ROOT;
+		};
+		14C785E6229E72E200400016 /* inc */ = {
+			isa = PBXGroup;
+			children = (
+				14C785E8229E735F00400016 /* protocol.cpp */,
+			);
+			name = inc;
+			sourceTree = "<group>";
+		};
+		14C785E7229E72E700400016 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				14C785E9229E735F00400016 /* protocol.h */,
+			);
+			name = src;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1571,6 +1601,7 @@
 				14BB6796229D16C9004DCF78 /* nshttp.cpp in Sources */,
 				14BB657D229D0DDA004DCF78 /* ldo.c in Sources */,
 				14BB6573229D0DDA004DCF78 /* lauxlib.c in Sources */,
+				14C785EA229E735F00400016 /* protocol.cpp in Sources */,
 				14BB66A3229D1136004DCF78 /* ecdh.c in Sources */,
 				14BB66AA229D1136004DCF78 /* aesni.c in Sources */,
 				14BB6736229D12B2004DCF78 /* deflate.c in Sources */,
@@ -1665,7 +1696,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/../../../nsbase/dependency/libcurl/include";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1719,7 +1750,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/../../../nsbase/dependency/libcurl/include";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -1730,8 +1761,15 @@
 		14BB6074229CFBE7004DCF78 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					armv7,
+					armv7s,
+					arm64,
+					arm64e,
+				);
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = T3V9Q4P3VF;
+				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"Debug=1",
 					PLATFORM_IOS,
@@ -1750,12 +1788,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../../../nsbase/dependency/libcurl/lib/ios";
 				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					libcurl.a,
-					libcrypto.a,
-					libssl.a,
-				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1766,8 +1799,15 @@
 		14BB6075229CFBE7004DCF78 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					armv7,
+					armv7s,
+					arm64,
+					arm64e,
+				);
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = T3V9Q4P3VF;
+				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					PLATFORM_IOS,
 					CURL_STATICLIB,
@@ -1785,12 +1825,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../../../nsbase/dependency/libcurl/lib/ios";
 				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					libcurl.a,
-					libcrypto.a,
-					libssl.a,
-				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -1,4 +1,4 @@
-﻿#include "precomplie.h"
+#include "precomplie.h"
 
 namespace NSClient
 {
@@ -300,38 +300,52 @@ bool nsClientInit( const char* authName, FHostErrorProc proc, bool enableDebug )
 		NSClient::CNSClient::sAuthName = authName;
 #else
 		// 这里可以通过手机的语言环境设置
+        printf( "nsClientInit\n" );
 		NSLog::init( "NSPlugins" );
+        printf( "NSLog::init\n" );
         NSLog::setLogHandler( NSClient::NSPluginLogHandler );
+        printf( "setLogHandler\n" );
         NSLog::setExceptionHandler( NSClient::NSPluginExceptionHandler );
+        printf( "setExceptionHandler\n" );
 
+        // 初始化Lua库
+        NSBase::CNSLuaStack::init( enableDebug );
+        
 		// 初始化网络库
 		NSNet::init( );
-
+        printf( "NSNet::init\n" );
+        
         // 初始化curl
         NSHttp::init( );
+        printf( "NSHttp::init\n" );
 
         // 加载本地化文件
         CNSLocal::getNSLocal().load( );
+        printf( "CNSLocal::getNSLocal().load\n" );
 		CNSLocal::getNSLocal( ).setLang( "ch" );
+        printf( "CNSLocal::getNSLocal( ).setLang\n" );
 
-		// 初始化Lua库
-		NSBase::CNSLuaStack::init( enableDebug );
+        printf( "NSBase::CNSLuaStack::init\n" );
         NSBase::regLuaLib( );
-
+        printf( "NSBase::regLuaLib\n" );
+        
         // 注册脚本函数
         NSClient::regLuaLib( );
-
+        printf( "NSClient::regLuaLib\n" );
+        
 		// 加载脚本
 		NSBase::CNSLuaStack& luaStack = NSBase::CNSLuaStack::getLuaStack( );
 		luaStack.load( "assets/script" );
+        printf( "luaStack.load\n" );
 
 		luaStack.preCall( "onLaunchClient" );
+        printf( "luaStack.preCall\n" );
 		luaStack.call( );
 #endif
 	}
 	catch ( NSBase::CNSException& e )
 	{
-		NSLog::exception( _UTF8( "插件启动时发生异常\n错误描述: \n\t%s\nC++调用堆栈: \n%s" ), e.mErrorDesc, NSBase::NSFunction::getStackInfo( ).getBuffer( ) );
+		NSLog::exception( _UTF8( "插件启动时发生异常\n错误描述: \n\t%s\nC++调用堆栈: \n%s\n" ), e.mErrorDesc, NSBase::NSFunction::getStackInfo( ).getBuffer( ) );
 		return false;
 	}
 
@@ -357,7 +371,7 @@ void nsClientExit( )
 	}
 	catch ( NSBase::CNSException& e )
 	{
-		NSLog::exception( _UTF8( "插件关闭时发生异常\n错误描述: \n\t%s\nC++调用堆栈: \n%s" ), e.mErrorDesc, NSBase::NSFunction::getStackInfo( ).getBuffer( ) );
+		NSLog::exception( _UTF8( "插件关闭时发生异常\n错误描述: \n\t%s\nC++调用堆栈: \n%s\n" ), e.mErrorDesc, NSBase::NSFunction::getStackInfo( ).getBuffer( ) );
 	}
 }
 
@@ -374,7 +388,7 @@ void nsClientUpdate( )
 	}
 	catch ( NSBase::CNSException& e )
 	{
-		NSLog::exception( _UTF8( "插件主循环发生异常\n错误描述: \n\t%s\nC++调用堆栈: \n%s" ), e.mErrorDesc, NSBase::NSFunction::getStackInfo( ).getBuffer( ) );
+		NSLog::exception( _UTF8( "插件主循环发生异常\n错误描述: \n\t%s\nC++调用堆栈: \n%s\n" ), e.mErrorDesc, NSBase::NSFunction::getStackInfo( ).getBuffer( ) );
 	}
 }
 

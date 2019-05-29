@@ -1,4 +1,4 @@
-﻿#include <nsbase.h>
+#include <nsbase.h>
 
 namespace NSBase
 {
@@ -700,62 +700,14 @@ namespace NSBase
 		return *gpLuaStack;
 	}
 
-#ifdef PLATFROM_IOS
+#ifdef PLATFORM_IOS
     void CNSLuaStack::loadLuaDir( const CNSString& filePath, const CNSString& chunkPath )
     {
         DIR* fd = opendir( filePath + "*.*" );
         if ( fd != NULL )
         {
-            struct dirent* ent = readdir( &fd );
-            for ( ; ent != NULL; ent = readdir( &fd ) )
-            {
-                static CNSString luaFile;
-                luaFile = ent->d_name;
-                if ( luaFile == ".." )
-                    continue;
-                
-                if ( luaFile == "." )
-                    continue;
-                
-                if ( luaFile == ".svn" )
-                    continue;
-                
-                if ( luaFile.nocaseFindFirstOf( ".meta" ) != -1 )
-                    continue;
-                
-                if ( ent.d_type & DT_DIR )
-                {
-                    CNSString subFilePath = filePath + fd.name + "/";
-                    CNSString subChunkPath = chunkPath + fd.name + "/";
-                    loadLuaDir( subFilePath, subChunkPath );
-                }
-                else if ( ent.d_type & DT_REG )
-                {
-                    if ( CNSString( fd.name ).nocaseFindFirstOf( "main" ) == -1 )
-                    {
-                        CNSString fileName = filePath + fd.name;
-                        CNSString chunkName = chunkPath + fd.name;
-                        if ( openScriptFromFile( fileName, chunkName ) == false )
-                        {
-                            static CNSString errorDesc;
-                            errorDesc.format( _UTF8( "lua文件[%s]加载错误" ), fileName.getBuffer( ) );
-                            NSException( errorDesc );
-                        }
-                    }
-                }
-            }
-        }
-        closedir( fd );
-    }
-    
-    void CNSLuaStack::preload( const CNSString& workPath, CNSSet< CNSString >& dirList )
-    {
-        CNSVector< CNSString > preList;
-        DIR* fd = opendir( workPath + "/*.*" );
-        if ( fd != NULL )
-        {
-            struct direct* ent = readdir( &fd );
-            for ( ; ent != NULL; ent = readdir( &fd ) )
+            struct dirent* ent = readdir( fd );
+            for ( ; ent != NULL; ent = readdir( fd ) )
             {
                 static CNSString luaFile;
                 luaFile = ent->d_name;
@@ -773,11 +725,70 @@ namespace NSBase
                 
                 if ( ent->d_type & DT_DIR )
                 {
-                    CNSString luaPath = workPath + "/" + fd.name + "/";
-                    dirList.insert( fd.name );
+                    CNSString subFilePath = filePath + luaFile + "/";
+                    CNSString subChunkPath = chunkPath + luaFile + "/";
+                    loadLuaDir( subFilePath, subChunkPath );
                 }
-                else if ( ent.d_type & DT_REG )
-                    preList.pushback( fd.name );
+                else if ( ent->d_type & DT_REG )
+                {
+                    if ( luaFile.nocaseFindFirstOf( "main" ) == -1 )
+                    {
+                        CNSString fileName = filePath + luaFile;
+                        CNSString chunkName = chunkPath + luaFile;
+                        if ( openScriptFromFile( fileName, chunkName ) == false )
+                        {
+                            static CNSString errorDesc;
+                            errorDesc.format( _UTF8( "lua文件[%s]加载错误" ), fileName.getBuffer( ) );
+                            NSException( errorDesc );
+                        }
+                    }
+                }
+            }
+        }
+        closedir( fd );
+    }
+    
+    void CNSLuaStack::preload( const CNSString& workPath, CNSSet< CNSString >& dirList )
+    {
+        printf( "workPath - %s\n", workPath.getBuffer());
+        char current_absolute_path[256];
+        //获取当前目录绝对路径
+        if (NULL == getcwd(current_absolute_path, 256))
+        {
+            printf("***Error***\n");
+            return;
+        }
+        printf("current absolute path - %s\n", current_absolute_path);
+        
+        CNSVector< CNSString > preList;
+        DIR* fd = opendir( workPath + "/*.*" );
+        if ( fd != NULL )
+        {
+            struct dirent* ent = readdir( fd );
+            for ( ; ent != NULL; ent = readdir( fd ) )
+            {
+                static CNSString luaFile;
+                luaFile = ent->d_name;
+                if ( luaFile == ".." )
+                    continue;
+                
+                if ( luaFile == "." )
+                    continue;
+                
+                if ( luaFile == ".svn" )
+                    continue;
+                
+                if ( luaFile.nocaseFindFirstOf( ".meta" ) != -1 )
+                    continue;
+                
+                printf( "preload %s\n", luaFile.getBuffer( ) );
+                if ( ent->d_type & DT_DIR )
+                {
+                    CNSString luaPath = workPath + "/" + luaFile + "/";
+                    dirList.insert( luaFile );
+                }
+                else if ( ent->d_type & DT_REG )
+                    preList.pushback( luaFile );
             }
         }
         closedir( fd );
@@ -786,6 +797,7 @@ namespace NSBase
         {
             CNSString fileName = workPath + "/" + preList[ i ];
             const CNSString& chunkName = preList[ i ];
+            printf( "openScript %s\n", fileName.getBuffer( ) );
             if ( openScriptFromFile( fileName, chunkName ) == false )
             {
                 static CNSString errorDesc;

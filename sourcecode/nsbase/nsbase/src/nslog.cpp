@@ -1,4 +1,4 @@
-﻿#include <nsbase.h>
+#include <nsbase.h>
 namespace NSLog
 {
 	FLogHandler gLogHandler = NULL;
@@ -70,7 +70,9 @@ namespace NSLog
 		_mkdir( rootPath );
 		_mkdir( rootPath + "/log" );
 #else
+        printf( "mkdir begin\r\n" );
         mkdir( rootPath, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH );
+        printf( "mkdir end\r\n" );
         mkdir( rootPath + "/log", S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH );
 #endif
         
@@ -101,6 +103,7 @@ namespace NSLog
 
 	void init( const CNSString& logFile )
 	{
+#ifdef PLATFORM_WIN32
 		CNSString fileName = mkLogDir( ) + "/" + logFile;
 		gLogFileHandle = freopen( CNSString::convertUtf8ToMbcs( fileName ).getBuffer( ), "wb+", stdout );
 		if ( gLogFileHandle == NULL )
@@ -108,12 +111,14 @@ namespace NSLog
 
 		unsigned int utf8Header = UTF8_BOM;
 		fwrite( &utf8Header, 3, 1, gLogFileHandle );
+#endif
 		NSFunction::removeConst( sLogText ).clear( );
 		NSFunction::removeConst( sExceptionText ).clear( );
 	}
 
 	void exit( )
 	{
+#ifdef PLATFORM_WIN32
 		if ( gLogFileHandle != NULL )
 		{
 			fflush( gLogFileHandle );
@@ -122,5 +127,6 @@ namespace NSLog
 			// 还原标准输出
 			freopen( "CON", "w", stdout );
 		}
+#endif
 	}
 };
