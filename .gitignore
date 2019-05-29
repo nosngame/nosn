@@ -1,4 +1,4 @@
-﻿*.pdb
+*.pdb
 *.obj
 *.log
 *.idb
@@ -32,3 +32,9 @@ sourcecode/client/nsclient/x64/Debug/goproxy.obj.enc
 /sourcecode/server/operserver/x64/Debug
 sourcecode/server/operserver/.DS_Store
 sourcecode/server/.DS_Store
+sourcecode/nsbase/thirdproject/curl-7.65.0/iosbuild/Curl/.DS_Store
+sourcecode/nsbase/thirdproject/curl-7.65.0/.DS_Store
+sourcecode/nsbase/thirdproject/curl-7.65.0/iosbuild/.DS_Store
+sourcecode/nsbase/thirdproject/curl-7.65.0/iosbuild/Curl
+sourcecode/nsbase/thirdproject/curl-7.65.0/iosbuild/OpenSSL
+sourcecode/nsbase/thirdproject/curl-7.65.0/tests/.DS_Store

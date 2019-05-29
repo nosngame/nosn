@@ -1715,6 +1715,8 @@
 				);
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "-ObjC";
+				"OTHER_LDFLAGS[sdk=iphoneos*]" = "-ObjC";
+				"OTHER_LDFLAGS[sdk=iphonesimulator*]" = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1740,6 +1742,8 @@
 				);
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "-ObjC";
+				"OTHER_LDFLAGS[sdk=iphoneos*]" = "-ObjC";
+				"OTHER_LDFLAGS[sdk=iphonesimulator*]" = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
