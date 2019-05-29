@@ -1,4 +1,4 @@
-#include "precomplie.h"
+ï»¿#include "precomplie.h"
 
 namespace NSClient
 {
@@ -79,7 +79,7 @@ namespace NSClient
 		luaStack.call( );
 	}
 
-	// 1		·şÎñÆ÷ÊÕ4×Ö½Ú	  1×Ö½Ú		n×Ö½Ú	1×Ö½Ú	  n×Ö½Ú	 
+	// 1		æœåŠ¡å™¨æ”¶4å­—èŠ‚	  1å­—èŠ‚		nå­—èŠ‚	1å­—èŠ‚	  nå­—èŠ‚	 
 	// pid		size			( tunnelpid	data	tunnelpid data )
 	// |		|				  |
 	// protoID	protoSize		  protoBuffer	
@@ -102,7 +102,7 @@ namespace NSClient
 				try
 				{
 					proto = NSGateProto::CProtocolTunnel::getProto( buffer );
-					// Èç¹ûĞ­ÒéÃ»ÓĞÕÒµ½
+					// å¦‚æœåè®®æ²¡æœ‰æ‰¾åˆ°
 					if ( proto == NULL )
 						break;
 
@@ -110,7 +110,7 @@ namespace NSClient
 				}
 				catch ( CNSMarshal::CException& )
 				{
-					NSLog::exception( _UTF8( "ËíµÀĞ­Òé½âÂë´íÎó, ·şÎñÆ÷Ïò¿Í»§¶Ë·¢ËÍĞ­Òé¿ÉÄÜÓĞÑÏÖØbug, ÑÏÖØ¾¯¸æ" ) );
+					NSLog::exception( _UTF8( "éš§é“åè®®è§£ç é”™è¯¯, æœåŠ¡å™¨å‘å®¢æˆ·ç«¯å‘é€åè®®å¯èƒ½æœ‰ä¸¥é‡bug, ä¸¥é‡è­¦å‘Š" ) );
 					proto = NULL;
 				}
 				break;
@@ -219,16 +219,16 @@ namespace NSClient
 	{
 		NSWin32::CNSBaseApp::onInitApp( );
 		CNSLocal::getNSLocal( ).setLang( "ch" );
-		// ×¢²á½Å±¾º¯Êı
+		// æ³¨å†Œè„šæœ¬å‡½æ•°
 		NSClient::regLuaLib( );
 
-		// ¼ÓÔØ½Å±¾
+		// åŠ è½½è„šæœ¬
 		NSBase::CNSLuaStack& luaStack = NSBase::CNSLuaStack::getLuaStack( );
 		luaStack.load( "assets/script" );
 
 		luaStack.preCall( "onLaunchClient" );
 		if ( luaStack.call( ) == false )
-			NSException( _UTF8( "luaº¯Êı[onLaunchClient]·¢ÉúÒì³£" ) );
+			NSException( _UTF8( "luaå‡½æ•°[onLaunchClient]å‘ç”Ÿå¼‚å¸¸" ) );
 
 		mPluginLoaded = true;
 	}
@@ -253,34 +253,34 @@ bool nsClientInit( const char* authName, FHostErrorProc proc, bool enableDebug )
 	try
 	{
 		if ( NSClient::gTouchProc == NULL )
-			NSException( "Ã»ÓĞÉèÖÃ[FTouchProc]º¯Êı" )
+			NSException( "æ²¡æœ‰è®¾ç½®[FTouchProc]å‡½æ•°" )
 		
 		if ( NSClient::gGoGetLayer == NULL )
-			NSException( "Ã»ÓĞÉèÖÃ[FGoGetLayer]º¯Êı" )
+			NSException( "æ²¡æœ‰è®¾ç½®[FGoGetLayer]å‡½æ•°" )
 
 		if ( NSClient::gGoGetTag == NULL )
-			NSException( "Ã»ÓĞÉèÖÃ[FGoGetTag]º¯Êı" )
+			NSException( "æ²¡æœ‰è®¾ç½®[FGoGetTag]å‡½æ•°" )
 
 		if ( NSClient::gGoQueryMethod == NULL )
-			NSException( "Ã»ÓĞÉèÖÃ[FGoQueryMethod]º¯Êı" )
+			NSException( "æ²¡æœ‰è®¾ç½®[FGoQueryMethod]å‡½æ•°" )
 
 		if ( NSClient::gGoInvoke == NULL )
-			NSException( "Ã»ÓĞÉèÖÃ[FGoInvoke]º¯Êı" )
+			NSException( "æ²¡æœ‰è®¾ç½®[FGoInvoke]å‡½æ•°" )
 
 		if ( NSClient::gGoLoadProc == NULL )
-			NSException( "Ã»ÓĞÉèÖÃ[FGoLoadProc]º¯Êı" )
+			NSException( "æ²¡æœ‰è®¾ç½®[FGoLoadProc]å‡½æ•°" )
 
 		if ( NSClient::gGoDestroyProc == NULL )
-			NSException( "Ã»ÓĞÉèÖÃ[FGoDestroyProc]º¯Êı" )
+			NSException( "æ²¡æœ‰è®¾ç½®[FGoDestroyProc]å‡½æ•°" )
 
 		if ( NSClient::gGoGetValue == NULL )
-			NSException( "Ã»ÓĞÉèÖÃ[FGoGetValue]º¯Êı" )
+			NSException( "æ²¡æœ‰è®¾ç½®[FGoGetValue]å‡½æ•°" )
 
 		if ( NSClient::gGoSetValue == NULL )
-			NSException( "Ã»ÓĞÉèÖÃ[FGoSetValue]º¯Êı" )
+			NSException( "æ²¡æœ‰è®¾ç½®[FGoSetValue]å‡½æ•°" )
 
 		if ( NSClient::gGoGetLastError == NULL )
-			NSException( "Ã»ÓĞÉèÖÃ[FGoGetLastError]º¯Êı" )
+			NSException( "æ²¡æœ‰è®¾ç½®[FGoGetLastError]å‡½æ•°" )
 
 		NSClient::gHostErrorProc = proc;
 #ifdef PLATFORM_WIN32
@@ -299,29 +299,29 @@ bool nsClientInit( const char* authName, FHostErrorProc proc, bool enableDebug )
 		NSClient::app->onInitApp( );
 		NSClient::CNSClient::sAuthName = authName;
 #else
-		// ÕâÀï¿ÉÒÔÍ¨¹ıÊÖ»úµÄÓïÑÔ»·¾³ÉèÖÃ
+		// è¿™é‡Œå¯ä»¥é€šè¿‡æ‰‹æœºçš„è¯­è¨€ç¯å¢ƒè®¾ç½®
 		NSLog::init( "NSPlugins" );
         NSLog::setLogHandler( NSClient::NSPluginLogHandler );
         NSLog::setExceptionHandler( NSClient::NSPluginExceptionHandler );
 
-		// ³õÊ¼»¯ÍøÂç¿â
+		// åˆå§‹åŒ–ç½‘ç»œåº“
 		NSNet::init( );
 
-        // ³õÊ¼»¯curl
+        // åˆå§‹åŒ–curl
         NSHttp::init( );
 
-        // ¼ÓÔØ±¾µØ»¯ÎÄ¼ş
+        // åŠ è½½æœ¬åœ°åŒ–æ–‡ä»¶
         CNSLocal::getNSLocal().load( );
 		CNSLocal::getNSLocal( ).setLang( "ch" );
 
-		// ³õÊ¼»¯Lua¿â
+		// åˆå§‹åŒ–Luaåº“
 		NSBase::CNSLuaStack::init( enableDebug );
         NSBase::regLuaLib( );
 
-        // ×¢²á½Å±¾º¯Êı
+        // æ³¨å†Œè„šæœ¬å‡½æ•°
         NSClient::regLuaLib( );
 
-		// ¼ÓÔØ½Å±¾
+		// åŠ è½½è„šæœ¬
 		NSBase::CNSLuaStack& luaStack = NSBase::CNSLuaStack::getLuaStack( );
 		luaStack.load( "assets/script" );
 
@@ -331,7 +331,7 @@ bool nsClientInit( const char* authName, FHostErrorProc proc, bool enableDebug )
 	}
 	catch ( NSBase::CNSException& e )
 	{
-		NSLog::exception( _UTF8( "²å¼şÆô¶¯Ê±·¢ÉúÒì³£\n´íÎóÃèÊö: \n\t%s\nC++µ÷ÓÃ¶ÑÕ»: \n%s" ), e.mErrorDesc, NSBase::NSFunction::getStackInfo( ).getBuffer( ) );
+		NSLog::exception( _UTF8( "æ’ä»¶å¯åŠ¨æ—¶å‘ç”Ÿå¼‚å¸¸\né”™è¯¯æè¿°: \n\t%s\nC++è°ƒç”¨å †æ ˆ: \n%s" ), e.mErrorDesc, NSBase::NSFunction::getStackInfo( ).getBuffer( ) );
 		return false;
 	}
 
@@ -357,7 +357,7 @@ void nsClientExit( )
 	}
 	catch ( NSBase::CNSException& e )
 	{
-		NSLog::exception( _UTF8( "²å¼ş¹Ø±ÕÊ±·¢ÉúÒì³£\n´íÎóÃèÊö: \n\t%s\nC++µ÷ÓÃ¶ÑÕ»: \n%s" ), e.mErrorDesc, NSBase::NSFunction::getStackInfo( ).getBuffer( ) );
+		NSLog::exception( _UTF8( "æ’ä»¶å…³é—­æ—¶å‘ç”Ÿå¼‚å¸¸\né”™è¯¯æè¿°: \n\t%s\nC++è°ƒç”¨å †æ ˆ: \n%s" ), e.mErrorDesc, NSBase::NSFunction::getStackInfo( ).getBuffer( ) );
 	}
 }
 
@@ -374,7 +374,7 @@ void nsClientUpdate( )
 	}
 	catch ( NSBase::CNSException& e )
 	{
-		NSLog::exception( _UTF8( "²å¼şÖ÷Ñ­»··¢ÉúÒì³£\n´íÎóÃèÊö: \n\t%s\nC++µ÷ÓÃ¶ÑÕ»: \n%s" ), e.mErrorDesc, NSBase::NSFunction::getStackInfo( ).getBuffer( ) );
+		NSLog::exception( _UTF8( "æ’ä»¶ä¸»å¾ªç¯å‘ç”Ÿå¼‚å¸¸\né”™è¯¯æè¿°: \n\t%s\nC++è°ƒç”¨å †æ ˆ: \n%s" ), e.mErrorDesc, NSBase::NSFunction::getStackInfo( ).getBuffer( ) );
 	}
 }
 

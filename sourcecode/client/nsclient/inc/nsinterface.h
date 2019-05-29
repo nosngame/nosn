@@ -1,7 +1,7 @@
-#pragma once
+ï»¿#pragma once
 
 #ifdef PLATFORM_WIN32
-#define NSEXPORT NSEXPORT
+#define NSEXPORT extern "C" _declspec( dllexport )
 #define NSCALL __stdcall
 #elif PLATFORM_IOS
 #define NSEXPORT extern "C"
@@ -23,41 +23,41 @@ typedef bool( NSCALL *FGoQueryMethod )( int type, int instanceID, const char* co
 typedef bool( NSCALL *FGoInvoke )( int type, int instanceID, const char* compName, void* stream, int len, void*& buffer, int& dataType );
 typedef const char*( NSCALL *FGoGetLastError )( );
 
-// ³õÊ¼»¯NSClient
+// åˆå§‹åŒ–NSClient
 NSEXPORT bool nsClientInit( const char* authName, FHostErrorProc proc, bool enableDebug );
-// Îö¹¹NSClient
+// ææ„NSClient
 NSEXPORT void nsClientExit( );
-// ÂÖÑ¯NSClient
+// è½®è¯¢NSClient
 NSEXPORT void nsClientUpdate( );
-// ´ò¿ªµ÷ÊÔ¿ØÖÆÌ¨
+// æ‰“å¼€è°ƒè¯•æ§åˆ¶å°
 NSEXPORT void nsClientShowConsole( );
-// ÉèÖÃ¼ÓÔØº¯Êı
+// è®¾ç½®åŠ è½½å‡½æ•°
 NSEXPORT void nsSetTouchProc( FTouchProc loadProc );
-// ÉèÖÃ¼ÓÔØº¯Êı
+// è®¾ç½®åŠ è½½å‡½æ•°
 NSEXPORT void nsSetGoLoadProc( FGoLoadProc loadProc );
-// ÉèÖÃÏú»Ùº¯Êı
+// è®¾ç½®é”€æ¯å‡½æ•°
 NSEXPORT void nsSetGoDestroyProc( FGoDestroyProc destroyProc );
-// ½¨Á¢Êı¾İ´úÀí
+// å»ºç«‹æ•°æ®ä»£ç†
 NSEXPORT void nsCreateGoProxy( int type, int instanceID, const char* objName );
-// ÉèÖÃ×é¼ş×Ö¶Î¶Áº¯Êı
+// è®¾ç½®ç»„ä»¶å­—æ®µè¯»å‡½æ•°
 NSEXPORT void nsSetGoGetProc( FGoGetValue loadProc );
-// ÉèÖÃ×é¼ş×Ö¶ÎĞ´º¯Êı
+// è®¾ç½®ç»„ä»¶å­—æ®µå†™å‡½æ•°
 NSEXPORT void nsSetGoSetProc( FGoSetValue loadProc );
-// ÉèÖÃ×é¼ş×Ö¶ÎĞ´º¯Êı
+// è®¾ç½®ç»„ä»¶å­—æ®µå†™å‡½æ•°
 NSEXPORT void nsSetGoGetLastError( FGoGetLastError loadProc );
-// ÊÂ¼ş»Øµ÷º¯Êı
+// äº‹ä»¶å›è°ƒå‡½æ•°
 NSEXPORT void nsGoFireEvent( int instanceID, const char* compName );
-// ¼ÓÔØ¹ı³Ì»Øµ÷º¯Êı
+// åŠ è½½è¿‡ç¨‹å›è°ƒå‡½æ•°
 NSEXPORT void nsTouchNotify( bool isDone, float progress );
-// ÉèÖÃ¶ÔÏóLayerº¯Êı
+// è®¾ç½®å¯¹è±¡Layerå‡½æ•°
 NSEXPORT void nsSetGoGetLayer( FGoGetLayer getLayer );
-// ÉèÖÃ¶ÔÏóTagº¯Êı
+// è®¾ç½®å¯¹è±¡Tagå‡½æ•°
 NSEXPORT void nsSetGoGetTag( FGoGetTag getTag );
-// ÉèÖÃ¶ÔÏóLayerº¯Êı
+// è®¾ç½®å¯¹è±¡Layerå‡½æ•°
 NSEXPORT void nsSetGoSetLayer( FGoSetLayer getLayer );
-// ÉèÖÃ¶ÔÏóTagº¯Êı
+// è®¾ç½®å¯¹è±¡Tagå‡½æ•°
 NSEXPORT void nsSetGoSetTag( FGoSetTag getTag );
-// ÉèÖÃ¶ÔÏó²éÑ¯º¯Êı
+// è®¾ç½®å¯¹è±¡æŸ¥è¯¢å‡½æ•°
 NSEXPORT void nsSetGoQueryMethod( FGoQueryMethod queryMethod );
-// ÉèÖÃ¶ÔÏó²éÑ¯º¯Êı
+// è®¾ç½®å¯¹è±¡æŸ¥è¯¢å‡½æ•°
 NSEXPORT void nsSetGoInvoke( FGoInvoke invoke );

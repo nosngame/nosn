@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 namespace NSClient
 {
@@ -42,7 +42,7 @@ namespace NSClient
 		CNSNetClient* mpNSNetClient = NULL;
 
 	public:
-		// Ö»Ôö²»¼õ£¬¿ÉÒÔÓÃË÷Òı×öID
+		// åªå¢ä¸å‡ï¼Œå¯ä»¥ç”¨ç´¢å¼•åšID
 		static CNSVector< CNSClient* > sNSClient;
 		static CNSString sAuthName;
 

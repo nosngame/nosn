@@ -1,11 +1,11 @@
-#include "precomplie.h"
+ï»¿#include "precomplie.h"
 namespace NSProxy
 {
 	CNSMap< int, CGoProxyObject* > gGoProxyObject;
 	CNSLuaStack& CNSGoProxy::marshal( CNSLuaStack& luaStack ) const
 	{
 		NSClient::gpLuaStack = &luaStack;
-		// key ÎªµÚÒ»¸ö¶ÔÏóµÄÃû³Æ£¬valueÎªÊı¾İ´úÀí
+		// key ä¸ºç¬¬ä¸€ä¸ªå¯¹è±¡çš„åç§°ï¼Œvalueä¸ºæ•°æ®ä»£ç†
 		if ( NSClient::gGoLoadProc( mFileName.getBuffer( ), mParentID, mType ) == false )
 			NSException( NSClient::gGoGetLastError( ) );
 
@@ -23,7 +23,7 @@ namespace NSProxy
 		CGoProxyComponent* proxyComp = NULL;
 		luaStack >> proxyComp;
 		if ( proxyComp == NULL )
-			NSException( _UTF8( "×é¼ş·½·¨µ÷ÓÃ´íÎó" ) );
+			NSException( _UTF8( "ç»„ä»¶æ–¹æ³•è°ƒç”¨é”™è¯¯" ) );
 
 		CNSOctetsStream stream;
 		while ( luaStack.isEnd( ) == false )
@@ -71,13 +71,13 @@ namespace NSProxy
 		CGoProxyObject* proxy = NULL;
 		luaStack >> proxy;
 		if ( proxy == NULL )
-			NSException( _UTF8( "destroy·½·¨µ÷ÓÃ´íÎó" ) );
+			NSException( _UTF8( "destroyæ–¹æ³•è°ƒç”¨é”™è¯¯" ) );
 
-		// Ïú»Ùunity¶ÔÏó
+		// é”€æ¯unityå¯¹è±¡
 		if ( NSClient::gGoDestroyProc( proxy->mInstanceID ) == false )
 			NSException( NSClient::gGoGetLastError( ) );
 
-		// Ïú»Ù×é¼şµÄluaÊÂ¼şº¯Êı
+		// é”€æ¯ç»„ä»¶çš„luaäº‹ä»¶å‡½æ•°
 		HLISTINDEX beginIndex = proxy->mUIProxyComp.getHead( );
 		for ( ; beginIndex != NULL; proxy->mUIProxyComp.getNext( beginIndex ) )
 		{
@@ -89,10 +89,10 @@ namespace NSProxy
 			delete proxyComp;
 		}
 
-		// ÇåÀíËùÓĞÒıÓÃ
+		// æ¸…ç†æ‰€æœ‰å¼•ç”¨
 		proxy->cleanUpRef( );
 
-		// É¾³ı¶ÔÏó
+		// åˆ é™¤å¯¹è±¡
 		HMAPINDEX mapIndex = gGoProxyObject.findNode( proxy->mInstanceID );
 		if ( mapIndex != NULL )
 		{
@@ -194,7 +194,7 @@ namespace NSProxy
 			CNSLuaFunction func( __FUNCTION__ );
 			luaStack >> func;
 			if ( func.isValid( ) == false )
-				NSException( _UTF8( "º¯Êı[proxySetField]²ÎÊı3 ²»ÊÇÒ»¸öluaº¯Êı" ) )
+				NSException( _UTF8( "å‡½æ•°[proxySetField]å‚æ•°3 ä¸æ˜¯ä¸€ä¸ªluaå‡½æ•°" ) )
 
 			proxyComp->onEventFunc = func;
 			if ( NSClient::gGoSetValue( proxyComp->mProxyObject->mType, proxyComp->mProxyObject->mInstanceID, proxyComp->mCompName, fieldName, NULL, EDataType::TYPE_NONE ) == false )
@@ -212,7 +212,7 @@ namespace NSProxy
 		static CNSString compName;
 		luaStack >> compName;
 
-		// ¶ÔÏó·½·¨Ğ´ÔÚÕâÀï
+		// å¯¹è±¡æ–¹æ³•å†™åœ¨è¿™é‡Œ
 		if ( compName == "destroy" )
 		{
 			lua_pushcfunction( lua, destroy );
@@ -255,8 +255,8 @@ namespace NSProxy
 		if ( goCompRef != NULL )
 			goComp = *goCompRef;
 		
-		// Èç¹û×é¼ş²»´æÔÚ£¬´úÀí²ãÌí¼Ó
-		// ½Å±¾²»ÄÜÖ÷¶¯Ìí¼Ó×é¼ş£¬ÊÇ²»ÊÇ¿¼ÂÇ¼ÓÒ»¸ö¶ÔÏó·½·¨Ìí¼Ó×é¼ş£¿
+		// å¦‚æœç»„ä»¶ä¸å­˜åœ¨ï¼Œä»£ç†å±‚æ·»åŠ 
+		// è„šæœ¬ä¸èƒ½ä¸»åŠ¨æ·»åŠ ç»„ä»¶ï¼Œæ˜¯ä¸æ˜¯è€ƒè™‘åŠ ä¸€ä¸ªå¯¹è±¡æ–¹æ³•æ·»åŠ ç»„ä»¶ï¼Ÿ
 		if ( goComp == NULL )
 		{
 			goComp = new CGoProxyComponent( compName, proxy );
@@ -416,7 +416,7 @@ void nsGoFireEvent( int instanceID, const char* compName )
 	}
 	catch ( CNSException& e )
 	{
-		NSLog::exception( _UTF8( "º¯Êı[nsGoFireEvent]·¢ÉúÒì³£\n´íÎóÃèÊö: \n\t%s\nC++µ÷ÓÃ¶ÑÕ»: \n%s" ), e.mErrorDesc, NSBase::NSFunction::getStackInfo( ).getBuffer( ) );
+		NSLog::exception( _UTF8( "å‡½æ•°[nsGoFireEvent]å‘ç”Ÿå¼‚å¸¸\né”™è¯¯æè¿°: \n\t%s\nC++è°ƒç”¨å †æ ˆ: \n%s" ), e.mErrorDesc, NSBase::NSFunction::getStackInfo( ).getBuffer( ) );
 	}
 }
 

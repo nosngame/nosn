@@ -1,4 +1,4 @@
-#pragma once
+Ôªø#pragma once
 namespace NSProxy
 {
 	class CNSGoProxy : public CNSLuaMarshal
@@ -44,7 +44,7 @@ namespace NSProxy
 	class CGoProxyComponent : public CNSLuaWeakRef
 	{
 	public:
-		// ∂‘œÛ√˚
+		// ÂØπË±°Âêç
 		CNSString mCompName;
 		CGoProxyObject* mProxyObject = NULL;
 		CNSLuaFunction onEventFunc;
