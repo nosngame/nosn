@@ -38,3 +38,6 @@ sourcecode/nsbase/thirdproject/curl-7.65.0/iosbuild/.DS_Store
 sourcecode/nsbase/thirdproject/curl-7.65.0/iosbuild/Curl
 sourcecode/nsbase/thirdproject/curl-7.65.0/iosbuild/OpenSSL
 sourcecode/nsbase/thirdproject/curl-7.65.0/tests/.DS_Store
+sourcecode/nsbase/dependency/libcurl/.DS_Store
+sourcecode/nsbase/dependency/libcurl/lib/.DS_Store
+sourcecode/nsbase/dependency/libcurl/lib/ios/.DS_Store
