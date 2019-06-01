@@ -1,4 +1,4 @@
-﻿#include <nsbase.h>
+#include <nsbase.h>
 
 namespace NSBase
 {
@@ -51,7 +51,7 @@ namespace NSBase
 	}
 
 	// 文件必须存在
-	void CNSFile::openExist( const CNSString& filename )
+	void CNSFile::openExist( const CNSString& filename, const char* mode )
 	{
 		mFileName = filename;
 		if ( mpFile != NULL )
@@ -61,7 +61,7 @@ namespace NSBase
 			NSException( errorDesc );
 		}
 
-		mpFile = fopen( CNSString::convertUtf8ToMbcs( mFileName ).getBuffer( ), "rb+" );
+		mpFile = fopen( mFileName.getBuffer( ), mode );
 		if ( mpFile == NULL )
 		{
 			static CNSString errorDesc;

@@ -1,6 +1,6 @@
-﻿#pragma once
+#pragma once
 #define BYTE_ORDER_BIG_ENDIAN
-
+			
 #include <nsdeclare.h>
 #include <nslock.h>
 #include <iconv.h>

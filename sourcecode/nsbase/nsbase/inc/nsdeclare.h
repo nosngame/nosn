@@ -115,10 +115,17 @@
 #include <unistd.h>
 #include <sys/stat.h>
 #include <dirent.h>
+#include <execinfo.h>
+#include <stdio.h>
 #define SOCKET int
 
 #define _UTF8( x )	( x )
-#define NSException( desc )	throw CNSException( desc );
+#define NSException( desc ) \
+    {  \
+        NSBase::NSFunction::stackTrace( );\
+        throw CNSException( desc ); \
+    }
+
 #define stricmp		strcasecmp
 #define max fmax
 #define min fmin
@@ -133,7 +140,6 @@ namespace NSMath
 
 namespace NSBase
 {
-
 // utf8		文本头
 #define	UTF8_BOM 0xBFBBEF
 #define unused( x )	(void)(x) 
@@ -208,25 +214,27 @@ namespace NSBase
 	template < typename KEY, typename T, typename Allocator = CAllocator > class CNSHashMap;
 	template < typename KEY, typename T, typename Allocator = CAllocator > class CNSMapTomb;
 	template < typename KEY, typename T, typename Allocator = CAllocator > class CNSMap;
-
-	namespace NSFunction
-	{
-		int round( double value );
-		int floor( double value );
-		int ceil( double value );
-		void memcpy_sse2_16( void *dst, const void *src );
-		void memcpy_sse2_32( void *dst, const void *src );
-		void memcpy_sse2_64( void *dst, const void *src );
-		void memcpy_sse2_128( void *dst, const void *src );
-		void *memcpy_tiny( void *dst, const void *src, size_t size );
-		void* memcpy_fast( void *destination, const void *source, size_t size );
-		// 计算大于指定大小的2的N次方
-		size_t forbsize( size_t size );
-		// 快速内存移动
-		void* memmove_fast( void* des, const void* src, size_t size );
-		CNSString getStackInfo( );
+    
+    namespace NSFunction
+    {
 #ifdef PLATFORM_WIN32
-		void stackTrace( CONTEXT* context );
+        void memcpy_sse2_16( void *dst, const void *src );
+        void memcpy_sse2_32( void *dst, const void *src );
+        void memcpy_sse2_64( void *dst, const void *src );
+        void memcpy_sse2_128( void *dst, const void *src );
+        void *memcpy_tiny( void *dst, const void *src, size_t size );
+        void stackTrace( CONTEXT* context );
+#elif PLATFORM_IOS
+        // 快速内存移动
+        void stackTrace( );
 #endif
-	}
+
+        int round( double value );
+        int floor( double value );
+        int ceil( double value );
+        void* memmove_fast( void* des, const void* src, size_t size );
+        void* memcpy_fast( void *destination, const void *source, size_t size );
+        size_t forbsize( size_t size );
+        CNSString getStackInfo( );
+    }
 };

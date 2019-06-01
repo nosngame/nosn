@@ -248,7 +248,7 @@ namespace NSClient
 #endif
 }
 
-bool nsClientInit( const char* authName, FHostErrorProc proc, bool enableDebug )
+bool nsClientInit( const char* authName, const char* dataPath, FHostErrorProc proc, bool enableDebug )
 {
 	try
 	{
@@ -300,46 +300,33 @@ bool nsClientInit( const char* authName, FHostErrorProc proc, bool enableDebug )
 		NSClient::CNSClient::sAuthName = authName;
 #else
 		// 这里可以通过手机的语言环境设置
-        printf( "nsClientInit\n" );
+        CNSString appDataPath = dataPath;
 		NSLog::init( "NSPlugins" );
-        printf( "NSLog::init\n" );
         NSLog::setLogHandler( NSClient::NSPluginLogHandler );
-        printf( "setLogHandler\n" );
         NSLog::setExceptionHandler( NSClient::NSPluginExceptionHandler );
-        printf( "setExceptionHandler\n" );
-
+        
         // 初始化Lua库
         NSBase::CNSLuaStack::init( enableDebug );
         
 		// 初始化网络库
 		NSNet::init( );
-        printf( "NSNet::init\n" );
         
         // 初始化curl
         NSHttp::init( );
-        printf( "NSHttp::init\n" );
 
         // 加载本地化文件
-        CNSLocal::getNSLocal().load( );
-        printf( "CNSLocal::getNSLocal().load\n" );
+        CNSLocal::getNSLocal().load( appDataPath );
 		CNSLocal::getNSLocal( ).setLang( "ch" );
-        printf( "CNSLocal::getNSLocal( ).setLang\n" );
-
-        printf( "NSBase::CNSLuaStack::init\n" );
         NSBase::regLuaLib( );
-        printf( "NSBase::regLuaLib\n" );
         
         // 注册脚本函数
         NSClient::regLuaLib( );
-        printf( "NSClient::regLuaLib\n" );
         
 		// 加载脚本
 		NSBase::CNSLuaStack& luaStack = NSBase::CNSLuaStack::getLuaStack( );
-		luaStack.load( "assets/script" );
-        printf( "luaStack.load\n" );
+		luaStack.load( appDataPath + "/nosndata/script" );
 
 		luaStack.preCall( "onLaunchClient" );
-        printf( "luaStack.preCall\n" );
 		luaStack.call( );
 #endif
 	}

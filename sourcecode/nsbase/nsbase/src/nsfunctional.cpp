@@ -1,4 +1,4 @@
-﻿#include <nsbase.h>
+#include <nsbase.h>
 
 namespace NSBase
 {
@@ -733,8 +733,18 @@ namespace NSBase
 			sStackInfo.clear( );
 			return stackInfo;
 		}
-
-#ifdef PLATFORM_WIN32
+#ifdef PLATFORM_IOS
+        void stackTrace( )
+        {
+            void* callstack[128];
+            int i, frames = backtrace(callstack, 128);
+            char** strs = backtrace_symbols(callstack, frames);
+            for (i = 0; i < frames; ++i)
+                sStackInfo = sStackInfo + strs[i] + "\n";
+            
+            free(strs);
+        }
+#elif PLATFORM_WIN32
 		void stackTrace( CONTEXT* context )
 		{
 			// 如果已经写入栈信息, 就不再写入

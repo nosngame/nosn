@@ -1,14 +1,13 @@
 #include <nsbase.h>
 namespace NSBase
 {
-	void CNSLocal::load( )
+	void CNSLocal::load( const CNSString& dataPath )
 	{
 		TiXmlDocument doc;
-		if ( doc.LoadFile( "localization.xml" ) == false )
+		if ( doc.LoadFile( dataPath + "/nosndata/localization.xml" ) == false )
 		{
-			const CNSString& curDir = CNSString::getCurDir( );
 			static CNSString errorDesc;
-            errorDesc.format( _UTF8( "路径[%s] 文件[localization.xml]打开错误, 错误码[%s]" ), curDir.getBuffer( ), doc.ErrorDesc( ) );
+            errorDesc.format( _UTF8( "路径[%s] 文件[localization.xml]打开错误, 错误码[%s]" ), dataPath.getBuffer(), doc.ErrorDesc( ) );
 			NSException( errorDesc );
 		}
 

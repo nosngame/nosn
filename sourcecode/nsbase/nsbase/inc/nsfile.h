@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 namespace NSBase
 {
@@ -35,7 +35,7 @@ namespace NSBase
 		template< typename T > void pushBytes( const T& data );
 
 	public:
-		void openExist( const CNSString& fileName );
+		void openExist( const CNSString& fileName, const char* mode = "rb+" );
 		void openAlways( const CNSString& fileName );
 		void createNew( const CNSString& fileName );
 		void close( );

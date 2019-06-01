@@ -63,31 +63,22 @@ namespace NSLog
 			gExceptionHandler( error );
 	}
 
+#ifdef PLATFORM_WIN32
 	CNSString mkLogDir( )
 	{
 		CNSString rootPath = "./nosn";
-#ifdef PLATFORM_WIN32
 		_mkdir( rootPath );
 		_mkdir( rootPath + "/log" );
-#else
-        printf( "mkdir begin\r\n" );
-        mkdir( rootPath, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH );
-        printf( "mkdir end\r\n" );
-        mkdir( rootPath + "/log", S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH );
-#endif
-        
 		CNSString fileName;
 		time_t curTime = time( NULL );
 		tm* tpTime = ::localtime( &curTime );
 		fileName.format( "%s/log/%04d%02d%02d-%02d-%02d", rootPath.getBuffer( ), 1900 + tpTime->tm_year, tpTime->tm_mon + 1, tpTime->tm_mday,
 			tpTime->tm_hour, tpTime->tm_min );
-#ifdef PLATFORM_WIN32
+
 		_mkdir( fileName );
-#else
-        mkdir( fileName, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH );
-#endif
-		return fileName;
+        return fileName;
 	}
+#endif
 
 	void setLogHandler( FLogHandler handler )
 	{

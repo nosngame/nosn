@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 namespace NSBase
 {
 	class CNSLocalEntry
@@ -47,7 +47,7 @@ namespace NSBase
 		}
 
 	public:
-		void load( );
+		void load( const CNSString& dataPath );
 		const CNSString& getVersion( ) const;
 		const CNSString& getLangText( int textID ) const;
 		const CNSString& getLang( ) const;

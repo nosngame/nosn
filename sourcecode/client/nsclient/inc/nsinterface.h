@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #ifdef PLATFORM_WIN32
 #define NSEXPORT extern "C" _declspec( dllexport )
@@ -24,7 +24,7 @@ typedef bool( NSCALL *FGoInvoke )( int type, int instanceID, const char* compNam
 typedef const char*( NSCALL *FGoGetLastError )( );
 
 // 初始化NSClient
-NSEXPORT bool nsClientInit( const char* authName, FHostErrorProc proc, bool enableDebug );
+NSEXPORT bool nsClientInit( const char* authName, const char* dataPath, FHostErrorProc proc, bool enableDebug );
 // 析构NSClient
 NSEXPORT void nsClientExit( );
 // 轮询NSClient

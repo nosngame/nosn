@@ -231,7 +231,7 @@ namespace NSBase
 	bool CNSLuaStack::openScriptFromFile( const CNSString& fileName, const CNSString& chunkName )
 	{
 		CNSFile file;
-		file.openExist( fileName );
+		file.openExist( fileName, "rb" );
 		
 		const CNSOctets buffer;
 		file.readAllBytes( buffer );
@@ -703,7 +703,7 @@ namespace NSBase
 #ifdef PLATFORM_IOS
     void CNSLuaStack::loadLuaDir( const CNSString& filePath, const CNSString& chunkPath )
     {
-        DIR* fd = opendir( filePath + "*.*" );
+        DIR* fd = opendir( filePath );
         if ( fd != NULL )
         {
             struct dirent* ent = readdir( fd );
@@ -744,24 +744,14 @@ namespace NSBase
                     }
                 }
             }
+            closedir( fd );
         }
-        closedir( fd );
     }
     
     void CNSLuaStack::preload( const CNSString& workPath, CNSSet< CNSString >& dirList )
     {
-        printf( "workPath - %s\n", workPath.getBuffer());
-        char current_absolute_path[256];
-        //获取当前目录绝对路径
-        if (NULL == getcwd(current_absolute_path, 256))
-        {
-            printf("***Error***\n");
-            return;
-        }
-        printf("current absolute path - %s\n", current_absolute_path);
-        
         CNSVector< CNSString > preList;
-        DIR* fd = opendir( workPath + "/*.*" );
+        DIR* fd = opendir( workPath );
         if ( fd != NULL )
         {
             struct dirent* ent = readdir( fd );
@@ -781,7 +771,6 @@ namespace NSBase
                 if ( luaFile.nocaseFindFirstOf( ".meta" ) != -1 )
                     continue;
                 
-                printf( "preload %s\n", luaFile.getBuffer( ) );
                 if ( ent->d_type & DT_DIR )
                 {
                     CNSString luaPath = workPath + "/" + luaFile + "/";
@@ -790,14 +779,13 @@ namespace NSBase
                 else if ( ent->d_type & DT_REG )
                     preList.pushback( luaFile );
             }
+            closedir( fd );
         }
-        closedir( fd );
         
         for ( unsigned int i = 0; i < preList.getCount( ); i ++ )
         {
             CNSString fileName = workPath + "/" + preList[ i ];
             const CNSString& chunkName = preList[ i ];
-            printf( "openScript %s\n", fileName.getBuffer( ) );
             if ( openScriptFromFile( fileName, chunkName ) == false )
             {
                 static CNSString errorDesc;

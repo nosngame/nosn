@@ -31,7 +31,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "303"
             endingLineNumber = "303"
-            landmarkName = "nsClientInit( const char* authName, FHostErrorProc proc, bool enableDebug )"
+            landmarkName = "nsClientInit( const char* authName, const char* dataPath, FHostErrorProc proc, bool enableDebug )"
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
