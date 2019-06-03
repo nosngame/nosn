@@ -25,110 +25,139 @@
 #pragma warning ( disable : 4101 )
 
 #ifdef PLATFORM_WIN32
-#include <winsdkver.h>
-#include <winsock2.h>
-#include <mswsock.h>
-#include <windows.h>
-#include <windowsx.h>
-#include <ws2tcpip.h>
-#include <tlhelp32.h>
-#include <dbghelp.h>
-#include <apihook.h>
-#include <direct.h>
-#include <tchar.h>
-#include <io.h>
-#include <Iphlpapi.h>
+    #include <winsdkver.h>
+    #include <winsock2.h>
+    #include <mswsock.h>
+    #include <windows.h>
+    #include <windowsx.h>
+    #include <ws2tcpip.h>
+    #include <tlhelp32.h>
+    #include <dbghelp.h>
+    #include <apihook.h>
+    #include <direct.h>
+    #include <tchar.h>
+    #include <io.h>
+    #include <Iphlpapi.h>
 
-#define SOCKET SOCKET
-#define _UTF8( x ) CNSString::convertMbcsToUtf8( x )
-#define NSException( desc ) \
-	{	\
-		CONTEXT context;	\
-		context.ContextFlags = CONTEXT_ALL;	\
-		\
-		HANDLE thread = GetCurrentThread( );	\
-		GetThreadContext( thread, &context );	\
-		NSBase::NSFunction::stackTrace( &context ); \
-		throw CNSException( desc );\
-	}
+    #define SOCKET SOCKET
+    #define _UTF8( x ) CNSString::convertMbcsToUtf8( x )
+    #define NSException( desc ) \
+        {	\
+            CONTEXT context;	\
+            context.ContextFlags = CONTEXT_ALL;	\
+            \
+            HANDLE thread = GetCurrentThread( );	\
+            GetThreadContext( thread, &context );	\
+            NSBase::NSFunction::stackTrace( &context ); \
+            throw CNSException( desc );\
+        }
 
 
-#pragma comment( lib, "Ws2_32" )
-#pragma comment( lib, "Mswsock" )
+    #pragma comment( lib, "Ws2_32" )
+    #pragma comment( lib, "Mswsock" )
 #endif
 
 #ifdef PLATFORM_ANDROID
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <sys/ioctl.h>
-#include <sys/select.h> 
-#include <netinet/in.h> 
-#include <netinet/tcp.h>
-#include <arpa/inet.h>
-#include <pthread.h>
-#include <errno.h>
-#include <linux/tcp.h>
-#include <unistd.h>
-#include <sys/stat.h>
-#include <dirent.h>
-#define SOCKET int
+    #include <sys/types.h>
+    #include <sys/socket.h>
+    #include <sys/ioctl.h>
+    #include <sys/select.h>
+    #include <netinet/in.h>
+    #include <netinet/tcp.h>
+    #include <arpa/inet.h>
+    #include <pthread.h>
+    #include <errno.h>
+    #include <linux/tcp.h>
+    #include <unistd.h>
+    #include <sys/stat.h>
+    #include <dirent.h>
+    #define SOCKET int
 
-#define _UTF8( x ) CNSString::convertMbcsToUtf8( x )
-#define NSException( desc )	throw CNSException( desc );
-#define stricmp			strcasecmp
-#define max fmax
-#define min fmin
+    #define _UTF8( x ) CNSString::convertMbcsToUtf8( x )
+    #define NSException( desc )	throw CNSException( desc );
+    #define stricmp			strcasecmp
+    #define max fmax
+    #define min fmin
 #endif
 
 #ifdef PLATFORM_LINUX
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <sys/ioctl.h>
-#include <sys/select.h> 
-#include <netinet/in.h> 
-#include <netinet/tcp.h>
-#include <arpa/inet.h>
-#include <pthread.h>
-#include <errno.h>
-#include <unistd.h>
-#include <sys/stat.h>
-#include <dirent.h>
-#define SOCKET int
+    #include <sys/types.h>
+    #include <sys/socket.h>
+    #include <sys/ioctl.h>
+    #include <sys/select.h>
+    #include <netinet/in.h>
+    #include <netinet/tcp.h>
+    #include <arpa/inet.h>
+    #include <pthread.h>
+    #include <errno.h>
+    #include <unistd.h>
+    #include <sys/stat.h>
+    #include <dirent.h>
+    #define SOCKET int
 
-#define _UTF8( x ) CNSString::convertMbcsToUtf8( x )
-#define NSException( desc )	throw CNSException( desc );
-#define stricmp		strcasecmp
-#define max fmax
-#define min fmin
+    #define _UTF8( x ) CNSString::convertMbcsToUtf8( x )
+    #define NSException( desc )	throw CNSException( desc );
+    #define stricmp		strcasecmp
+    #define max fmax
+    #define min fmin
 #endif
 
 #ifdef PLATFORM_IOS
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <sys/ioctl.h>
-#include <sys/select.h>
-#include <netinet/in.h>
-#include <netinet/tcp.h>
-#include <arpa/inet.h>
-#include <pthread.h>
-#include <errno.h>
-#include <unistd.h>
-#include <sys/stat.h>
-#include <dirent.h>
-#include <execinfo.h>
-#include <stdio.h>
-#define SOCKET int
+    #include <sys/types.h>
+    #include <sys/socket.h>
+    #include <sys/ioctl.h>
+    #include <sys/select.h>
+    #include <netinet/in.h>
+    #include <netinet/tcp.h>
+    #include <arpa/inet.h>
+    #include <pthread.h>
+    #include <errno.h>
+    #include <unistd.h>
+    #include <sys/stat.h>
+    #include <dirent.h>
+    #include <execinfo.h>
+    #include <stdio.h>
+    #define SOCKET int
 
-#define _UTF8( x )	( x )
-#define NSException( desc ) \
+    #define _UTF8( x )	( x )
+    #define NSException( desc ) \
+        {  \
+            NSBase::NSFunction::stackTrace( );\
+            throw CNSException( desc ); \
+        }
+
+    #define stricmp		strcasecmp
+    #define max fmax
+    #define min fmin
+#endif
+
+#ifdef PLATFORM_OSX
+    #include <sys/types.h>
+    #include <sys/socket.h>
+    #include <sys/ioctl.h>
+    #include <sys/select.h>
+    #include <netinet/in.h>
+    #include <netinet/tcp.h>
+    #include <arpa/inet.h>
+    #include <pthread.h>
+    #include <errno.h>
+    #include <unistd.h>
+    #include <sys/stat.h>
+    #include <dirent.h>
+    #include <execinfo.h>
+    #include <stdio.h>
+    #define SOCKET int
+
+    #define _UTF8( x )    ( x )
+    #define NSException( desc ) \
     {  \
-        NSBase::NSFunction::stackTrace( );\
-        throw CNSException( desc ); \
+    NSBase::NSFunction::stackTrace( );\
+    throw CNSException( desc ); \
     }
 
-#define stricmp		strcasecmp
-#define max fmax
-#define min fmin
+    #define stricmp        strcasecmp
+    #define max fmax
+    #define min fmin
 #endif
 
 namespace NSMath
@@ -226,6 +255,8 @@ namespace NSBase
         void stackTrace( CONTEXT* context );
 #elif PLATFORM_IOS
         // 快速内存移动
+        void stackTrace( );
+#elif PLATFORM_OSX
         void stackTrace( );
 #endif
 

@@ -11,19 +11,33 @@ namespace NSLog
 	{
 		va_list args;
 		va_start( args, format );
-		// 计算需要得长度
-		int needLen = vsnprintf( NULL, 0, format, args ) + 1;
-		static CNSOctets errorBuffer;
-		errorBuffer.reserve( needLen );
-		errorBuffer.length( ) = needLen;
-
-		// 格式化文本
-		vsnprintf( (char*) errorBuffer.begin( ), needLen, format, args );
-		va_end( args );
-
-		CNSTimer curTime;
+#ifdef PLATFORM_OSX
+        // 计算需要得长度
+        char buf[ 65535 ];
+        int needLen = vsnprintf( buf, 65535, format, args ) + 1;
+        static CNSOctets errorBuffer;
+        errorBuffer.reserve( needLen );
+        errorBuffer.length( ) = needLen;
+        
+        // 格式化文本
+        errorBuffer.replace(buf, needLen - 1 );
+        *( (char*) errorBuffer.begin() + needLen - 1 ) = 0;
+        va_end( args );
+#else
+        // 计算需要得长度
+        int needLen = vsnprintf( NULL, 0, format, args ) + 1;
+        static CNSOctets errorBuffer;
+        errorBuffer.reserve( needLen );
+        errorBuffer.length( ) = needLen;
+        
+        // 格式化文本
+        vsnprintf( (char*) errorBuffer.begin( ), needLen, format, args );
+        va_end( args );
+#endif
+        CNSTimer curTime;
+        CNSString timeText = curTime.getTimeText( );
 		static CNSString text;
-		text.format( "[%s]%s\n", curTime.getTimeText( ).getBuffer( ), (char*) errorBuffer.begin( ) );
+		text.format( "[%s]%s\n", timeText.getBuffer(), (char*) errorBuffer.begin( ) );
 		// printf被写入文件了，并且文件是utf8格式，所以这里写入utf8没有问题
 		printf( "%s", text.getBuffer( ) );
 

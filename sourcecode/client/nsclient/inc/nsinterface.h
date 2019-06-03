@@ -1,11 +1,14 @@
 #pragma once
 
 #ifdef PLATFORM_WIN32
-#define NSEXPORT extern "C" _declspec( dllexport )
-#define NSCALL __stdcall
+    #define NSEXPORT extern "C" _declspec( dllexport )
+    #define NSCALL __stdcall
+#elif PLATFORM_OSX
+    #define NSEXPORT extern "C"
+    #define NSCALL
 #elif PLATFORM_IOS
-#define NSEXPORT extern "C"
-#define NSCALL
+    #define NSEXPORT extern "C"
+    #define NSCALL
 #endif
 
 typedef void( NSCALL *FHostErrorProc )( const char* text, int level );

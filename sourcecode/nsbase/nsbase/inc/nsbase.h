@@ -13,18 +13,18 @@ using namespace NSBase;
 using namespace NSMath;
 
 #ifdef __cplusplus
-extern "C"
-{
-#include <lua.h>
-#include <lauxlib.h>
-#include <lualib.h>
-#include <curl.h>
-}
+    extern "C"
+    {
+    #include <lua.h>
+    #include <lauxlib.h>
+    #include <lualib.h>
+    #include <curl.h>
+    }
 #else
-#include <lua.h>
-#include <lauxlib.h>
-#include <lualib.h>
-#include <curl.h>
+    #include <lua.h>
+    #include <lauxlib.h>
+    #include <lualib.h>
+    #include <curl.h>
 #endif
 
 #include <tinyxml.h>
@@ -46,70 +46,74 @@ using namespace NSNet;
 #include <nshttpdebugger.h>
 
 #ifdef PLATFORM_WIN32
-#include <nsnetworkio_win32.h>
+    #include <nsnetworkio_win32.h>
 #endif
 
 #ifdef PLATFORM_ANDROID
-#include <nsnetworkio_andriod.h>
+    #include <nsnetworkio_andriod.h>
 #endif
 
 #ifdef PLATFORM_LINUX
-#include <nsnetworkio_linux.h>
+    #include <nsnetworkio_linux.h>
 #endif
 
 #ifdef PLATFORM_IOS
-#include <nsnetworkio_ios.h>
+    #include <nsnetworkio_ios.h>
+#endif
+
+#ifdef PLATFORM_OSX
+    #include <nsnetworkio_ios.h>
 #endif
 
 #ifdef PLATFORM_WIN32
-#include <commctrl.h>
-#include <scintilla.h>
+    #include <commctrl.h>
+    #include <scintilla.h>
 
-// 如果没有使用MFC，那么需要指定common-controls的链接库
-#ifndef _AFXDLL
-#ifdef _UNICODE
-#if defined _M_IX86
-#pragma comment(linker,"/manifestdependency:\"type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='x86' publicKeyToken='6595b64144ccf1df' language='*'\"")
-#elif defined _M_X64
-#pragma comment(linker,"/manifestdependency:\"type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='amd64' publicKeyToken='6595b64144ccf1df' language='*'\"")
-#else
-#pragma comment(linker,"/manifestdependency:\"type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'\"")
-#endif
-#endif
-#endif
+    // 如果没有使用MFC，那么需要指定common-controls的链接库
+    #ifndef _AFXDLL
+        #ifdef _UNICODE
+            #if defined _M_IX86
+                #pragma comment(linker,"/manifestdependency:\"type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='x86' publicKeyToken='6595b64144ccf1df' language='*'\"")
+            #elif defined _M_X64
+                #pragma comment(linker,"/manifestdependency:\"type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='amd64' publicKeyToken='6595b64144ccf1df' language='*'\"")
+            #else
+                #pragma comment(linker,"/manifestdependency:\"type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'\"")
+            #endif
+        #endif
+    #endif
 
-#include <nsconsole.h>
-#include <nsguideclare.h>
-#include <nsgui.h>
-#include <nsvstab.h>
-#include <nsvsbtn.h>
-#include <nsvslist.h>
-#include <nsvsedit.h>
-#include <nsvstree.h>
-#include <nsframe.h>
-#include <nsedit.h>
-#include <nscombobox.h>
-#include <nsvslistbox.h>
-#include <nscustom.h>
-#include <nsvsstatic.h>
-#include <nsvswizard.h>
-#include <nsvsfilebrowser.h>
-#include <nsvsfiledialog.h>
-#include <nsimage.h>
-#include <nswin32lua.h>
-#include <nsgdilua.h>
-#include <nswindowlua.h>
-#include <nsvsstaticlua.h>
-#include <nsvsbtnlua.h>
-#include <nseditlua.h>
-#include <nsvseditlua.h>
-#include <nsvstablua.h>
-#include <nsvstreelua.h>
-#include <nsvslistlua.h>
-#include <nsvslistboxlua.h>
-#include <nsvsfilebrowserlua.h>
-#include <nsvswizardlua.h>
-#include <nscomboboxlua.h>
-#include <nsframelua.h>
-#include <nsguilua.h>
+    #include <nsconsole.h>
+    #include <nsguideclare.h>
+    #include <nsgui.h>
+    #include <nsvstab.h>
+    #include <nsvsbtn.h>
+    #include <nsvslist.h>
+    #include <nsvsedit.h>
+    #include <nsvstree.h>
+    #include <nsframe.h>
+    #include <nsedit.h>
+    #include <nscombobox.h>
+    #include <nsvslistbox.h>
+    #include <nscustom.h>
+    #include <nsvsstatic.h>
+    #include <nsvswizard.h>
+    #include <nsvsfilebrowser.h>
+    #include <nsvsfiledialog.h>
+    #include <nsimage.h>
+    #include <nswin32lua.h>
+    #include <nsgdilua.h>
+    #include <nswindowlua.h>
+    #include <nsvsstaticlua.h>
+    #include <nsvsbtnlua.h>
+    #include <nseditlua.h>
+    #include <nsvseditlua.h>
+    #include <nsvstablua.h>
+    #include <nsvstreelua.h>
+    #include <nsvslistlua.h>
+    #include <nsvslistboxlua.h>
+    #include <nsvsfilebrowserlua.h>
+    #include <nsvswizardlua.h>
+    #include <nscomboboxlua.h>
+    #include <nsframelua.h>
+    #include <nsguilua.h>
 #endif

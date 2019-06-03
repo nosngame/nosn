@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 namespace NSBase
 {
 	class CNSTimer
@@ -279,7 +279,7 @@ namespace NSBase
 		int month;
 		int day;
 		int hour;
-		int min;
+		int minute;
 		int sec;
 		int wday;
 		int yday;
@@ -296,7 +296,7 @@ namespace NSBase
 				tmValue.tm_mon = month - 1;
 				tmValue.tm_mday = day;
 				tmValue.tm_hour = hour;
-				tmValue.tm_min = min;
+				tmValue.tm_min = minute;
 				tmValue.tm_sec = sec;
 				tmValue.tm_isdst = false;
 				needRefresh = false;
@@ -313,7 +313,7 @@ namespace NSBase
 			wday = tpTime->tm_wday;
 			yday = tpTime->tm_yday;
 			hour = tpTime->tm_hour;
-			min = tpTime->tm_min;
+			minute = tpTime->tm_min;
 			sec = tpTime->tm_sec;
 		}
 
@@ -330,14 +330,14 @@ namespace NSBase
 			makeTime( );
 		}
 
-		CNSTimer( int year, int month = 0, int day = 0, int hour = 0, int min = 0, int sec = 0 ) : needRefresh( false )
+		CNSTimer( int year, int month = 0, int day = 0, int hour = 0, int minute = 0, int sec = 0 ) : needRefresh( false )
 		{
 			tm tmValue;
 			tmValue.tm_year = year - 1900;
 			tmValue.tm_mon = month - 1;
 			tmValue.tm_mday = day;
 			tmValue.tm_hour = hour;
-			tmValue.tm_min = min;
+			tmValue.tm_min = minute;
 			tmValue.tm_sec = sec;
 			tmValue.tm_isdst = false;
 			curTime = mktime( &tmValue );
@@ -387,14 +387,14 @@ namespace NSBase
 			return curTime;
 		}
 
-		CNSString& getTimeText( ) const
+		CNSString getTimeText( ) const
 		{
 			static CNSString time;
-			time.format( "%d-%d-%d %d:%d:%d", year, month, day, hour, min, sec );
+			time.format( "%d-%d-%d %d:%d:%d", year, month, day, hour, minute, sec );
 			return time;
 		}
 
-		CNSString& getTimeTextOfDay( ) const
+		CNSString getTimeTextOfDay( ) const
 		{
 			static CNSString time;
 			time.format( "%d-%d-%d", year, month, day );
@@ -409,7 +409,7 @@ namespace NSBase
 
 		void setMin( int m )
 		{
-			min = m;
+			minute = m;
 			needRefresh = true;
 		}
 
@@ -422,7 +422,7 @@ namespace NSBase
 		void alignDay( )
 		{
 			hour = 0;
-			min = 0;
+			minute = 0;
 			sec = 0;
 			needRefresh = true;
 		}
