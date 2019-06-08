@@ -33,7 +33,7 @@
     <ProjectGuid>{3584DA74-FD6F-4AF2-A388-86B44F9575F5}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>tempeditor</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
     <ProjectName>tempeditor</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />

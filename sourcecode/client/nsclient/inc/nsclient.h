@@ -96,9 +96,10 @@ namespace NSClient
 	{
 	protected:
 		bool mPluginLoaded = false;
+		CNSString mDataPath;
 
 	public:
-		CNSPlugin( bool enableDebug ) : CNSBaseApp( "NSPlugins", enableDebug )
+		CNSPlugin( bool enableDebug, const CNSString& dataPath ) : CNSBaseApp( "NSPlugins", enableDebug ), mDataPath( dataPath )
 		{
 		}
 

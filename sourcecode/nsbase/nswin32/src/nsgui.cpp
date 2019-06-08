@@ -89,7 +89,7 @@ namespace NSWin32
 
 		// 加载本地化文件
 		if ( mUseNSLocal == true )
-			CNSLocal::getNSLocal( ).load( );
+			CNSLocal::getNSLocal( ).load( "Assets" );
 
 		// 初始化物理服务器列表
 		if ( mUseIPName == true )

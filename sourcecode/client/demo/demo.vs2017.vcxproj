@@ -22,7 +22,7 @@
     <ProjectGuid>{A8E6D7F2-841B-4ABB-B52B-687938B98A00}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>guiframework</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
     <ProjectName>demo</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />

@@ -790,13 +790,16 @@ namespace NSBase
 					success = FALSE;
 				}
 
-				if ( success == TRUE )
+				if (success == TRUE)
 				{
 					static CNSString funcInfo;
-					funcInfo.format( _UTF8( "\t行号: %d\n\t文件: %s\n\t函数: %s\n" ), ImageLine.LineNumber, ImageLine.FileName, symInfo->Name );
+					funcInfo.format(_UTF8("\t行号: %d\n\t文件: %s\n\t函数: %s\n"), ImageLine.LineNumber, ImageLine.FileName, symInfo->Name);
 					sStackInfo += funcInfo;
 					sStackInfo += "\t-----------------------------------------------\n";
 				}
+				
+				if (success == FALSE)
+					break;
 			}
 			SymCleanup( curProcess );
 		}

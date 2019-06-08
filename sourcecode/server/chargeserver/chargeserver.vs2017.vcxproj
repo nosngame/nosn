@@ -22,7 +22,7 @@
     <ProjectGuid>{749DE6CE-2584-4B66-B23F-884525A38746}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>chargeserver</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
     <ProjectName>chargeserver</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />

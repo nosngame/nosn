@@ -1,4 +1,4 @@
-#include "precomplie.h"
+﻿#include "precomplie.h"
 
 namespace NSClient
 {
@@ -224,7 +224,7 @@ namespace NSClient
 
 		// 加载脚本
 		NSBase::CNSLuaStack& luaStack = NSBase::CNSLuaStack::getLuaStack( );
-		luaStack.load( "assets/script" );
+		luaStack.load( mDataPath + "/nosndata/script" );
 
 		luaStack.preCall( "onLaunchClient" );
 		if ( luaStack.call( ) == false )
@@ -289,7 +289,7 @@ bool nsClientInit( const char* authName, const char* dataPath, FHostErrorProc pr
 
 		NSLog::setLogHandler( NSClient::NSPluginLogHandler );
 		NSLog::setExceptionHandler( NSClient::NSPluginExceptionHandler );
-		NSClient::app = new NSClient::CNSPlugin( enableDebug );
+		NSClient::app = new NSClient::CNSPlugin( enableDebug, dataPath );
 
 		NSClient::app->useIPName( false );
 		NSClient::app->useNSHttp( true );
@@ -315,7 +315,7 @@ bool nsClientInit( const char* authName, const char* dataPath, FHostErrorProc pr
         NSHttp::init( );
 
         // 加载本地化文件
-        CNSLocal::getNSLocal().load( appDataPath );
+        CNSLocal::getNSLocal( ).load( appDataPath );
 		CNSLocal::getNSLocal( ).setLang( "ch" );
         NSBase::regLuaLib( );
         

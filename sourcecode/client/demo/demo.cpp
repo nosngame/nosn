@@ -23,7 +23,7 @@ int APIENTRY _tWinMain( _In_ HINSTANCE hInstance,
 	NSDemo::initProc = ( NSDemo::nsClientInit )GetProcAddress( module, "nsClientInit" );
 	NSDemo::exitProc = ( NSDemo::nsClientExit )GetProcAddress( module, "nsClientExit" );
 	NSDemo::updateProc = ( NSDemo::nsClientUpdate )GetProcAddress( module, "nsClientUpdate" );
-	if ( NSDemo::initProc( "evo", demoErrorProc, true ) == false )
+	if ( NSDemo::initProc( "evo", "Assets", demoErrorProc, true ) == false )
 		return 1;
 
 	while ( 1 )
