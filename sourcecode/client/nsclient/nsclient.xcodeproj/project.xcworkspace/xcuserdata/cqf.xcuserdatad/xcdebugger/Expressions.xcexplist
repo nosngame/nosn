@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "::nsClientInit(const char *, const char *, FHostErrorProc, bool):nsclient.cpp">
+      </ContextState>
+      <ContextState
+         contextName = "NSClient::NSPluginLogHandler(NSBase::CNSString const&amp;):nsclient.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "(char*) 0x00007fb6ff107ad0">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "NSBase::CNSTimer::getTimeText() const:nstimer.h">
+         <PersistentStrings>
+            <PersistentString
+               value = "this-&gt;min">
+            </PersistentString>
+            <PersistentString
+               value = "time">
+            </PersistentString>
+            <PersistentString
+               value = "this-&gt;hour">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "NSLog::log(char const*, ...):nslog.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "format">
+            </PersistentString>
+            <PersistentString
+               value = "(char*) text.mpText">
+            </PersistentString>
+            <PersistentString
+               value = "(char*) errorBuffer.mpBase">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "NSBase::CNSString::format(char const*, ...):nstemplate.h">
+         <PersistentStrings>
+            <PersistentString
+               value = "mpText">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>

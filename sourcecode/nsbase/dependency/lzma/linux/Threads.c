@@ -185,7 +185,7 @@ WRes CriticalSection_Init(CCriticalSection * lpCriticalSection)
 
 #else /* !ENV_BEOS */
 
-WRes Thread_Create(CThread *thread, THREAD_FUNC_RET_TYPE (THREAD_FUNC_CALL_TYPE *startAddress)(void *), LPVOID parameter)
+WRes Thread_Create(CThread *thread, THREAD_FUNC_RET_TYPE (THREAD_FUNC_CALL_TYPE *startAddress)(void *), void* parameter)
 { 
 	pthread_attr_t attr;
 	int ret;
@@ -460,19 +460,19 @@ void CriticalSection_Delete(CCriticalSection * lpCriticalSection)
 
 #else
 
-WRes Event_Create(CEvent *p, BOOL manualReset, int initialSignaled)
+WRes Event_Create(CEvent *p, Bool manualReset, int initialSignaled)
 {
   pthread_mutex_init(&p->_mutex,0);
   pthread_cond_init(&p->_cond,0);
   p->_manual_reset = manualReset;
-  p->_state        = (initialSignaled ? TRUE : FALSE);
+  p->_state        = (initialSignaled ? True : False);
   p->_created = 1;
   return 0;
 }
 
 WRes Event_Set(CEvent *p) {
   pthread_mutex_lock(&p->_mutex);
-  p->_state = TRUE;
+  p->_state = True;
   pthread_cond_broadcast(&p->_cond);
   pthread_mutex_unlock(&p->_mutex);
   return 0;
@@ -480,20 +480,20 @@ WRes Event_Set(CEvent *p) {
 
 WRes Event_Reset(CEvent *p) {
   pthread_mutex_lock(&p->_mutex);
-  p->_state = FALSE;
+  p->_state = False;
   pthread_mutex_unlock(&p->_mutex);
   return 0;
 }
  
 WRes Event_Wait(CEvent *p) {
   pthread_mutex_lock(&p->_mutex);
-  while (p->_state == FALSE)
+  while (p->_state == False)
   {
      pthread_cond_wait(&p->_cond, &p->_mutex);
   }
-  if (p->_manual_reset == FALSE)
+  if (p->_manual_reset == False)
   {
-     p->_state = FALSE;
+     p->_state = False;
   }
   pthread_mutex_unlock(&p->_mutex);
   return 0;
@@ -570,13 +570,13 @@ WRes CriticalSection_Init(CCriticalSection * lpCriticalSection)
 #endif /* ENV_BEOS */
 
 WRes ManualResetEvent_Create(CManualResetEvent *p, int initialSignaled)
-  { return Event_Create(p, TRUE, initialSignaled); }
+  { return Event_Create(p, True, initialSignaled); }
 
 WRes ManualResetEvent_CreateNotSignaled(CManualResetEvent *p) 
   { return ManualResetEvent_Create(p, 0); }
 
 WRes AutoResetEvent_Create(CAutoResetEvent *p, int initialSignaled)
-  { return Event_Create(p, FALSE, initialSignaled); }
+  { return Event_Create(p, False, initialSignaled); }
 WRes AutoResetEvent_CreateNotSignaled(CAutoResetEvent *p) 
   { return AutoResetEvent_Create(p, 0); }
 

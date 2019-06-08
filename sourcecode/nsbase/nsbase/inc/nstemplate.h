@@ -2597,7 +2597,30 @@ namespace NSBase
 		{
 			return hashCode( ) % key;
 		}
-
+#ifdef PLATFORM_OSX
+        void format( const char* format, ... )
+        {
+            clear( );
+            va_list args;
+            va_start( args, format );
+            char buf[ 4096 ];
+            // 计算需要得长度
+            size_t needLen = vsnprintf( buf, 4096, format, args ) + 1;
+            // 如果当前空间不能满足所需要得空间
+            if ( needLen > mSize )
+            {
+                mSize = NSBase::NSFunction::forbsize( needLen );
+                CAllocator::free( mpText );
+                mpText = (char*) CAllocator::alloc( __FILE__, __LINE__, mSize );
+            }
+            
+            // 格式化文本
+            NSFunction::memcpy_fast( mpText, buf, needLen - 1);
+            mpText[needLen - 1] = 0;
+            va_end( args );
+            mCount = needLen;
+        }
+#else
 		void format( const char* format, ... )
 		{
 			clear( );
@@ -2605,20 +2628,20 @@ namespace NSBase
 			va_start( args, format );
 			// 计算需要得长度
 			size_t needLen = vsnprintf( NULL, 0, format, args ) + 1;
-
 			// 如果当前空间不能满足所需要得空间
 			if ( needLen > mSize )
 			{
 				mSize = NSBase::NSFunction::forbsize( needLen );
+                CAllocator::free( mpText );
 				mpText = (char*) CAllocator::alloc( __FILE__, __LINE__, mSize );
 			}
 
 			// 格式化文本
-			vsnprintf( mpText, mSize, format, args );
+			needLen = vsnprintf( mpText, mSize, format, args );
 			va_end( args );
 			mCount = needLen;
 		}
-
+#endif
 		// 按照指定区域删除,vEnd等于-1表示删除vStart后面所有字符
 		void erase( size_t start, size_t end )
 		{
